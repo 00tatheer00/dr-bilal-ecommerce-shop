@@ -22,8 +22,15 @@ export const metadata: Metadata = {
     'Cash on delivery jewellery Pakistan',
     'GULNAAR by MK',
   ],
-  authors: [{ name: 'GULNAAR by MK' }],
-  creator: 'GULNAAR by MK',
+  authors: [
+    { name: 'GULNAAR by MK' },
+    { name: 'Tatheer (Tech4Edges - 03275792600)' },
+  ],
+  creator: 'Tatheer — Tech4Edges',
+  publisher: 'Tech4Edges',
+  other: {
+    engineer: 'Tatheer (Tech4Edges - 03275792600)',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_PK',

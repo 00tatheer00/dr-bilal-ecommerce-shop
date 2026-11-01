@@ -32,6 +32,11 @@ export const APP_VERSION = {
   updatedAt: '${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}',
   environment: process.env.NODE_ENV || 'production',
   status: 'operational',
+  developer: {
+    lead: 'Tatheer',
+    company: 'Tech4Edges',
+    phone: '03275792600',
+  },
 } as const;
 `;
 

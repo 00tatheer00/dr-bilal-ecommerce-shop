@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import AnnouncementBar from '@/components/layout/AnnouncementBar';
 import Header from '@/components/layout/Header';
@@ -38,6 +38,16 @@ function StorefrontFooter() {
 }
 
 export default function StorefrontShell({ children }: { children: React.ReactNode }) {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      console.log(
+        '%c Crafted by Tatheer %c Tech4Edges • 03275792600 ',
+        'background: #7A0C2E; color: #DFB76C; font-weight: bold; padding: 4px 8px; border-radius: 4px 0 0 4px;',
+        'background: #0F0E17; color: #FFFFFF; padding: 4px 8px; border-radius: 0 4px 4px 0;'
+      );
+    }
+  }, []);
+
   return (
     <>
       <Suspense fallback={null}>

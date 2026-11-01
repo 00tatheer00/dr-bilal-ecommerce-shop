@@ -200,10 +200,16 @@ export default function Footer() {
             <span>All systems operational</span>
           </div>
 
-          <p className="text-center md:text-right">
-            © 2026 GULNAAR by MK. Handcrafted with{' '}
-            <Heart className="h-3 w-3 text-[#DFB76C] fill-[#DFB76C] inline mx-0.5" /> in Pakistan.
-          </p>
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-center md:text-right">
+            <span>
+              © 2026 GULNAAR by MK. Handcrafted with{' '}
+              <Heart className="h-3 w-3 text-[#DFB76C] fill-[#DFB76C] inline mx-0.5" /> in Pakistan.
+            </span>
+            <span className="hidden sm:inline text-white/20">•</span>
+            <span className="text-[11px] text-white/40 hover:text-white/70 transition-colors" title="Engineered by Tatheer (03275792600)">
+              Engineered by <span className="text-[#DFB76C]/80 font-medium">Tech4Edges</span>
+            </span>
+          </div>
         </div>
       </div>
     </footer>

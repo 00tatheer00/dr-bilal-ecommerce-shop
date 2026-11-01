@@ -2,6 +2,7 @@
   "name": "gulnaar-by-mk",
   "version": "0.1.0",
   "private": true,
+  "author": "Tatheer <Tech4Edges> (03275792600)",
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/update-version.mjs",

@@ -6,7 +6,7 @@ Built with Next.js 16 (App Router, Turbopack), React 19, TypeScript (strict mode
 
 ---
 
-## ✨ Key Features
+## 💎 Key Features
 
 ### 🛍️ Customer Storefront Journey
 - **Editorial Brand Aesthetic:** Tailored visual identity featuring Warm Ivory (`#FAF7F2`), Deep Burgundy (`#7A2D3C`), Muted Gold (`#B8976A`), and Charcoal typography (`#2C2C2C`).
@@ -97,6 +97,13 @@ Open [http://localhost:3000](http://localhost:3000) to view the storefront, or [
 - [Phase 1 Specification](docs/PHASE_1_SPECIFICATION.md): Information architecture, ER diagrams, and design tokens.
 - [Supabase Setup Guide](docs/SUPABASE_SETUP.md): Database configuration, tables, and Storage policies.
 - [Production Deployment Guide](docs/PRODUCTION_DEPLOYMENT_GUIDE.md): Vercel and production launch checklist.
+
+---
+
+## 👨‍💻 Engineering & Architecture Credits
+
+Architected, designed, and engineered by **Tatheer** at **Tech4Edges** (+92 327 5792600).
+Custom luxury e-commerce engine with real-time inventory management, dual-factor guest tracking, and atomic SQL transactions.
 
 ---
 
