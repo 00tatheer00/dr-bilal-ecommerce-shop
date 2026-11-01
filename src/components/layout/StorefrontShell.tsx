@@ -6,6 +6,7 @@ import AnnouncementBar from '@/components/layout/AnnouncementBar';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/cart/CartDrawer';
+import LuxuryLoader from '@/components/ui/LuxuryLoader';
 
 function StorefrontChrome() {
   const pathname = usePathname();
@@ -17,6 +18,7 @@ function StorefrontChrome() {
 
   return (
     <>
+      <LuxuryLoader />
       <AnnouncementBar />
       <Header />
       <CartDrawer />

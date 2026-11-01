@@ -303,10 +303,10 @@ export default function ProductDetailClient({
                       key={size}
                       type="button"
                       onClick={() => handleSizeChange(size)}
-                      className={`flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-bold transition-all border ${
+                      className={`flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-bold transition-all border cursor-pointer ${
                         isSelected
-                          ? 'border-[#D4A017] bg-gradient-to-br from-[#8B1A4A] to-[#6D1038] text-white shadow-md scale-105 ring-2 ring-[#D4A017]/40'
-                          : 'border-border bg-white text-text-primary hover:border-[#D4A017] hover:shadow-xs'
+                          ? 'border-[#DFB76C] bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] text-white shadow-md scale-105 ring-2 ring-[#DFB76C]/40'
+                          : 'border-border bg-white text-text-primary hover:border-[#C5A059] hover:shadow-xs'
                       }`}
                     >
                       {size}
@@ -389,11 +389,11 @@ export default function ProductDetailClient({
                 fullWidth
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="h-13 rounded-2xl bg-gradient-to-r from-[#8B1A4A] via-[#6D1038] to-[#8B1A4A] hover:from-[#6D1038] hover:to-[#500B29] text-white font-bold text-sm shadow-lg hover:shadow-xl border-0 active:scale-98 transition-all"
+                className="h-13 rounded-2xl bg-gradient-to-r from-[#7A0C2E] via-[#560820] to-[#7A0C2E] hover:from-[#560820] hover:to-[#380414] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-[0_12px_30px_rgba(122,12,46,0.3)] border border-[#DFB76C]/40 btn-luxury-shine active:scale-98 transition-all cursor-pointer"
               >
                 {isAdded ? (
-                  <span className="flex items-center gap-2 text-emerald-200">
-                    <Check className="h-5 w-5 text-emerald-300" />
+                  <span className="flex items-center gap-2 text-[#DFB76C]">
+                    <Check className="h-5 w-5 text-[#DFB76C]" />
                     Added to Bag Successfully!
                   </span>
                 ) : isOutOfStock ? (
@@ -411,31 +411,31 @@ export default function ProductDetailClient({
           </div>
 
           {/* Trust Guarantees */}
-          <div className="rounded-2xl border border-[#D4A017]/30 bg-gradient-to-br from-[#FFF3E6] via-bg-primary to-[#FCE4EC] p-5 space-y-3 text-xs text-text-secondary">
-            <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand text-white shrink-0">
-                <Truck className="h-4 w-4" />
+          <div className="rounded-3xl border border-[#C5A059]/30 bg-gradient-to-br from-[#FAF9F6] via-white to-[#FDF2F4] p-6 space-y-4 text-xs text-text-secondary shadow-xs">
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#7A0C2E] text-white shrink-0 shadow-xs">
+                <Truck className="h-4.5 w-4.5 text-[#DFB76C]" />
               </div>
               <div>
-                <span className="font-bold text-text-primary block">Express Courier Delivery</span>
+                <span className="font-bold text-text-primary block text-xs">Express Courier Delivery</span>
                 <span>Delivers in 3–5 business days with live SMS tracking.</span>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-[#D4A017] text-white shrink-0">
-                <ShieldCheck className="h-4 w-4" />
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#DFB76C] text-[#4A0E2E] shrink-0 shadow-xs">
+                <ShieldCheck className="h-4.5 w-4.5 text-[#4A0E2E]" />
               </div>
               <div>
-                <span className="font-bold text-text-primary block">Cash on Delivery (COD)</span>
+                <span className="font-bold text-text-primary block text-xs">Cash on Delivery (COD)</span>
                 <span>Open parcel inspection upon delivery before paying.</span>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand text-white shrink-0">
-                <RefreshCw className="h-4 w-4" />
+            <div className="flex items-center gap-3.5">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#7A0C2E] text-white shrink-0 shadow-xs">
+                <RefreshCw className="h-4.5 w-4.5 text-[#DFB76C]" />
               </div>
               <div>
-                <span className="font-bold text-text-primary block">Easy 3-Day Size Exchange</span>
+                <span className="font-bold text-text-primary block text-xs">Easy 3-Day Size Exchange</span>
                 <span>Guaranteed fit exchange if size doesn&apos;t fit your wrist.</span>
               </div>
             </div>

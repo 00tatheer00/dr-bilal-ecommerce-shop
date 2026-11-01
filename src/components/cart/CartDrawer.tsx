@@ -99,22 +99,22 @@ export default function CartDrawer() {
 
         {/* Free Delivery Meter */}
         {items.length > 0 && (
-          <div className="border-b border-[#D4A017]/20 bg-gradient-to-r from-[#FFF3E6] via-bg-primary to-[#FCE4EC] px-6 py-3.5">
+          <div className="border-b border-[#C5A059]/30 bg-gradient-to-r from-[#FAF9F6] via-white to-[#FDF2F4] px-6 py-3.5">
             <div className="flex items-center justify-between text-xs font-medium mb-1.5">
               {freeDeliveryRemaining > 0 ? (
                 <span className="text-text-secondary">
-                  Add <strong className="text-brand font-bold">{formatPrice(freeDeliveryRemaining)}</strong> for Free Delivery
+                  Add <strong className="text-[#7A0C2E] font-bold">{formatPrice(freeDeliveryRemaining)}</strong> for Free Delivery
                 </span>
               ) : (
                 <span className="text-emerald-700 font-bold flex items-center gap-1">
-                  <Sparkles className="h-3.5 w-3.5 text-[#D4A017]" /> Free Delivery Unlocked!
+                  <Sparkles className="h-3.5 w-3.5 text-[#DFB76C]" /> Free Delivery Unlocked!
                 </span>
               )}
-              <span className="text-xs font-bold text-[#D4A017]">{Math.round(freeDeliveryPercent)}%</span>
+              <span className="text-xs font-bold text-[#C5A059]">{Math.round(freeDeliveryPercent)}%</span>
             </div>
             <div className="h-2 w-full overflow-hidden rounded-full bg-border/80">
               <div
-                className="h-full bg-gradient-to-r from-[#D4A017] to-[#8B1A4A] transition-all duration-500 rounded-full"
+                className="h-full bg-gradient-to-r from-[#DFB76C] via-[#C5A059] to-[#7A0C2E] transition-all duration-500 rounded-full"
                 style={{ width: `${freeDeliveryPercent}%` }}
               />
             </div>
@@ -254,19 +254,19 @@ export default function CartDrawer() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <Link href="/checkout" onClick={closeCart} className="w-full">
+              <Link href="/checkout" prefetch={true} onClick={closeCart} className="w-full">
                 <Button
                   variant="primary"
                   size="lg"
                   fullWidth
-                  className="bg-gradient-to-r from-[#8B1A4A] via-[#6D1038] to-[#8B1A4A] hover:from-[#6D1038] hover:to-[#500B29] text-white font-bold shadow-lg"
+                  className="bg-gradient-to-r from-[#7A0C2E] via-[#560820] to-[#7A0C2E] hover:from-[#560820] hover:to-[#380414] text-white font-bold shadow-lg border border-[#DFB76C]/40 btn-luxury-shine"
                 >
                   <span>Proceed to Checkout</span>
                   <ArrowRight className="h-4 w-4 ml-1" />
                 </Button>
               </Link>
-              <Link href="/cart" onClick={closeCart} className="w-full">
-                <Button variant="ghost" size="sm" fullWidth className="text-xs text-text-secondary hover:text-brand">
+              <Link href="/cart" prefetch={true} onClick={closeCart} className="w-full">
+                <Button variant="ghost" size="sm" fullWidth className="text-xs text-text-secondary hover:text-[#7A0C2E]">
                   View Full Bag Details
                 </Button>
               </Link>

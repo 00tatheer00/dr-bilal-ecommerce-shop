@@ -132,23 +132,23 @@ async function ShopContent({ searchParams }: ShopPageProps) {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1A1A2E]/95 via-[#1A1A2E]/80 to-[#8B1A4A]/50" />
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#D4A017] via-[#8B1A4A] to-[#D4A017]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0F0E17]/95 via-[#0F0E17]/80 to-[#7A0C2E]/50" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#DFB76C] via-[#7A0C2E] to-[#DFB76C]" />
 
         <Container size="xl" className="relative z-10 py-12">
           {/* Breadcrumb */}
           <div className="text-xs text-white/70 mb-3 flex items-center gap-2">
-            <Link href="/" className="hover:text-[#F0D060] transition-colors">
+            <Link href="/" prefetch={true} className="hover:text-[#DFB76C] transition-colors">
               Home
             </Link>
             <span>/</span>
-            <Link href="/shop" className="hover:text-[#F0D060] transition-colors">
+            <Link href="/shop" prefetch={true} className="hover:text-[#DFB76C] transition-colors">
               Catalog
             </Link>
             {currentCategory && (
               <>
                 <span>/</span>
-                <span className="text-[#F0D060] font-semibold capitalize">
+                <span className="text-[#DFB76C] font-semibold capitalize">
                   {categories.find((c) => c.slug === currentCategory)?.name || currentCategory}
                 </span>
               </>
@@ -156,7 +156,7 @@ async function ShopContent({ searchParams }: ShopPageProps) {
           </div>
 
           <div className="max-w-2xl text-white space-y-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 backdrop-blur-md px-3.5 py-1 text-xs font-bold text-[#F0D060] border border-white/20">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 backdrop-blur-md px-3.5 py-1 text-xs font-bold text-[#DFB76C] border border-white/20">
               <Crown className="h-3.5 w-3.5" />
               {banner.tag}
             </span>
@@ -178,10 +178,11 @@ async function ShopContent({ searchParams }: ShopPageProps) {
             <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
               <Link
                 href={createQueryUrl({ category: undefined })}
+                prefetch={true}
                 className={`rounded-full px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all shadow-xs ${
                   !currentCategory
-                    ? 'bg-gradient-to-r from-[#8B1A4A] to-[#6D1038] text-white shadow-md ring-2 ring-[#D4A017]/40'
-                    : 'bg-white text-text-primary hover:bg-[#FFF3E6] border border-border hover:border-[#D4A017]'
+                    ? 'bg-gradient-to-r from-[#7A0C2E] to-[#4A0E2E] text-white shadow-md ring-2 ring-[#DFB76C]/40'
+                    : 'bg-white text-text-primary hover:bg-[#FDF2F4] border border-border hover:border-[#C5A059]'
                 }`}
               >
                 All Bangles
@@ -190,10 +191,11 @@ async function ShopContent({ searchParams }: ShopPageProps) {
                 <Link
                   key={c.id}
                   href={createQueryUrl({ category: c.slug })}
+                  prefetch={true}
                   className={`rounded-full px-5 py-2.5 text-xs font-bold whitespace-nowrap transition-all shadow-xs ${
                     currentCategory === c.slug
-                      ? 'bg-gradient-to-r from-[#8B1A4A] to-[#6D1038] text-white shadow-md ring-2 ring-[#D4A017]/40'
-                      : 'bg-white text-text-primary hover:bg-[#FFF3E6] border border-border hover:border-[#D4A017]'
+                      ? 'bg-gradient-to-r from-[#7A0C2E] to-[#4A0E2E] text-white shadow-md ring-2 ring-[#DFB76C]/40'
+                      : 'bg-white text-text-primary hover:bg-[#FDF2F4] border border-border hover:border-[#C5A059]'
                   }`}
                 >
                   {c.name}
@@ -204,8 +206,8 @@ async function ShopContent({ searchParams }: ShopPageProps) {
             {/* Sort Selector */}
             <div className="flex items-center gap-2">
               <span className="text-xs text-text-secondary font-medium hidden sm:inline">Sort:</span>
-              <div className="flex items-center rounded-xl border border-[#D4A017]/30 bg-white px-3.5 py-2 text-xs text-text-primary shadow-xs">
-                <SlidersHorizontal className="h-3.5 w-3.5 mr-2 text-[#D4A017]" />
+              <div className="flex items-center rounded-xl border border-[#C5A059]/40 bg-white px-3.5 py-2 text-xs text-text-primary shadow-xs">
+                <SlidersHorizontal className="h-3.5 w-3.5 mr-2 text-[#C5A059]" />
                 <a
                   href={createQueryUrl({
                     sort:
@@ -217,7 +219,7 @@ async function ShopContent({ searchParams }: ShopPageProps) {
                         ? 'newest'
                         : 'featured',
                   })}
-                  className="font-bold text-brand hover:text-brand-hover"
+                  className="font-bold text-[#7A0C2E] hover:text-[#560820]"
                 >
                   {currentSort === 'featured' && 'Featured'}
                   {currentSort === 'price-low' && 'Price: Low to High'}
@@ -236,10 +238,11 @@ async function ShopContent({ searchParams }: ShopPageProps) {
                 <Link
                   key={s}
                   href={createQueryUrl({ size: currentSize === s ? undefined : s })}
+                  prefetch={true}
                   className={`flex h-9 w-9 items-center justify-center rounded-xl text-xs font-bold transition-all border ${
                     currentSize === s
-                      ? 'border-[#D4A017] bg-[#8B1A4A] text-white shadow-sm ring-2 ring-[#D4A017]/40 scale-105'
-                      : 'border-border bg-white text-text-primary hover:border-[#D4A017]'
+                      ? 'border-[#DFB76C] bg-[#7A0C2E] text-white shadow-sm ring-2 ring-[#DFB76C]/40 scale-105'
+                      : 'border-border bg-white text-text-primary hover:border-[#C5A059]'
                   }`}
                 >
                   {s}
@@ -247,14 +250,15 @@ async function ShopContent({ searchParams }: ShopPageProps) {
               ))}
               <Link
                 href="/size-guide"
-                className="text-xs font-semibold text-brand underline ml-2 hover:text-[#D4A017] transition-colors"
+                prefetch={true}
+                className="text-xs font-bold text-[#7A0C2E] underline ml-2 hover:text-[#C5A059] transition-colors"
               >
                 Size Guide &rarr;
               </Link>
             </div>
 
             <p className="text-xs font-medium text-text-secondary">
-              Showing <span className="font-bold text-brand">{products.length}</span> pieces
+              Showing <span className="font-bold text-[#7A0C2E]">{products.length}</span> pieces
             </p>
           </div>
 
@@ -265,7 +269,8 @@ async function ShopContent({ searchParams }: ShopPageProps) {
               {currentCategory && (
                 <Link
                   href={createQueryUrl({ category: undefined })}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FCE4EC] border border-[#8B1A4A]/20 px-3 py-1 text-xs font-semibold text-brand hover:bg-brand hover:text-white transition-colors"
+                  prefetch={true}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FDF2F4] border border-[#7A0C2E]/20 px-3 py-1 text-xs font-bold text-[#7A0C2E] hover:bg-[#7A0C2E] hover:text-white transition-colors"
                 >
                   Category: {currentCategory}
                   <X className="h-3 w-3" />
@@ -274,7 +279,8 @@ async function ShopContent({ searchParams }: ShopPageProps) {
               {currentSize && (
                 <Link
                   href={createQueryUrl({ size: undefined })}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FCE4EC] border border-[#8B1A4A]/20 px-3 py-1 text-xs font-semibold text-brand hover:bg-brand hover:text-white transition-colors"
+                  prefetch={true}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FDF2F4] border border-[#7A0C2E]/20 px-3 py-1 text-xs font-bold text-[#7A0C2E] hover:bg-[#7A0C2E] hover:text-white transition-colors"
                 >
                   Size: {currentSize}
                   <X className="h-3 w-3" />
@@ -283,7 +289,8 @@ async function ShopContent({ searchParams }: ShopPageProps) {
               {currentSearch && (
                 <Link
                   href={createQueryUrl({ search: undefined })}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FCE4EC] border border-[#8B1A4A]/20 px-3 py-1 text-xs font-semibold text-brand hover:bg-brand hover:text-white transition-colors"
+                  prefetch={true}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-[#FDF2F4] border border-[#7A0C2E]/20 px-3 py-1 text-xs font-bold text-[#7A0C2E] hover:bg-[#7A0C2E] hover:text-white transition-colors"
                 >
                   Search: &quot;{currentSearch}&quot;
                   <X className="h-3 w-3" />
@@ -291,7 +298,8 @@ async function ShopContent({ searchParams }: ShopPageProps) {
               )}
               <Link
                 href="/shop"
-                className="text-xs font-semibold text-text-secondary underline hover:text-brand ml-2"
+                prefetch={true}
+                className="text-xs font-bold text-text-secondary underline hover:text-[#7A0C2E] ml-2"
               >
                 Reset All
               </Link>

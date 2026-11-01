@@ -353,7 +353,7 @@ export default function CheckoutPage() {
                     size="lg"
                     fullWidth
                     loading={loading}
-                    className="shadow-md h-12"
+                    className="shadow-lg h-13 text-sm sm:text-base font-bold btn-luxury-shine border border-[#DFB76C]/40"
                   >
                     Confirm & Place Order — {formatPrice(totalCents)}
                   </Button>

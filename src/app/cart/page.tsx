@@ -213,12 +213,12 @@ export default function CartPage() {
               </div>
             </div>
 
-            <Link href="/checkout" className="block w-full">
+            <Link href="/checkout" prefetch={true} className="block w-full">
               <Button
                 variant="primary"
                 size="lg"
                 fullWidth
-                className="bg-gradient-to-r from-[#8B1A4A] via-[#6D1038] to-[#8B1A4A] hover:from-[#6D1038] hover:to-[#500B29] text-white font-bold shadow-lg"
+                className="bg-gradient-to-r from-[#7A0C2E] via-[#560820] to-[#7A0C2E] hover:from-[#560820] hover:to-[#380414] text-white font-bold shadow-lg border border-[#DFB76C]/40 btn-luxury-shine"
               >
                 Proceed to Checkout
                 <ArrowRight className="h-4 w-4 ml-1.5" />

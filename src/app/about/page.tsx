@@ -21,11 +21,11 @@ export default function AboutPage() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A2E]/95 via-[#1A1A2E]/80 to-[#8B1A4A]/60" />
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#D4A017] via-[#8B1A4A] to-[#D4A017]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E17]/95 via-[#0F0E17]/80 to-[#7A0C2E]/60" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#DFB76C] via-[#7A0C2E] to-[#DFB76C]" />
 
         <Container size="md" className="relative z-10 py-16 text-white space-y-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-[#F0D060] border border-white/20">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-[#DFB76C] border border-white/20">
             <Crown className="h-4 w-4" />
             The Heritage of GULNAAR by MK
           </span>
@@ -39,11 +39,11 @@ export default function AboutPage() {
       </section>
 
       {/* 2. THE STORY */}
-      <section className="py-16 sm:py-24">
+      <section className="py-20 sm:py-28 bg-[#FFFFFF]">
         <Container size="lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <span className="text-xs uppercase tracking-[0.2em] text-[#D4A017] font-bold block">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#C5A059] font-bold block">
                 ✦ Born in Lahore
               </span>
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary leading-tight">
@@ -52,14 +52,14 @@ export default function AboutPage() {
               <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
                 Founded in Lahore, <strong>GULNAAR by MK</strong> was conceived from a deep reverence for the melodic grace and sacred symbolism of the traditional subcontinent bangle (<em>kangan</em> & <em>churi</em>).
               </p>
-              <p className="text-sm text-text-secondary leading-relaxed">
+              <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
                 For centuries across South Asia, bangles have marked sacred milestones: bridal wedding celebrations, joyous Eid mornings, and cherished everyday rituals. In an era dominated by hollow mass-manufactured accessories, we set out to restore authenticity and soul to heirloom jewellery.
               </p>
               <div className="pt-2">
-                <Link href="/shop?category=bridal">
-                  <Button variant="primary" size="md" className="shadow-md">
+                <Link href="/shop?category=bridal" prefetch={true}>
+                  <Button variant="primary" size="md" className="shadow-md btn-luxury-shine">
                     Explore Bridal Collections
-                    <ArrowRight className="h-4 w-4 ml-1" />
+                    <ArrowRight className="h-4 w-4 ml-1.5" />
                   </Button>
                 </Link>
               </div>
@@ -67,11 +67,12 @@ export default function AboutPage() {
 
             {/* Visual Mosaic */}
             <div className="relative">
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#D4A017]/30 shadow-2xl">
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#C5A059]/40 shadow-2xl">
                 <Image
                   src={CRAFT_IMAGE_1}
                   alt="Bridal Bangles Craftsmanship"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                 />
               </div>
@@ -80,6 +81,7 @@ export default function AboutPage() {
                   src={CRAFT_IMAGE_2}
                   alt="Kundan Stone Setting"
                   fill
+                  sizes="224px"
                   className="object-cover"
                 />
               </div>
@@ -89,10 +91,10 @@ export default function AboutPage() {
       </section>
 
       {/* 3. CORE PROMISES */}
-      <section className="py-16 bg-gradient-to-b from-[#FFF3E6] via-bg-primary to-[#FFF3E6] border-y border-border">
+      <section className="py-20 bg-[#FAF9F6] border-y border-border">
         <Container size="xl">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#D4A017] font-bold block mb-2">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#C5A059] font-bold block mb-2">
               ✦ Uncompromising Standards
             </span>
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary">
@@ -105,7 +107,7 @@ export default function AboutPage() {
               {
                 icon: ShieldCheck,
                 title: 'Solid Brass Foundation',
-                desc: 'Every piece begins with heavy, solid brass core cores — never hollow zinc alloys. Hypoallergenic and crafted to resist bending across decades.',
+                desc: 'Every piece begins with heavy, solid brass cores — never hollow zinc alloys. Hypoallergenic and crafted to resist bending across decades.',
                 badge: 'Hypoallergenic',
               },
               {
@@ -123,13 +125,13 @@ export default function AboutPage() {
             ].map((pillar) => (
               <div
                 key={pillar.title}
-                className="rounded-3xl bg-white p-8 border border-[#D4A017]/30 shadow-md hover:shadow-xl transition-all space-y-4 relative group"
+                className="rounded-3xl bg-white p-8 border border-border shadow-xs hover-luxury-card space-y-4"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8B1A4A] to-[#6D1038] text-white shadow-sm">
-                    <pillar.icon className="h-6 w-6 text-[#F0D060]" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] text-white shadow-sm">
+                    <pillar.icon className="h-6 w-6 text-[#DFB76C]" />
                   </div>
-                  <span className="rounded-full bg-[#FFF3E6] border border-[#D4A017]/30 px-3 py-1 text-[11px] font-bold text-brand">
+                  <span className="rounded-full bg-[#FDF2F4] border border-[#7A0C2E]/20 px-3 py-1 text-[11px] font-bold text-[#7A0C2E]">
                     {pillar.badge}
                   </span>
                 </div>
@@ -148,24 +150,24 @@ export default function AboutPage() {
       {/* 4. INVITATION CTA */}
       <section className="pt-20">
         <Container size="md">
-          <div className="rounded-3xl bg-gradient-to-r from-[#8B1A4A] via-[#6D1038] to-[#8B1A4A] p-10 sm:p-14 text-center text-white space-y-6 shadow-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#D4A017]/10 to-transparent animate-shimmer pointer-events-none" />
-            <Crown className="h-12 w-12 text-[#F0D060] mx-auto animate-pulse" />
+          <div className="rounded-3xl bg-gradient-to-r from-[#7A0C2E] via-[#560820] to-[#7A0C2E] p-10 sm:p-14 text-center text-white space-y-6 shadow-2xl relative overflow-hidden border border-[#DFB76C]/40">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#DFB76C]/10 to-transparent animate-shimmer pointer-events-none" />
+            <Crown className="h-12 w-12 text-[#DFB76C] mx-auto animate-pulse" />
             <h2 className="font-heading text-3xl sm:text-4xl font-bold">
               Find Your Signature Heirloom Piece
             </h2>
-            <p className="text-sm sm:text-base text-white/80 max-w-lg mx-auto leading-relaxed">
+            <p className="text-sm sm:text-base text-white/85 max-w-lg mx-auto leading-relaxed">
               Whether preparing your bridal trousseau or seeking an everyday touch of timeless grace, we invite you to experience GULNAAR by MK.
             </p>
             <div className="pt-2">
-              <Link href="/shop">
+              <Link href="/shop" prefetch={true}>
                 <Button
                   variant="primary"
                   size="lg"
-                  className="bg-gradient-to-r from-[#D4A017] to-[#B8860B] hover:from-[#F0D060] hover:to-[#D4A017] text-[#1A1A2E] font-bold shadow-gold border-0"
+                  className="bg-gradient-to-r from-[#DFB76C] to-[#C5A059] text-[#4A0E2E] font-bold shadow-[0_10px_30px_rgba(223,183,108,0.4)] border-0 btn-luxury-shine"
                 >
                   Explore All Handcrafted Bangles
-                  <ArrowRight className="h-4 w-4 ml-1.5" />
+                  <ArrowRight className="h-4 w-4 ml-1.5 text-[#4A0E2E]" />
                 </Button>
               </Link>
             </div>
