@@ -22,8 +22,8 @@ create table if not exists public.categories (
     updated_at timestamptz default now() not null
 );
 
-create index if innocent_cat_slug_idx on public.categories (slug);
-create index if innocent_cat_active_idx on public.categories (is_active, sort_order);
+create index if not exists cat_slug_idx on public.categories (slug);
+create index if not exists cat_active_idx on public.categories (is_active, sort_order);
 
 -- =====================================================================
 -- 2. PRODUCTS TABLE
@@ -44,9 +44,9 @@ create table if not exists public.products (
     updated_at timestamptz default now() not null
 );
 
-create index if innocent_prod_slug_idx on public.products (slug);
-create index if innocent_prod_cat_idx on public.products (category_id);
-create index if innocent_prod_status_idx on public.products (status, is_featured);
+create index if not exists prod_slug_idx on public.products (slug);
+create index if not exists prod_cat_idx on public.products (category_id);
+create index if not exists prod_status_idx on public.products (status, is_featured);
 
 -- =====================================================================
 -- 3. PRODUCT IMAGES TABLE
@@ -61,7 +61,7 @@ create table if not exists public.product_images (
     created_at timestamptz default now() not null
 );
 
-create index if innocent_img_prod_idx on public.product_images (product_id, sort_order);
+create index if not exists img_prod_idx on public.product_images (product_id, sort_order);
 
 -- =====================================================================
 -- 4. PRODUCT VARIANTS TABLE
@@ -84,8 +84,8 @@ create table if not exists public.product_variants (
     updated_at timestamptz default now() not null
 );
 
-create index if innocent_var_prod_idx on public.product_variants (product_id, is_active);
-create index if innocent_var_sku_idx on public.product_variants (sku);
+create index if not exists var_prod_idx on public.product_variants (product_id, is_active);
+create index if not exists var_sku_idx on public.product_variants (sku);
 
 -- =====================================================================
 -- 5. PROFILES & ADMIN USERS (Linked to Supabase Auth)
@@ -150,10 +150,10 @@ create table if not exists public.orders (
     updated_at timestamptz default now() not null
 );
 
-create index if innocent_order_num_idx on public.orders (order_number);
-create index if innocent_order_phone_idx on public.orders (customer_phone);
-create index if innocent_order_token_idx on public.orders (tracking_token);
-create index if innocent_order_status_idx on public.orders (fulfillment_status, created_at desc);
+create index if not exists order_num_idx on public.orders (order_number);
+create index if not exists order_phone_idx on public.orders (customer_phone);
+create index if not exists order_token_idx on public.orders (tracking_token);
+create index if not exists order_status_idx on public.orders (fulfillment_status, created_at desc);
 
 -- =====================================================================
 -- 8. ORDER ITEMS (Immutable historical snapshot at checkout time)
@@ -173,7 +173,7 @@ create table if not exists public.order_items (
     created_at timestamptz default now() not null
 );
 
-create index if innocent_item_order_idx on public.order_items (order_id);
+create index if not exists item_order_idx on public.order_items (order_id);
 
 -- =====================================================================
 -- 9. INVENTORY MOVEMENTS (Stock change audit log)
@@ -188,7 +188,7 @@ create table if not exists public.inventory_movements (
     created_at timestamptz default now() not null
 );
 
-create index if innocent_inv_variant_idx on public.inventory_movements (variant_id, created_at desc);
+create index if not exists inv_variant_idx on public.inventory_movements (variant_id, created_at desc);
 
 -- =====================================================================
 -- 10. ATOMIC TRANSACTION: CREATE GUEST ORDER
