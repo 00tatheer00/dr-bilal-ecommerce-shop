@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import { CheckCircle2, PackageCheck, PhoneCall, Truck, Crown } from 'lucide-react';
@@ -19,9 +20,20 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
       <CelebrationConfetti />
       <Container size="md">
         <div className="rounded-2xl border border-border bg-bg-primary p-8 sm:p-12 text-center shadow-sm">
-          {/* Success Check Icon */}
-          <div className="w-20 h-20 rounded-full bg-emerald-50 text-emerald-600 mx-auto flex items-center justify-center mb-6 border-2 border-emerald-200">
-            <CheckCircle2 className="h-10 w-10" />
+          {/* Brand Monogram & Success Check Icon */}
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="relative h-16 w-16">
+              <Image
+                src="/images/logo-icon.png"
+                alt="GULNAAR"
+                fill
+                sizes="64px"
+                className="object-contain"
+              />
+            </div>
+            <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border-2 border-emerald-200">
+              <CheckCircle2 className="h-8 w-8" />
+            </div>
           </div>
 
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand mb-3">

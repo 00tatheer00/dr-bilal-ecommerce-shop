@@ -25,6 +25,15 @@ export default function AboutPage() {
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#DFB76C] via-[#7A0C2E] to-[#DFB76C]" />
 
         <Container size="md" className="relative z-10 py-16 text-white space-y-4">
+          <div className="relative mx-auto h-24 w-24 mb-2 drop-shadow-lg">
+            <Image
+              src="/images/logo-icon.png"
+              alt="GULNAAR by MK"
+              fill
+              sizes="96px"
+              className="object-contain"
+            />
+          </div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-[#DFB76C] border border-white/20">
             <Crown className="h-4 w-4" />
             The Heritage of GULNAAR by MK
@@ -43,8 +52,9 @@ export default function AboutPage() {
         <Container size="lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#C5A059] font-bold block">
-                ✦ Born in Lahore
+              <span className="text-xs uppercase tracking-[0.25em] text-[#C5A059] font-bold block inline-flex items-center gap-1.5">
+                <Crown className="h-3.5 w-3.5 text-[#C5A059]" />
+                Born in Lahore
               </span>
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary leading-tight">
                 Where Heritage Meets Modern Feminine Grace

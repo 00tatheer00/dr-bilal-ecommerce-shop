@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { Crown } from 'lucide-react';
+import Image from 'next/image';
 
 /**
  * Luxury Bangle & Jet-Fast Top Navigation Loader
@@ -59,8 +59,14 @@ export default function LuxuryLoader() {
               {/* Middle Polished Gold Ring */}
               <div className="absolute inset-2 rounded-full border-2 border-[#9F1239]/40 border-t-[#DFB76C] animate-spin [animation-duration:2.5s]" />
               {/* Inner Medallion */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] shadow-lg animate-pulse">
-                <Crown className="h-7 w-7 text-[#F5DEB3]" />
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] shadow-lg overflow-hidden p-1.5 animate-pulse">
+                <Image
+                  src="/images/logo-icon.png"
+                  alt="GULNAAR"
+                  fill
+                  sizes="64px"
+                  className="object-contain p-1"
+                />
               </div>
             </div>
 

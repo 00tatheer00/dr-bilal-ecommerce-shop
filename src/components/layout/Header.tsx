@@ -54,20 +54,24 @@ export default function Header() {
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
 
-            {/* Brand Logo / Wordmark */}
-            <Link href="/" prefetch={true} className="group flex items-center gap-3.5">
-              {/* Opulent Gold Medallion with Crown */}
-              <div className="relative flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#DFB76C] via-[#C5A059] to-[#9E7938] p-0.5 shadow-md group-hover:shadow-[0_0_24px_rgba(197,160,89,0.5)] group-hover:scale-105 transition-all duration-300">
-                <div className="h-full w-full rounded-full bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] flex items-center justify-center">
-                  <Crown className="h-5 w-5 text-[#DFB76C] group-hover:rotate-12 transition-transform duration-300" />
-                </div>
+            {/* Brand Logo / Monogram */}
+            <Link href="/" prefetch={true} className="group flex items-center gap-3">
+              <div className="relative h-12 w-12 shrink-0 group-hover:scale-105 transition-transform duration-300">
+                <Image
+                  src="/images/logo-icon.png"
+                  alt="GULNAAR by MK"
+                  fill
+                  priority
+                  sizes="48px"
+                  className="object-contain drop-shadow-sm"
+                />
               </div>
 
               <div className="flex flex-col">
-                <span className="font-heading text-2xl font-bold tracking-[0.2em] text-[#7A0C2E] group-hover:text-[#560820] transition-colors leading-none">
+                <span className="font-heading text-2xl font-bold tracking-[0.18em] text-[#7A0C2E] group-hover:text-[#560820] transition-colors leading-none">
                   GULNAAR
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.38em] text-[#C5A059] font-bold mt-1 block">
+                <span className="text-[10px] uppercase tracking-[0.35em] text-[#C5A059] font-bold mt-1 block">
                   by MK • Lahore Atelier
                 </span>
               </div>
@@ -245,12 +249,22 @@ export default function Header() {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#4A0E2E]/95 via-[#7A0C2E]/70 to-transparent" />
-              <div className="absolute bottom-4 left-5 text-white">
-                <Crown className="h-6 w-6 text-[#DFB76C] mb-1" />
-                <span className="font-heading text-xl font-bold tracking-wider block">GULNAAR</span>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-[#DFB76C] font-semibold block">
-                  by MK • Handcrafted Bangles
-                </span>
+              <div className="absolute bottom-4 left-5 flex items-center gap-3 text-white">
+                <div className="relative h-14 w-14 shrink-0 drop-shadow-md">
+                  <Image
+                    src="/images/logo-icon.png"
+                    alt="GULNAAR by MK"
+                    fill
+                    sizes="56px"
+                    className="object-contain"
+                  />
+                </div>
+                <div>
+                  <span className="font-heading text-xl font-bold tracking-wider block">GULNAAR</span>
+                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#DFB76C] font-semibold block">
+                    by MK • Handcrafted Bangles
+                  </span>
+                </div>
               </div>
             </div>
 

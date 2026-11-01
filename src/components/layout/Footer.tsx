@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Crown, Phone, Mail, MapPin } from 'lucide-react';
+import { Heart, Phone, Mail, MapPin } from 'lucide-react';
 import { APP_VERSION } from '@/config/version';
 
 const FOOTER_IMAGE = 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1400&auto=format&fit=crop&q=60';
@@ -27,8 +27,14 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="md:col-span-1 space-y-5">
             <Link href="/" prefetch={true} className="inline-flex items-center gap-3.5 group">
-              <div className="h-11 w-11 rounded-full bg-gradient-to-br from-[#DFB76C] via-[#C5A059] to-[#9E7938] flex items-center justify-center shadow-lg group-hover:shadow-[0_0_24px_rgba(223,183,108,0.5)] transition-all duration-300">
-                <Crown className="h-5 w-5 text-[#4A0E2E]" />
+              <div className="relative h-14 w-14 shrink-0 group-hover:scale-105 transition-transform duration-300 drop-shadow-md">
+                <Image
+                  src="/images/logo-icon.png"
+                  alt="GULNAAR by MK"
+                  fill
+                  sizes="56px"
+                  className="object-contain"
+                />
               </div>
               <div>
                 <span className="font-heading text-2xl font-bold tracking-[0.2em] text-white block leading-none">

@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { loginAdmin } from '@/actions/admin-auth';
 import Button from '@/components/ui/Button';
-import { Lock, Crown, AlertCircle } from 'lucide-react';
+import { Crown, AlertCircle } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -32,10 +33,16 @@ export default function AdminLoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-bg-secondary px-4 py-12">
       <div className="w-full max-w-md space-y-6 rounded-2xl border border-border bg-bg-primary p-8 shadow-md">
         <div className="text-center">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-brand-light text-brand">
-            <Lock className="h-6 w-6" />
+          <div className="relative mx-auto mb-3 h-20 w-20">
+            <Image
+              src="/images/logo-icon.png"
+              alt="GULNAAR by MK"
+              fill
+              sizes="80px"
+              className="object-contain drop-shadow-sm"
+            />
           </div>
-          <span className="font-heading text-2xl font-bold tracking-widest text-brand block">
+          <span className="font-heading text-2xl font-bold tracking-widest text-[#7A0C2E] block">
             GULNAAR
           </span>
           <span className="text-[10px] uppercase tracking-[0.25em] text-text-secondary font-medium">

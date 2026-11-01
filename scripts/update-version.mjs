@@ -37,3 +37,4 @@ export const APP_VERSION = {
 
 fs.writeFileSync(versionFilePath, content, 'utf8');
 console.log(`[Version Tracker] Updated build metadata to: ${buildId}`);
+

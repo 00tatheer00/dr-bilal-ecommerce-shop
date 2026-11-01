@@ -50,8 +50,16 @@ async function HomeContent() {
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-7 text-center lg:text-left">
               {/* Luxury Badge */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#DFB76C]/60 bg-white/10 backdrop-blur-md px-5 py-2 text-xs font-bold text-[#DFB76C] shadow-[0_0_20px_rgba(223,183,108,0.2)]">
-                <Crown className="h-4 w-4 animate-pulse" />
+              <div className="inline-flex items-center gap-2.5 rounded-full border border-[#DFB76C]/60 bg-white/10 backdrop-blur-md px-5 py-2 text-xs font-bold text-[#DFB76C] shadow-[0_0_20px_rgba(223,183,108,0.2)]">
+                <div className="relative h-5 w-5 shrink-0">
+                  <Image
+                    src="/images/logo-icon.png"
+                    alt="GULNAAR"
+                    fill
+                    sizes="20px"
+                    className="object-contain"
+                  />
+                </div>
                 <span>Heirloom Bangles • Handcrafted in Lahore</span>
               </div>
 

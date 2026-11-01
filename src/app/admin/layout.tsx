@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAdminSession, logoutAdmin } from '@/actions/admin-auth';
 import {
   LayoutDashboard,
@@ -33,13 +34,24 @@ export default async function AdminLayout({
           <aside className="w-full md:w-64 bg-[#2C2C2C] text-[#D1CBC3] flex flex-col shrink-0 border-r border-black/20">
             {/* Sidebar Brand Header */}
             <div className="h-20 flex items-center px-6 border-b border-white/10">
-              <Link href="/admin" className="flex flex-col">
-                <span className="font-heading text-xl font-bold tracking-widest text-[#FAF7F2]">
-                  GULNAAR
-                </span>
-                <span className="text-[9px] uppercase tracking-[0.25em] text-[#B8976A] font-semibold">
-                  Management Console
-                </span>
+              <Link href="/admin" className="flex items-center gap-3">
+                <div className="relative h-10 w-10 shrink-0">
+                  <Image
+                    src="/images/logo-icon.png"
+                    alt="GULNAAR"
+                    fill
+                    sizes="40px"
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-heading text-lg font-bold tracking-widest text-[#FAF7F2] leading-none">
+                    GULNAAR
+                  </span>
+                  <span className="text-[9px] uppercase tracking-[0.25em] text-[#DFB76C] font-semibold mt-1">
+                    Management Console
+                  </span>
+                </div>
               </Link>
             </div>
 

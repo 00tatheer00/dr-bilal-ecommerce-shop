@@ -40,3 +40,4 @@ export default function CelebrationConfetti({ durationMs = 3000 }: CelebrationCo
 
   return null;
 }
+

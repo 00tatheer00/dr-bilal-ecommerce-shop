@@ -1,15 +1,21 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
-import { Compass } from 'lucide-react';
 
 export default function NotFound() {
   return (
     <div className="py-20 sm:py-32 text-center">
       <Container size="sm">
-        <div className="w-16 h-16 rounded-full bg-brand-light text-brand mx-auto flex items-center justify-center mb-6">
-          <Compass className="h-8 w-8 text-gold" />
+        <div className="relative mx-auto mb-6 h-20 w-20">
+          <Image
+            src="/images/logo-icon.png"
+            alt="GULNAAR"
+            fill
+            sizes="80px"
+            className="object-contain"
+          />
         </div>
         <span className="text-xs uppercase tracking-widest text-brand font-semibold block mb-2">
           Page Not Found • 404
