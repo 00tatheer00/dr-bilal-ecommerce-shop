@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Crown, ArrowRight, ChevronLeft, ChevronRight, Check } from 'lucide-react';
-import Button from '@/components/ui/Button';
 
 interface HeroSlide {
   id: string;
@@ -221,28 +220,25 @@ export default function LuxuryHero() {
               </div>
 
               {/* Dual Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
-                <Link href={slide.ctaHref} prefetch={true}>
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    className="w-full sm:w-auto bg-gradient-to-r from-[#DFB76C] via-[#C5A059] to-[#DFB76C] hover:from-[#FFF5DC] hover:to-[#DFB76C] text-[#4A0E2E] font-bold shadow-[0_12px_36px_rgba(223,183,108,0.4)] border border-[#DFB76C] btn-luxury-shine group px-8"
-                  >
-                    <Crown className="h-4 w-4 mr-2 text-[#4A0E2E]" />
-                    <span>{slide.ctaText}</span>
-                    <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
-                  </Button>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-3">
+                <Link
+                  href={slide.ctaHref}
+                  prefetch={true}
+                  className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#DFB76C] via-[#C5A059] to-[#DFB76C] hover:from-[#7A0C2E] hover:via-[#560820] hover:to-[#7A0C2E] text-[#3B0411] hover:text-[#FFF5DC] font-bold text-sm sm:text-base border-2 border-[#DFB76C] hover:border-[#DFB76C] shadow-[0_10px_30px_rgba(223,183,108,0.4)] hover:shadow-[0_14px_40px_rgba(122,12,46,0.6)] transition-all duration-300 hover:-translate-y-1 active:translate-y-0 active:scale-[0.98] btn-luxury-shine cursor-pointer"
+                >
+                  <Crown className="h-4.5 w-4.5 text-[#3B0411] group-hover:text-[#DFB76C] transition-colors duration-300 shrink-0" />
+                  <span className="tracking-wider uppercase text-xs sm:text-sm">{slide.ctaText}</span>
+                  <ArrowRight className="h-4.5 w-4.5 text-[#3B0411] group-hover:text-[#DFB76C] transition-all duration-300 group-hover:translate-x-1.5 shrink-0" />
                 </Link>
 
                 {slide.secondaryCtaText && slide.secondaryCtaHref && (
-                  <Link href={slide.secondaryCtaHref} prefetch={true}>
-                    <Button
-                      variant="secondary"
-                      size="lg"
-                      className="w-full sm:w-auto border-white/30 bg-black/40 text-white hover:bg-white/15 backdrop-blur-md px-7"
-                    >
-                      {slide.secondaryCtaText} &rarr;
-                    </Button>
+                  <Link
+                    href={slide.secondaryCtaHref}
+                    prefetch={true}
+                    className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#0F0E17] font-bold text-sm sm:text-base border border-white/30 hover:border-white shadow-md hover:shadow-[0_10px_30px_rgba(255,255,255,0.25)] backdrop-blur-md transition-all duration-300 hover:-translate-y-1 active:translate-y-0 active:scale-[0.98] cursor-pointer"
+                  >
+                    <span className="tracking-wider uppercase text-xs sm:text-sm">{slide.secondaryCtaText}</span>
+                    <span className="transition-transform duration-300 group-hover:translate-x-1.5">&rarr;</span>
                   </Link>
                 )}
               </div>
@@ -277,23 +273,23 @@ export default function LuxuryHero() {
       <button
         type="button"
         onClick={prevSlide}
-        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-black/40 hover:bg-[#7A0C2E] border border-white/20 hover:border-[#DFB76C] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 shadow-xl hover:scale-110 active:scale-95 cursor-pointer group"
+        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-black/60 hover:bg-[#7A0C2E] border border-white/20 hover:border-[#DFB76C] text-white hover:text-[#DFB76C] flex items-center justify-center backdrop-blur-md transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(122,12,46,0.6)] hover:scale-110 active:scale-95 cursor-pointer group"
         aria-label="Previous Slide"
       >
-        <ChevronLeft className="h-6 w-6 text-white group-hover:text-[#DFB76C] transition-colors" />
+        <ChevronLeft className="h-6 w-6 transition-transform duration-300 group-hover:-translate-x-0.5" />
       </button>
 
       <button
         type="button"
         onClick={nextSlide}
-        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-black/40 hover:bg-[#7A0C2E] border border-white/20 hover:border-[#DFB76C] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 shadow-xl hover:scale-110 active:scale-95 cursor-pointer group"
+        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-black/60 hover:bg-[#7A0C2E] border border-white/20 hover:border-[#DFB76C] text-white hover:text-[#DFB76C] flex items-center justify-center backdrop-blur-md transition-all duration-300 shadow-[0_8px_25px_rgba(0,0,0,0.5)] hover:shadow-[0_0_25px_rgba(122,12,46,0.6)] hover:scale-110 active:scale-95 cursor-pointer group"
         aria-label="Next Slide"
       >
-        <ChevronRight className="h-6 w-6 text-white group-hover:text-[#DFB76C] transition-colors" />
+        <ChevronRight className="h-6 w-6 transition-transform duration-300 group-hover:translate-x-0.5" />
       </button>
 
       {/* 4. BOTTOM PAGINATION & SLIDE DOCKS */}
-      <div className="absolute bottom-6 left-0 right-0 z-30 flex items-center justify-center gap-2 sm:gap-3 px-4">
+      <div className="absolute bottom-6 left-0 right-0 z-30 flex items-center justify-center gap-2.5 sm:gap-3.5 px-4">
         {HERO_SLIDES.map((slide, idx) => {
           const isActive = idx === currentSlideIndex;
           return (
@@ -301,23 +297,23 @@ export default function LuxuryHero() {
               key={slide.id}
               type="button"
               onClick={() => setCurrentSlideIndex(idx)}
-              className={`group flex items-center gap-2 py-2 px-3 rounded-full transition-all duration-300 cursor-pointer ${
+              className={`group flex items-center gap-2.5 py-2 px-3.5 rounded-full transition-all duration-300 cursor-pointer ${
                 isActive
-                  ? 'bg-black/60 border border-[#DFB76C] shadow-[0_0_15px_rgba(223,183,108,0.3)]'
-                  : 'bg-black/30 border border-white/10 hover:bg-black/50 hover:border-white/30'
+                  ? 'bg-black/80 border border-[#DFB76C] shadow-[0_0_20px_rgba(223,183,108,0.4)] scale-105'
+                  : 'bg-black/40 border border-white/15 hover:bg-black/65 hover:border-white/35'
               }`}
               aria-label={`Go to slide ${idx + 1}: ${slide.badge}`}
             >
               <span
                 className={`h-2.5 rounded-full transition-all duration-500 ${
                   isActive
-                    ? 'w-7 sm:w-10 bg-gradient-to-r from-[#DFB76C] to-[#C5A059]'
-                    : 'w-2.5 bg-white/40 group-hover:bg-white/70'
+                    ? 'w-8 sm:w-10 bg-gradient-to-r from-[#DFB76C] via-[#F5DEB3] to-[#C5A059]'
+                    : 'w-2.5 bg-white/40 group-hover:bg-white/80'
                 }`}
               />
               <span
                 className={`text-[10px] font-bold uppercase tracking-wider hidden sm:inline ${
-                  isActive ? 'text-[#DFB76C]' : 'text-white/60'
+                  isActive ? 'text-[#DFB76C]' : 'text-white/60 group-hover:text-white'
                 }`}
               >
                 0{idx + 1} • {slide.badge.split(' ')[0]}
