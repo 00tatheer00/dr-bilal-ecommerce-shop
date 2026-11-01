@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/utils';
-import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight, ShieldCheck, Sparkles, Crown } from 'lucide-react';
+import { X, Plus, Minus, Trash2, ShoppingBag, ArrowRight, ShieldCheck, CheckCircle2, Crown } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
 // Bangle thumbnail fallbacks
@@ -107,7 +107,7 @@ export default function CartDrawer() {
                 </span>
               ) : (
                 <span className="text-emerald-700 font-bold flex items-center gap-1">
-                  <Sparkles className="h-3.5 w-3.5 text-[#DFB76C]" /> Free Delivery Unlocked!
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[#DFB76C]" /> Free Delivery Unlocked!
                 </span>
               )}
               <span className="text-xs font-bold text-[#C5A059]">{Math.round(freeDeliveryPercent)}%</span>

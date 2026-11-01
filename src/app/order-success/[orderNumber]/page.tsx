@@ -2,7 +2,8 @@ import React, { Suspense } from 'react';
 import Link from 'next/link';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
-import { CheckCircle2, PackageCheck, PhoneCall, Truck, Sparkles } from 'lucide-react';
+import { CheckCircle2, PackageCheck, PhoneCall, Truck, Crown } from 'lucide-react';
+import CelebrationConfetti from '@/components/ui/CelebrationConfetti';
 
 interface Props {
   params: Promise<{ orderNumber: string }>;
@@ -15,6 +16,7 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
 
   return (
     <div className="py-12 sm:py-20 bg-bg-secondary/40 min-h-screen">
+      <CelebrationConfetti />
       <Container size="md">
         <div className="rounded-2xl border border-border bg-bg-primary p-8 sm:p-12 text-center shadow-sm">
           {/* Success Check Icon */}
@@ -23,7 +25,7 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
           </div>
 
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand mb-3">
-            <Sparkles className="h-3.5 w-3.5 text-gold" />
+            <Crown className="h-3.5 w-3.5 text-gold" />
             Order Placed Successfully
           </span>
 

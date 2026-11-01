@@ -8,7 +8,7 @@ import { formatPrice } from '@/lib/utils';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
 import EmptyState from '@/components/ui/EmptyState';
-import { ShoppingBag, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Truck, Sparkles, Crown } from 'lucide-react';
+import { ShoppingBag, Trash2, Plus, Minus, ArrowRight, ShieldCheck, Truck, CheckCircle2, Crown } from 'lucide-react';
 
 const FALLBACK_BANGLE_THUMBS = [
   'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=300&auto=format&fit=crop&q=80',
@@ -86,7 +86,7 @@ export default function CartPage() {
                   </span>
                 ) : (
                   <span className="text-emerald-700 font-bold flex items-center gap-1.5">
-                    <Sparkles className="h-4 w-4 text-[#D4A017]" /> Free Delivery Unlocked!
+                    <CheckCircle2 className="h-4 w-4 text-[#D4A017]" /> Free Delivery Unlocked!
                   </span>
                 )}
                 <span className="font-bold text-[#D4A017]">{Math.round(freeDeliveryPercent)}%</span>

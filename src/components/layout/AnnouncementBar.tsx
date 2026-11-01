@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Sparkles, Crown, ArrowRight } from 'lucide-react';
+import { Gem, Crown, ArrowRight } from 'lucide-react';
 import { APP_VERSION } from '@/config/version';
 
 export default function AnnouncementBar() {
@@ -27,7 +27,7 @@ export default function AnnouncementBar() {
 
         {/* Center: Main Broadcast Message */}
         <div className="flex-1 flex items-center justify-center gap-2 sm:gap-3 text-center tracking-wide">
-          <Sparkles className="h-3.5 w-3.5 text-[#DFB76C] shrink-0 animate-pulse" />
+          <Gem className="h-3.5 w-3.5 text-[#DFB76C] shrink-0 animate-pulse" />
           <span className="text-xs font-semibold text-white">
             Free Express Courier Across Pakistan on Orders Over PKR 5,000
           </span>

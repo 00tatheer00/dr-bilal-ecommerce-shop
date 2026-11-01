@@ -5,7 +5,7 @@ import { getProducts, getCategories } from '@/lib/db/products';
 import ProductCard from '@/components/product/ProductCard';
 import Container from '@/components/ui/Container';
 import EmptyState from '@/components/ui/EmptyState';
-import { SlidersHorizontal, Sparkles, X, Crown } from 'lucide-react';
+import { SlidersHorizontal, Gem, X, Crown } from 'lucide-react';
 
 interface ShopPageProps {
   searchParams: Promise<{
@@ -314,7 +314,7 @@ async function ShopContent({ searchParams }: ShopPageProps) {
             description="Try clearing your selected sizes or categories to view our complete collection."
             actionLabel="Reset All Filters"
             actionHref="/shop"
-            icon={<Sparkles className="h-10 w-10 text-[#D4A017]" />}
+            icon={<Gem className="h-10 w-10 text-[#DFB76C]" />}
           />
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">

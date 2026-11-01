@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { formatPrice, getStartingPrice } from '@/lib/utils';
 import Badge from '@/components/ui/Badge';
 import type { Product } from '@/types';
-import { Eye, Sparkles } from 'lucide-react';
+import { Eye, Gem } from 'lucide-react';
 
 // Fallback bangle images from Unsplash when no product image exists
 const FALLBACK_IMAGES = [
@@ -59,6 +59,10 @@ export default function ProductCard({ product, className }: ProductCardProps) {
     ? primaryImage.url
     : getConsistentImage(product.id);
 
+  const availableSizes = Array.from(
+    new Set(product.variants?.map((v) => v.size).filter(Boolean))
+  ) as string[];
+
   return (
     <Link
       href={`/shop/${product.slug}`}
@@ -86,7 +90,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         <div className="absolute left-3 top-3 z-10 flex flex-col gap-1.5 pointer-events-none">
           {isNew && (
             <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#DFB76C] to-[#C5A059] px-2.5 py-0.5 text-[10px] font-bold text-[#4A0E2E] shadow-sm">
-              <Sparkles className="h-3 w-3" />
+              <Gem className="h-3 w-3" />
               New Heirloom
             </span>
           )}
@@ -123,6 +127,22 @@ export default function ProductCard({ product, className }: ProductCardProps) {
           <h3 className="font-heading text-sm sm:text-base font-bold text-text-primary line-clamp-1 transition-colors duration-200 group-hover:text-[#7A0C2E] mt-0.5">
             {product.name}
           </h3>
+          {availableSizes.length > 0 && (
+            <div className="flex items-center gap-1 pt-0.5">
+              <span className="text-[10px] text-text-secondary mr-0.5">Sizes:</span>
+              {availableSizes.slice(0, 3).map((s) => (
+                <span
+                  key={s}
+                  className="inline-flex items-center justify-center h-4 px-1.5 rounded-md bg-[#FAF9F6] border border-border text-[9px] font-semibold text-text-primary group-hover:border-[#DFB76C]/60 group-hover:bg-[#FDF2F4] transition-colors"
+                >
+                  {s}
+                </span>
+              ))}
+              {availableSizes.length > 3 && (
+                <span className="text-[9px] text-text-secondary">+{availableSizes.length - 3}</span>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="flex items-baseline justify-between pt-1.5 border-t border-border/40">

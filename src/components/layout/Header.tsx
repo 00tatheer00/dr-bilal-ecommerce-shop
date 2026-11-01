@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
-import { ShoppingBag, Search, Menu, X, Compass, ChevronDown, Crown, Phone, Sparkles } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Compass, ChevronDown, Crown, Phone, Gem } from 'lucide-react';
 import { APP_VERSION } from '@/config/version';
 
 export default function Header() {
@@ -21,7 +21,7 @@ export default function Header() {
 
   const collections = [
     { label: 'Bridal Collection', href: '/shop?category=bridal', icon: '💍', desc: 'Opulent 24K dipped Kundan sets' },
-    { label: 'Everyday Elegance', href: '/shop?category=everyday', icon: '✨', desc: 'Featherlight silk thread bangles' },
+    { label: 'Everyday Elegance', href: '/shop?category=everyday', icon: '🌸', desc: 'Featherlight silk thread bangles' },
     { label: 'Statement Pieces', href: '/shop?category=statement', icon: '👑', desc: 'Openable royal kadas & brass cuffs' },
     { label: 'Kundan & Meenakari', href: '/shop?category=kundan-meenakari', icon: '💎', desc: 'Vibrant hand-painted enamel artistry' },
   ];
@@ -101,7 +101,7 @@ export default function Header() {
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4 pb-3 border-b border-border">
                       <div className="flex items-center gap-2">
-                        <Sparkles className="h-3.5 w-3.5 text-[#C5A059]" />
+                        <Gem className="h-3.5 w-3.5 text-[#C5A059]" />
                         <span className="text-[11px] uppercase tracking-[0.25em] font-bold text-[#C5A059]">
                           Bangle Collections
                         </span>

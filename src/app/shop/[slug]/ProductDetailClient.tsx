@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
@@ -9,8 +9,9 @@ import type { Product, ProductVariant } from '@/types';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import ProductCard from '@/components/product/ProductCard';
+import confetti from 'canvas-confetti';
 import {
-  Sparkles,
+  Gem,
   ShieldCheck,
   Truck,
   RefreshCw,
@@ -101,6 +102,15 @@ export default function ProductDetailClient({
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isAdded, setIsAdded] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<string | null>('specs');
+  const [showStickyBar, setShowStickyBar] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowStickyBar(window.scrollY > 450);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Build images list: use product.images if valid http URLs, otherwise fall back to curated bangle gallery
   const hasValidDbImages =
@@ -148,6 +158,16 @@ export default function ProductDetailClient({
     if (!selectedVariant || isOutOfStock) return;
     addItem(product, selectedVariant, quantity);
     setIsAdded(true);
+    try {
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.65 },
+        colors: ['#DFB76C', '#7A0C2E', '#C5A059', '#FFFFFF'],
+      });
+    } catch {
+      // ignore
+    }
     setTimeout(() => setIsAdded(false), 2000);
   };
 
@@ -234,7 +254,7 @@ export default function ProductDetailClient({
                 href={`/shop?category=${product.category.slug}`}
                 className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.15em] text-[#D4A017] hover:underline mb-1"
               >
-                <Sparkles className="h-3 w-3" />
+                <Gem className="h-3 w-3" />
                 {product.category.name}
               </Link>
             )}
@@ -405,7 +425,7 @@ export default function ProductDetailClient({
             </div>
 
             <div className="flex items-center justify-center gap-2 text-xs text-text-secondary">
-              <Sparkles className="h-3.5 w-3.5 text-[#D4A017]" />
+              <Truck className="h-3.5 w-3.5 text-[#D4A017]" />
               <span>Cash on Delivery across Pakistan • Free Shipping 5K+</span>
             </div>
           </div>
@@ -539,8 +559,9 @@ export default function ProductDetailClient({
       {relatedProducts.length > 0 && (
         <div className="pt-12 border-t border-border">
           <div className="text-center max-w-xl mx-auto mb-10">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#D4A017] font-bold block mb-1">
-              ✦ Complete The Look
+            <span className="text-xs uppercase tracking-[0.2em] text-[#D4A017] font-bold block mb-1 inline-flex items-center gap-1.5 justify-center">
+              <Crown className="h-3.5 w-3.5 text-[#DFB76C]" />
+              Complete The Look
             </span>
             <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary">
               You May Also Adore
@@ -554,6 +575,58 @@ export default function ProductDetailClient({
           </div>
         </div>
       )}
+
+      {/* Floating Sticky Quick Buy Bar */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DFB76C]/40 p-3 sm:p-4 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 transform ${
+          showStickyBar ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="relative h-12 w-12 rounded-xl overflow-hidden border border-[#DFB76C]/30 shrink-0 hidden sm:block">
+              <Image
+                src={galleryImages[0]}
+                alt={product.name}
+                fill
+                sizes="48px"
+                className="object-cover"
+              />
+            </div>
+            <div className="min-w-0">
+              <h4 className="font-heading font-bold text-sm text-text-primary truncate">
+                {product.name}
+              </h4>
+              <p className="text-xs text-text-secondary">
+                {selectedVariant?.size ? `Size: ${selectedVariant.size} • ` : ''}
+                <span className="font-bold text-[#7A0C2E]">
+                  {formatPrice(currentPrice)}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <Button
+              onClick={handleAddToCart}
+              disabled={isOutOfStock}
+              variant="primary"
+              size="md"
+              className="btn-luxury-shine shadow-md"
+            >
+              {isAdded ? (
+                <span className="flex items-center gap-1.5 text-white">
+                  <Check className="h-4 w-4" /> Added to Bag
+                </span>
+              ) : isOutOfStock ? (
+                'Out of Stock'
+              ) : (
+                `Add to Bag • ${formatPrice(currentPrice * quantity)}`
+              )}
+            </Button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

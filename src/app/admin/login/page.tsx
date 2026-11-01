@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { loginAdmin } from '@/actions/admin-auth';
 import Button from '@/components/ui/Button';
-import { Lock, Sparkles, AlertCircle } from 'lucide-react';
+import { Lock, Crown, AlertCircle } from 'lucide-react';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -92,7 +92,7 @@ export default function AdminLoginPage() {
 
         <div className="border-t border-border pt-4 text-center text-[11px] text-text-secondary">
           <p className="flex items-center justify-center gap-1">
-            <Sparkles className="h-3 w-3 text-gold" />
+            <Crown className="h-3 w-3 text-gold" />
             Protected by Supabase Auth & Role-Level Access
           </p>
         </div>

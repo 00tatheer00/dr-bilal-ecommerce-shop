@@ -5,7 +5,7 @@ import { getProducts, getCategories } from '@/lib/db/products';
 import ProductCard from '@/components/product/ProductCard';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
-import { Sparkles, ArrowRight, Heart, Star, Crown, Truck, RefreshCw, ShieldCheck, CheckCircle } from 'lucide-react';
+import { Gem, ArrowRight, Heart, Award, Crown, Truck, RefreshCw, ShieldCheck, CheckCircle } from 'lucide-react';
 
 // High-resolution Unsplash bangle photography
 const HERO_IMAGE = 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&auto=format&fit=crop&q=85';
@@ -155,7 +155,7 @@ async function HomeContent() {
                 <div className="absolute -bottom-5 -left-8 bg-white rounded-2xl shadow-xl px-5 py-3.5 border border-[#DFB76C]/40 animate-pulse-gold">
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] flex items-center justify-center text-white shadow-sm">
-                      <Star className="h-5 w-5 text-[#DFB76C] fill-[#DFB76C]" />
+                      <Award className="h-5 w-5 text-[#DFB76C]" />
                     </div>
                     <div>
                       <span className="text-xs font-bold text-text-primary block">
@@ -217,7 +217,7 @@ async function HomeContent() {
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white flex flex-col justify-end">
                   <div className="w-11 h-11 rounded-2xl bg-[#DFB76C]/20 backdrop-blur-md flex items-center justify-center mb-3 border border-[#DFB76C]/40 group-hover:bg-[#DFB76C] group-hover:text-[#4A0E2E] transition-all duration-300">
-                    <Sparkles className="h-5 w-5" />
+                    <Gem className="h-5 w-5" />
                   </div>
                   <h3 className="font-heading text-2xl font-bold">{category.name}</h3>
                   <p className="text-xs text-white/75 line-clamp-2 mt-1.5 leading-relaxed">
@@ -411,7 +411,7 @@ async function HomeContent() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {[
               { icon: Truck, title: 'Cash on Delivery', desc: 'Doorstep parcel check across Pakistan', color: 'from-[#7A0C2E] to-[#4A0E2E]' },
-              { icon: Sparkles, title: '100% Handcrafted', desc: 'Master karigar jewelry artistry', color: 'from-[#DFB76C] to-[#C5A059]' },
+              { icon: Gem, title: '100% Handcrafted', desc: 'Master karigar jewelry artistry', color: 'from-[#DFB76C] to-[#C5A059]' },
               { icon: ShieldCheck, title: 'Free Express Shipping', desc: 'On all orders over PKR 5,000', color: 'from-[#114226] to-[#166534]' },
               { icon: RefreshCw, title: 'Easy Exchanges', desc: '3-day size exchange guarantee', color: 'from-[#7A0C2E] to-[#991B1B]' },
             ].map((item) => (

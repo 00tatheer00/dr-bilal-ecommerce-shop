@@ -3,7 +3,7 @@ import { getProducts } from '@/lib/db/products';
 import ProductCard from '@/components/product/ProductCard';
 import Container from '@/components/ui/Container';
 import EmptyState from '@/components/ui/EmptyState';
-import { Search, Sparkles } from 'lucide-react';
+import { Search, Gem } from 'lucide-react';
 
 interface SearchPageProps {
   searchParams: Promise<{ q?: string }>;
@@ -66,7 +66,7 @@ async function SearchContent({ searchParams }: SearchPageProps) {
             description={`We couldn't find any pieces matching "${query}". Try searching for Kundan, Velvet, Bridal, or Glass.`}
             actionLabel="View Full Catalog"
             actionHref="/shop"
-            icon={<Sparkles className="h-10 w-10 text-gold" />}
+            icon={<Gem className="h-10 w-10 text-gold" />}
           />
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">

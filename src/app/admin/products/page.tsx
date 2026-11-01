@@ -8,7 +8,7 @@ import {
   Plus,
   Search,
   Edit2,
-  Sparkles,
+  Gem,
 } from 'lucide-react';
 
 interface Props {
@@ -127,7 +127,7 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                       <td className="p-3.5">
                         <div className="flex items-center gap-3">
                           <div className="h-10 w-10 shrink-0 rounded-lg bg-bg-secondary border border-border flex items-center justify-center">
-                            <Sparkles className="h-4 w-4 text-gold" />
+                            <Gem className="h-4 w-4 text-gold" />
                           </div>
                           <div>
                             <span className="font-heading font-semibold text-sm block">

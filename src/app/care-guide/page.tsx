@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@/components/ui/Container';
-import { ShieldCheck, Sparkles, Droplets, Sun, Box } from 'lucide-react';
+import { ShieldCheck, Gem, Droplets, Sun, Box } from 'lucide-react';
 
 export default function CareGuidePage() {
   return (
@@ -8,7 +8,7 @@ export default function CareGuidePage() {
       <Container size="md" className="space-y-10">
         <div className="text-center space-y-3">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-light px-3 py-1 text-xs font-semibold text-brand">
-            <Sparkles className="h-3.5 w-3.5 text-gold" />
+            <Gem className="h-3.5 w-3.5 text-gold" />
             Preserve Your Heirlooms
           </span>
           <h1 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary">
