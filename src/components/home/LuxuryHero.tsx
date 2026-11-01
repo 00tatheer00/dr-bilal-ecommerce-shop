@@ -1,376 +1,330 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Crown, ArrowRight, Award, Check, Eye } from 'lucide-react';
+import { Crown, ArrowRight, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import Button from '@/components/ui/Button';
 
 interface HeroSlide {
   id: string;
   badge: string;
+  subtitle: string;
   titlePrefix: string;
   titleHighlight: string;
   titleSuffix: string;
   description: string;
   ctaText: string;
   ctaHref: string;
+  secondaryCtaText?: string;
+  secondaryCtaHref?: string;
   bgImage: string;
-  cardImage: string;
-  productName: string;
-  productSubtitle: string;
-  price: string;
-  originalPrice?: string;
-  productHref: string;
+  tagline: string;
 }
 
 const HERO_SLIDES: HeroSlide[] = [
   {
-    id: 'bridal',
-    badge: 'Bridal Season 2026 Collection',
-    titlePrefix: 'Heirloom Bangles',
-    titleHighlight: 'Sculpted in Gold',
-    titleSuffix: 'for Sacred Vows',
+    id: 'bridal-couture',
+    badge: 'Bridal Couture 2026',
+    subtitle: 'Lahore Heritage Atelier',
+    titlePrefix: 'Royal Kundan',
+    titleHighlight: 'Kangans & Churis',
+    titleSuffix: 'for the Modern Bride',
     description:
-      'Immerse yourself in authentic South Asian jewellery heritage. Hand-poured 24K dipped brass, uncut Kundan stones, and clustered seed pearls assembled by Lahore master karigars.',
-    ctaText: 'Explore Bridal Collection',
+      'Immerse in the timeless opulence of royal wedding traditions. Hand-poured 24K gold dipped brass, hand-set uncut Kundan gems, and clustered seed pearls assembled by generational Lahore karigars.',
+    ctaText: 'Shop Bridal Collection',
     ctaHref: '/shop?category=bridal',
-    bgImage: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1920&auto=format&fit=crop&q=85',
-    cardImage: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=85',
-    productName: 'Kundan Bridal Kangan Set',
-    productSubtitle: '24K Dipped Brass Core • Seed Pearls',
-    price: 'PKR 12,500',
-    originalPrice: 'PKR 15,000',
-    productHref: '/shop/kundan-bridal-kangan-set',
+    secondaryCtaText: 'View All Bangles',
+    secondaryCtaHref: '/shop',
+    bgImage: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=2000&auto=format&fit=crop&q=90',
+    tagline: '24K Dipped Gold • Clustered Seed Pearls • Heirloom Quality',
   },
   {
-    id: 'meenakari',
+    id: 'meenakari-royals',
     badge: 'Artisanal Enamel Heritage',
-    titlePrefix: 'Vibrant Petals',
-    titleHighlight: 'Hand-Painted Enamel',
-    titleSuffix: 'Meenakari Artistry',
+    subtitle: 'Mughal Craftsmanship',
+    titlePrefix: 'Hand-Painted',
+    titleHighlight: 'Meenakari Kadas',
+    titleSuffix: '& Enamel Cuffs',
     description:
-      'Echoing the royal courts of the Mughal era. Every stroke of crimson and emerald enamel is hand-applied over carved brass and kilned to immortal brilliance.',
-    ctaText: 'Discover Meenakari Kadas',
+      'Echoing the regal magnificence of imperial courts. Every floral petal and leaf is hand-glazed in lustrous crimson, ruby, and emerald enamel over carved solid brass, kilned to eternal radiance.',
+    ctaText: 'Discover Meenakari',
     ctaHref: '/shop?category=kundan-meenakari',
-    bgImage: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1920&auto=format&fit=crop&q=85',
-    cardImage: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=85',
-    productName: 'Jaipur Enamel Royal Kada Pair',
-    productSubtitle: 'Hand-Glazed Floral Motifs • Openable Screw',
-    price: 'PKR 8,900',
-    originalPrice: 'PKR 10,500',
-    productHref: '/shop/meenakari-hand-painted-bangles',
+    secondaryCtaText: 'Statement Cuffs',
+    secondaryCtaHref: '/shop?category=statement',
+    bgImage: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=2000&auto=format&fit=crop&q=90',
+    tagline: 'Hand-Glazed Jaipur Enamel • Openable Screw Fit • Pure Brass',
   },
   {
     id: 'velvet-glass',
-    badge: 'Timeless Everyday Splendour',
+    badge: 'Festive Everyday Luxury',
+    subtitle: 'The Sound of Grace',
     titlePrefix: 'Silk-Wrapped',
     titleHighlight: 'Velvet & Glass',
-    titleSuffix: 'Melodic Grace',
+    titleSuffix: 'Churi Collections',
     description:
-      'The sacred melody of subcontinent glass bangles, reimagined with rich plush velvet cushioning and delicate micro-bead borders for effortless day-to-night elegance.',
-    ctaText: 'Shop Everyday Bangles',
+      'The romantic, sacred chime of subcontinent glass bangles, reimagined with rich plush velvet cushioning and delicate micro-bead embroidery for day-to-night festive celebrations.',
+    ctaText: 'Explore Velvet Churis',
     ctaHref: '/shop?category=everyday',
-    bgImage: 'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1920&auto=format&fit=crop&q=85',
-    cardImage: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=85',
-    productName: 'Emerald Velvet Glass Churi Set',
-    productSubtitle: 'Set of 24 Silk-Edged Velvet Bangles',
-    price: 'PKR 4,800',
-    originalPrice: 'PKR 5,500',
-    productHref: '/shop/glass-bangles-set-emerald',
+    secondaryCtaText: 'Bangle Sizing Guide',
+    secondaryCtaHref: '/size-guide',
+    bgImage: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=2000&auto=format&fit=crop&q=90',
+    tagline: 'Featherlight Comfort • Rich Velvet Finish • Set of 24 Pieces',
+  },
+  {
+    id: 'imperial-trousseau',
+    badge: 'Signature Masterpieces',
+    subtitle: 'Trousseau Vault',
+    titlePrefix: 'Imperial Statement',
+    titleHighlight: 'Openable Kadas',
+    titleSuffix: '& Antique Brass',
+    description:
+      'Commanding heritage bangles featuring intricate openwork lattice, raised floral embossing, and secure vintage screw clasps designed to be treasured across generations.',
+    ctaText: 'Browse Statement Pieces',
+    ctaHref: '/shop?category=statement',
+    secondaryCtaText: 'Our Atelier Story',
+    secondaryCtaHref: '/about',
+    bgImage: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=2000&auto=format&fit=crop&q=90',
+    tagline: 'Solid Brass Core • Hypoallergenic • Doorstep Parcel Check',
   },
 ];
 
 export default function LuxuryHero() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef<number | null>(null);
 
-  const activeSlide = HERO_SLIDES[currentSlideIndex];
+  const totalSlides = HERO_SLIDES.length;
 
-  // Auto-slide every 6.5 seconds unless user hovers
+  const nextSlide = useCallback(() => {
+    setCurrentSlideIndex((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlideIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
+
+  // Auto-slide every 5.5s
   useEffect(() => {
     if (isPaused) return;
-    timerRef.current = setTimeout(() => {
-      setCurrentSlideIndex((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 6500);
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 5500);
+    return () => clearInterval(timer);
+  }, [isPaused, nextSlide]);
 
-    return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
-    };
-  }, [currentSlideIndex, isPaused]);
+  // Touch swipe support
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 50) {
+      nextSlide();
+    } else if (diff < -50) {
+      prevSlide();
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <section
-      className="relative overflow-hidden bg-[#0F0E17] text-white min-h-[680px] lg:min-h-[820px] flex flex-col justify-between"
+      className="relative overflow-hidden bg-[#0A0910] text-white w-full h-[640px] sm:h-[720px] lg:h-[780px] select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      aria-label="Featured Collections Slider"
     >
-      {/* 1. CINEMATIC BACKGROUND WITH HIGH-FASHION CROSS-FADE */}
-      <div className="absolute inset-0 pointer-events-none">
-        {HERO_SLIDES.map((slide, idx) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              idx === currentSlideIndex ? 'opacity-40' : 'opacity-0'
-            }`}
-          >
-            <Image
-              src={slide.bgImage}
-              alt={slide.titlePrefix}
-              fill
-              priority={idx === 0}
-              sizes="100vw"
-              className="object-cover scale-105 transition-transform duration-10000 ease-out"
-            />
-          </div>
-        ))}
-
-        {/* Multi-layer luxury vignettes & ambient gold glow */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0F0E17] via-[#0F0E17]/85 to-[#7A0C2E]/50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E17] via-transparent to-[#0F0E17]/70" />
-        <div className="absolute -top-40 right-1/4 h-96 w-96 rounded-full bg-gradient-to-br from-[#DFB76C]/20 to-transparent blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#DFB76C]/40 to-transparent" />
-      </div>
-
-      {/* 2. MAIN EDITORIAL CONTENT GRID */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-12 flex-1 flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center w-full">
-          
-          {/* Left Column: Typography & CTAs */}
-          <div className="lg:col-span-7 space-y-7 text-center lg:text-left">
-            
-            {/* Atelier Crest Badge */}
-            <div className="inline-flex items-center gap-3 rounded-full border border-[#DFB76C]/60 bg-white/10 backdrop-blur-md px-4.5 py-1.5 text-xs font-bold text-[#DFB76C] shadow-[0_0_24px_rgba(223,183,108,0.25)] transition-all">
-              <div className="relative h-6 w-6 shrink-0 drop-shadow-sm">
+      {/* 1. FULL-WIDTH CINEMATIC SLIDES CONTAINER */}
+      <div className="absolute inset-0">
+        {HERO_SLIDES.map((slide, idx) => {
+          const isActive = idx === currentSlideIndex;
+          return (
+            <div
+              key={slide.id}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                isActive ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+            >
+              {/* Full-bleed background image with subtle cinematic zoom */}
+              <div className="relative h-full w-full">
                 <Image
-                  src="/images/logo-icon.png"
-                  alt="GULNAAR Crest"
+                  src={slide.bgImage}
+                  alt={slide.titlePrefix}
                   fill
-                  sizes="24px"
-                  className="object-contain"
+                  priority={idx === 0}
+                  sizes="100vw"
+                  className={`object-cover object-center transition-transform duration-[6000ms] ease-out ${
+                    isActive ? 'scale-105' : 'scale-100'
+                  }`}
                 />
               </div>
-              <span className="tracking-wider uppercase text-[11px]">
-                {activeSlide.badge}
-              </span>
+
+              {/* Multi-layer luxury dark vignettes for pristine readability */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0A0910]/95 via-[#0A0910]/75 to-[#0A0910]/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0A0910] via-transparent to-[#0A0910]/60" />
+              <div className="absolute inset-0 bg-[#7A0C2E]/20 mix-blend-multiply" />
             </div>
+          );
+        })}
+      </div>
 
-            {/* Majestic High-Fashion Title */}
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-[4.25rem] font-bold tracking-tight text-white leading-[1.08]">
-              {activeSlide.titlePrefix}{' '}
-              <span className="bg-gradient-to-r from-[#FFF5DC] via-[#DFB76C] to-[#C5A059] bg-clip-text text-transparent block sm:inline">
-                {activeSlide.titleHighlight}
-              </span>{' '}
-              <span className="text-white/95">{activeSlide.titleSuffix}</span>
-            </h1>
+      {/* 2. CENTERED / EDITORIAL CONTENT LAYER */}
+      <div className="relative z-20 h-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
+        {HERO_SLIDES.map((slide, idx) => {
+          const isActive = idx === currentSlideIndex;
+          if (!isActive) return null;
 
-            {/* Editorial Story Paragraph */}
-            <p className="text-base sm:text-lg text-white/80 leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
-              {activeSlide.description}
-            </p>
-
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-              <Link href={activeSlide.ctaHref} prefetch={true} className="w-full sm:w-auto">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  className="w-full sm:w-auto bg-gradient-to-r from-[#DFB76C] via-[#C5A059] to-[#DFB76C] hover:from-[#FFF5DC] hover:to-[#DFB76C] text-[#4A0E2E] font-bold shadow-[0_12px_36px_rgba(223,183,108,0.35)] border border-[#DFB76C] btn-luxury-shine group px-8"
-                >
-                  <Crown className="h-4 w-4 mr-2 text-[#4A0E2E]" />
-                  <span>{activeSlide.ctaText}</span>
-                  <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-              <Link href="/shop" prefetch={true} className="w-full sm:w-auto">
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  className="w-full sm:w-auto border-white/30 bg-white/5 text-white hover:bg-white/15 backdrop-blur-md px-7"
-                >
-                  Browse Entire Vault &rarr;
-                </Button>
-              </Link>
-            </div>
-
-            {/* Trust Assurance Bar */}
-            <div className="pt-5 flex items-center justify-center lg:justify-start gap-6 text-xs text-white/75 border-t border-white/10">
-              <div className="flex items-center gap-2">
-                <div className="h-5 w-5 rounded-full bg-[#DFB76C]/20 flex items-center justify-center">
-                  <Check className="h-3 w-3 text-[#DFB76C]" />
-                </div>
-                <span className="font-semibold text-white/90">Cash on Delivery</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-5 w-5 rounded-full bg-[#DFB76C]/20 flex items-center justify-center">
-                  <Check className="h-3 w-3 text-[#DFB76C]" />
-                </div>
-                <span className="font-semibold text-white/90">Doorstep Inspection</span>
-              </div>
-              <div className="hidden sm:flex items-center gap-2">
-                <div className="h-5 w-5 rounded-full bg-[#DFB76C]/20 flex items-center justify-center">
-                  <Check className="h-3 w-3 text-[#DFB76C]" />
-                </div>
-                <span className="font-semibold text-white/90">Free Delivery 5K+</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Floating 3D Jewelry Showcase Card */}
-          <div className="hidden lg:flex lg:col-span-5 justify-center">
-            <div className="relative w-full max-w-sm">
-              
-              {/* Floating Top Artisan Seal */}
-              <div className="absolute -top-6 -right-6 z-20 flex items-center gap-2 rounded-2xl bg-[#0F0E17]/90 backdrop-blur-xl border border-[#DFB76C]/60 px-4 py-2.5 shadow-2xl animate-float">
-                <div className="relative h-8 w-8 shrink-0">
+          return (
+            <div
+              key={slide.id}
+              className="max-w-3xl space-y-6 sm:space-y-8 animate-fade-in"
+            >
+              {/* Brand Crest & Category Badge */}
+              <div className="inline-flex items-center gap-3 rounded-full border border-[#DFB76C]/50 bg-black/40 backdrop-blur-md px-4 py-1.5 shadow-[0_0_24px_rgba(223,183,108,0.25)]">
+                <div className="relative h-6 w-6 shrink-0 drop-shadow-sm">
                   <Image
                     src="/images/logo-icon.png"
-                    alt="Artisan Seal"
+                    alt="GULNAAR Crest"
                     fill
-                    sizes="32px"
+                    sizes="24px"
                     className="object-contain"
                   />
                 </div>
-                <div>
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#DFB76C] block">
-                    Master Karigar
-                  </span>
-                  <span className="text-[9px] text-white/70 block">
-                    Lahore Heritage Atelier
-                  </span>
+                <div className="flex items-center gap-2 text-xs font-bold text-[#DFB76C] tracking-widest uppercase">
+                  <span>{slide.badge}</span>
+                  <span className="text-white/40">•</span>
+                  <span className="text-white/80 font-normal">{slide.subtitle}</span>
                 </div>
               </div>
 
-              {/* Main 3D Glass Showcase Card */}
-              <div className="relative rounded-3xl overflow-hidden shadow-[0_30px_90px_rgba(0,0,0,0.7)] border-2 border-[#DFB76C]/40 bg-white/5 backdrop-blur-xl group transition-all duration-500 hover:border-[#DFB76C]">
-                {/* Product Photo with Smooth Optical Zoom */}
-                <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#1E1926]">
-                  <Image
-                    src={activeSlide.cardImage}
-                    alt={activeSlide.productName}
-                    fill
-                    sizes="420px"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E17] via-[#0F0E17]/30 to-transparent" />
-                  
-                  {/* Category Pill Tag */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#7A0C2E] to-[#4A0E2E] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#DFB76C] border border-[#DFB76C]/40 shadow-md">
-                      <Crown className="h-3 w-3" />
-                      Signature Edit
-                    </span>
-                  </div>
-                </div>
+              {/* Majestic Editorial Title */}
+              <h1 className="font-heading text-4xl sm:text-5xl lg:text-[4.25rem] font-bold tracking-tight text-white leading-[1.08]">
+                {slide.titlePrefix}{' '}
+                <span className="bg-gradient-to-r from-[#FFF5DC] via-[#DFB76C] to-[#C5A059] bg-clip-text text-transparent">
+                  {slide.titleHighlight}
+                </span>{' '}
+                <span className="text-white/95">{slide.titleSuffix}</span>
+              </h1>
 
-                {/* Card Content Overlay */}
-                <div className="p-6 text-white space-y-3">
-                  <div>
-                    <h3 className="font-heading text-xl font-bold text-white group-hover:text-[#DFB76C] transition-colors">
-                      {activeSlide.productName}
-                    </h3>
-                    <p className="text-xs text-white/70 mt-1 line-clamp-1">
-                      {activeSlide.productSubtitle}
-                    </p>
-                  </div>
+              {/* Editorial Description */}
+              <p className="text-base sm:text-lg lg:text-xl text-white/85 leading-relaxed font-normal max-w-2xl">
+                {slide.description}
+              </p>
 
-                  {/* Price & Action Row */}
-                  <div className="flex items-center justify-between pt-3 border-t border-white/15">
-                    <div>
-                      <div className="flex items-baseline gap-2">
-                        <span className="font-heading font-bold text-xl text-[#DFB76C]">
-                          {activeSlide.price}
-                        </span>
-                        {activeSlide.originalPrice && (
-                          <span className="text-xs text-white/40 line-through">
-                            {activeSlide.originalPrice}
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-[10px] text-emerald-400 font-semibold block">
-                        Cash on Delivery Available
-                      </span>
-                    </div>
+              {/* Craftsmanship Tagline */}
+              <div className="text-xs text-[#DFB76C] font-semibold tracking-wider uppercase border-l-2 border-[#DFB76C] pl-3 py-0.5">
+                {slide.tagline}
+              </div>
 
-                    <Link
-                      href={activeSlide.productHref}
-                      prefetch={true}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-white/10 hover:bg-[#DFB76C] text-white hover:text-[#4A0E2E] px-3.5 py-2 text-xs font-bold transition-all border border-white/20 group/btn"
+              {/* Dual Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+                <Link href={slide.ctaHref} prefetch={true}>
+                  <Button
+                    variant="primary"
+                    size="lg"
+                    className="w-full sm:w-auto bg-gradient-to-r from-[#DFB76C] via-[#C5A059] to-[#DFB76C] hover:from-[#FFF5DC] hover:to-[#DFB76C] text-[#4A0E2E] font-bold shadow-[0_12px_36px_rgba(223,183,108,0.4)] border border-[#DFB76C] btn-luxury-shine group px-8"
+                  >
+                    <Crown className="h-4 w-4 mr-2 text-[#4A0E2E]" />
+                    <span>{slide.ctaText}</span>
+                    <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
+                  </Button>
+                </Link>
+
+                {slide.secondaryCtaText && slide.secondaryCtaHref && (
+                  <Link href={slide.secondaryCtaHref} prefetch={true}>
+                    <Button
+                      variant="secondary"
+                      size="lg"
+                      className="w-full sm:w-auto border-white/30 bg-black/40 text-white hover:bg-white/15 backdrop-blur-md px-7"
                     >
-                      <Eye className="h-3.5 w-3.5" />
-                      <span>Details</span>
-                    </Link>
-                  </div>
-                </div>
+                      {slide.secondaryCtaText} &rarr;
+                    </Button>
+                  </Link>
+                )}
               </div>
 
-              {/* Floating Bottom Social Proof Badge */}
-              <div className="absolute -bottom-6 -left-8 z-20 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] p-4 border border-[#DFB76C]/50 animate-pulse-gold max-w-[280px]">
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] flex items-center justify-center text-[#DFB76C] shadow-md shrink-0">
-                    <Award className="h-5 w-5" />
+              {/* Trust Badges Strip */}
+              <div className="pt-4 flex flex-wrap items-center gap-5 sm:gap-8 text-xs text-white/75 border-t border-white/10">
+                <div className="flex items-center gap-2">
+                  <div className="h-5 w-5 rounded-full bg-[#DFB76C]/20 flex items-center justify-center">
+                    <Check className="h-3 w-3 text-[#DFB76C]" />
                   </div>
-                  <div>
-                    <span className="text-xs font-bold text-[#0F0E17] block leading-tight">
-                      1,400+ Brides Adorned
-                    </span>
-                    <span className="text-[10px] text-text-secondary block mt-0.5">
-                      4.95/5 Karigar Excellence Rating
-                    </span>
+                  <span className="font-semibold text-white/90">Cash on Delivery Across Pakistan</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="h-5 w-5 rounded-full bg-[#DFB76C]/20 flex items-center justify-center">
+                    <Check className="h-3 w-3 text-[#DFB76C]" />
                   </div>
+                  <span className="font-semibold text-white/90">Open Doorstep Inspection</span>
+                </div>
+                <div className="hidden sm:flex items-center gap-2">
+                  <div className="h-5 w-5 rounded-full bg-[#DFB76C]/20 flex items-center justify-center">
+                    <Check className="h-3 w-3 text-[#DFB76C]" />
+                  </div>
+                  <span className="font-semibold text-white/90">Free Courier Above PKR 5,000</span>
                 </div>
               </div>
-
             </div>
-          </div>
-
-        </div>
+          );
+        })}
       </div>
 
-      {/* 3. INTERACTIVE SLIDE NAVIGATION DOCKS */}
-      <div className="relative z-10 border-t border-white/10 bg-[#0F0E17]/80 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {HERO_SLIDES.map((slide, idx) => {
-              const isActive = idx === currentSlideIndex;
-              return (
-                <button
-                  key={slide.id}
-                  type="button"
-                  onClick={() => setCurrentSlideIndex(idx)}
-                  className={`text-left p-3 rounded-2xl transition-all duration-300 cursor-pointer flex items-center gap-3 border ${
-                    isActive
-                      ? 'bg-white/15 border-[#DFB76C] shadow-md'
-                      : 'bg-white/5 border-transparent hover:bg-white/10'
-                  }`}
-                >
-                  <div
-                    className={`h-9 w-9 rounded-xl flex items-center justify-center text-xs font-bold transition-colors ${
-                      isActive
-                        ? 'bg-gradient-to-br from-[#DFB76C] to-[#C5A059] text-[#4A0E2E]'
-                        : 'bg-white/10 text-white/70'
-                    }`}
-                  >
-                    0{idx + 1}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <span
-                      className={`text-xs font-bold block truncate ${
-                        isActive ? 'text-[#DFB76C]' : 'text-white/90'
-                      }`}
-                    >
-                      {slide.productName}
-                    </span>
-                    <span className="text-[10px] text-white/50 block truncate">
-                      {slide.badge}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+      {/* 3. LUXURY ARROW NAVIGATION (LEFT & RIGHT) */}
+      <button
+        type="button"
+        onClick={prevSlide}
+        className="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 z-30 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-black/40 hover:bg-[#7A0C2E] border border-white/20 hover:border-[#DFB76C] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 shadow-xl hover:scale-110 active:scale-95 cursor-pointer group"
+        aria-label="Previous Slide"
+      >
+        <ChevronLeft className="h-6 w-6 text-white group-hover:text-[#DFB76C] transition-colors" />
+      </button>
+
+      <button
+        type="button"
+        onClick={nextSlide}
+        className="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 z-30 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-black/40 hover:bg-[#7A0C2E] border border-white/20 hover:border-[#DFB76C] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 shadow-xl hover:scale-110 active:scale-95 cursor-pointer group"
+        aria-label="Next Slide"
+      >
+        <ChevronRight className="h-6 w-6 text-white group-hover:text-[#DFB76C] transition-colors" />
+      </button>
+
+      {/* 4. BOTTOM PAGINATION & SLIDE DOCKS */}
+      <div className="absolute bottom-6 left-0 right-0 z-30 flex items-center justify-center gap-2 sm:gap-3 px-4">
+        {HERO_SLIDES.map((slide, idx) => {
+          const isActive = idx === currentSlideIndex;
+          return (
+            <button
+              key={slide.id}
+              type="button"
+              onClick={() => setCurrentSlideIndex(idx)}
+              className={`group flex items-center gap-2 py-2 px-3 rounded-full transition-all duration-300 cursor-pointer ${
+                isActive
+                  ? 'bg-black/60 border border-[#DFB76C] shadow-[0_0_15px_rgba(223,183,108,0.3)]'
+                  : 'bg-black/30 border border-white/10 hover:bg-black/50 hover:border-white/30'
+              }`}
+              aria-label={`Go to slide ${idx + 1}: ${slide.badge}`}
+            >
+              <span
+                className={`h-2.5 rounded-full transition-all duration-500 ${
+                  isActive
+                    ? 'w-7 sm:w-10 bg-gradient-to-r from-[#DFB76C] to-[#C5A059]'
+                    : 'w-2.5 bg-white/40 group-hover:bg-white/70'
+                }`}
+              />
+              <span
+                className={`text-[10px] font-bold uppercase tracking-wider hidden sm:inline ${
+                  isActive ? 'text-[#DFB76C]' : 'text-white/60'
+                }`}
+              >
+                0{idx + 1} • {slide.badge.split(' ')[0]}
+              </span>
+            </button>
+          );
+        })}
       </div>
     </section>
   );
