@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function ProductPage({ params }: PageProps) {
+async function ProductPageContent({ params }: PageProps) {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
 
@@ -132,5 +132,19 @@ export default async function ProductPage({ params }: PageProps) {
         <ProductDetailClient product={product} relatedProducts={related} />
       </Container>
     </div>
+  );
+}
+
+export default function ProductPage(props: PageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="py-24 text-center text-xs text-text-secondary">
+          Loading bangle details...
+        </div>
+      }
+    >
+      <ProductPageContent {...props} />
+    </Suspense>
   );
 }

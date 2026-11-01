@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/utils';
@@ -15,6 +16,23 @@ import {
   ArrowLeft,
   AlertCircle,
 } from 'lucide-react';
+
+const FALLBACK_BANGLE_THUMBS = [
+  'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=200&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=200&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=200&auto=format&fit=crop&q=80',
+  'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=200&auto=format&fit=crop&q=80',
+];
+
+function getCheckoutItemImage(slug: string, primaryImage?: string): string {
+  if (primaryImage && primaryImage.startsWith('http')) return primaryImage;
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = ((hash << 5) - hash) + slug.charCodeAt(i);
+    hash |= 0;
+  }
+  return FALLBACK_BANGLE_THUMBS[Math.abs(hash) % FALLBACK_BANGLE_THUMBS.length];
+}
 
 const PAKISTANI_CITIES = [
   'Lahore',
@@ -350,22 +368,34 @@ export default function CheckoutPage() {
               Order Review ({items.length})
             </h2>
 
-            <div className="divide-y divide-border max-h-80 overflow-y-auto pr-1">
-              {items.map((item) => (
-                <div key={item.variant_id} className="py-3 flex items-center justify-between gap-3 text-xs">
-                  <div>
-                    <span className="font-medium text-text-primary block line-clamp-1">
-                      {item.product_name}
-                    </span>
-                    <span className="text-[11px] text-text-secondary block">
-                      Size: {item.variant_size || 'Standard'} • Qty: {item.quantity}
+            <div className="divide-y divide-border max-h-96 overflow-y-auto pr-1">
+              {items.map((item) => {
+                const itemImg = getCheckoutItemImage(item.product_slug, item.image_url || undefined);
+                return (
+                  <div key={item.variant_id} className="py-3 flex items-center gap-3 text-xs">
+                    <div className="relative h-12 w-12 rounded-xl overflow-hidden border border-[#D4A017]/30 bg-bg-secondary shrink-0">
+                      <Image
+                        src={itemImg}
+                        alt={item.product_name}
+                        fill
+                        sizes="48px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <span className="font-bold text-text-primary block line-clamp-1">
+                        {item.product_name}
+                      </span>
+                      <span className="text-[11px] text-text-secondary block">
+                        Size: {item.variant_size || 'Standard'} • Qty: {item.quantity}
+                      </span>
+                    </div>
+                    <span className="font-bold text-brand shrink-0">
+                      {formatPrice(item.price_cents * item.quantity)}
                     </span>
                   </div>
-                  <span className="font-semibold text-brand shrink-0">
-                    {formatPrice(item.price_cents * item.quantity)}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="border-t border-border pt-4 space-y-2 text-xs">
