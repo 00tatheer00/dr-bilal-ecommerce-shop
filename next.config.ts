@@ -31,6 +31,7 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  agentRules: false,
   images: {
     remotePatterns: [
       {
