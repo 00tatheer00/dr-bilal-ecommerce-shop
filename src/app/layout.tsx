@@ -3,7 +3,11 @@ import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import StorefrontShell from '@/components/layout/StorefrontShell';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gulnaarbymk.com';
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : 'https://dbshop.vercel.app');
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -39,11 +43,30 @@ export const metadata: Metadata = {
     description:
       'Discover bespoke handcrafted bangles, bridal kangan sets, Meenakari artistry, and everyday elegance. Cash on Delivery available across Pakistan.',
     siteName: 'GULNAAR by MK',
+    images: [
+      {
+        url: `${siteUrl}/og-image.jpg`,
+        secureUrl: `${siteUrl}/og-image.jpg`,
+        width: 1200,
+        height: 630,
+        alt: 'GULNAAR by MK — Handcrafted Luxury Bangles',
+        type: 'image/jpeg',
+      },
+      {
+        url: `${siteUrl}/og-image-square.jpg`,
+        secureUrl: `${siteUrl}/og-image-square.jpg`,
+        width: 800,
+        height: 800,
+        alt: 'GULNAAR by MK — Handcrafted Luxury Bangles',
+        type: 'image/jpeg',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'GULNAAR by MK — Handcrafted Luxury Bangles',
     description: 'Discover bespoke handcrafted bangles with Cash on Delivery across Pakistan.',
+    images: [`${siteUrl}/og-image.jpg`],
   },
   robots: {
     index: true,
