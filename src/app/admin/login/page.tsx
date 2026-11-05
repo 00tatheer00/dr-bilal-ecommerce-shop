@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
               className="object-contain drop-shadow-sm"
             />
           </div>
-          <span className="font-heading text-2xl font-bold tracking-widest text-[#7A0C2E] block">
+          <span className="font-heading text-2xl font-bold tracking-widest text-[#B81D4E] block">
             GULNAAR
           </span>
           <span className="text-[10px] uppercase tracking-[0.25em] text-text-secondary font-medium">

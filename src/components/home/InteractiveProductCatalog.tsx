@@ -63,8 +63,8 @@ export default function InteractiveProductCatalog({
         {/* Section Heading & View All Link */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#7A0C2E] mb-1">
-              <Gem className="h-3.5 w-3.5 text-[#C5A059]" />
+            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#B81D4E] mb-1">
+              <Gem className="h-3.5 w-3.5 text-[#D4AF37]" />
               <span>Trending Jewellery Catalog</span>
             </div>
             <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-text-primary tracking-tight">
@@ -75,7 +75,7 @@ export default function InteractiveProductCatalog({
           <Link
             href="/shop"
             prefetch={true}
-            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#7A0C2E] hover:text-[#560820] group"
+            className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#B81D4E] hover:text-[#8E0E3B] group"
           >
             <span>View All ({initialProducts.length})</span>
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -93,8 +93,8 @@ export default function InteractiveProductCatalog({
                 onClick={() => setActiveTab(tab.id)}
                 className={`shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-[#7A0C2E] text-white shadow-sm ring-1 ring-[#7A0C2E]'
-                    : 'bg-[#FAF9F6] text-text-secondary hover:text-text-primary hover:bg-[#F5F3EF] border border-[#E8E5DF]'
+                    ? 'bg-gradient-to-r from-[#B81D4E] to-[#8E0E3B] text-white shadow-md ring-1 ring-[#F6D365]/50 scale-102'
+                    : 'bg-[#FFF9FB] text-text-secondary hover:text-[#B81D4E] hover:bg-[#FFF0F5] border border-[#F0DFE7]'
                 }`}
               >
                 <span>{tab.label}</span>
@@ -123,14 +123,14 @@ export default function InteractiveProductCatalog({
           </div>
         ) : (
           <div className="py-16 text-center rounded-2xl bg-[#FAF9F6] border border-dashed border-[#E8E5DF] mt-6">
-            <Gem className="h-8 w-8 text-[#C5A059] mx-auto mb-2 opacity-50" />
+            <Gem className="h-8 w-8 text-[#D4AF37] mx-auto mb-2 opacity-50" />
             <p className="text-sm font-semibold text-text-primary">
               No products found in this category
             </p>
             <button
               type="button"
               onClick={() => setActiveTab('all')}
-              className="mt-3 text-xs font-bold text-[#7A0C2E] hover:underline cursor-pointer"
+              className="mt-3 text-xs font-bold text-[#B81D4E] hover:underline cursor-pointer"
             >
               Reset to All Bangles
             </button>

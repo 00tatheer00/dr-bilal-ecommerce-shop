@@ -45,7 +45,7 @@ export default function LuxuryLoader() {
           navigating ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <div className="h-full w-full bg-gradient-to-r from-[#DFB76C] via-[#9F1239] to-[#DFB76C] animate-shimmer shadow-[0_0_12px_rgba(223,183,108,0.8)]" />
+        <div className="h-full w-full bg-gradient-to-r from-[#F6D365] via-[#9F1239] to-[#F6D365] animate-shimmer shadow-[0_0_12px_rgba(223,183,108,0.8)]" />
       </div>
 
       {/* 2. INITIAL LUXURY ENTRANCE SPLASH (Subtle & Ultra-Fast) */}
@@ -55,11 +55,11 @@ export default function LuxuryLoader() {
             {/* Spinning Concentric Bangle Rings */}
             <div className="relative flex h-24 w-24 items-center justify-center">
               {/* Outer Bangle Ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#DFB76C] animate-spin [animation-duration:8s]" />
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#F6D365] animate-spin [animation-duration:8s]" />
               {/* Middle Polished Gold Ring */}
-              <div className="absolute inset-2 rounded-full border-2 border-[#9F1239]/40 border-t-[#DFB76C] animate-spin [animation-duration:2.5s]" />
+              <div className="absolute inset-2 rounded-full border-2 border-[#9F1239]/40 border-t-[#F6D365] animate-spin [animation-duration:2.5s]" />
               {/* Inner Medallion */}
-              <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] shadow-lg overflow-hidden p-1.5 animate-pulse">
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#B81D4E] to-[#700B2E] shadow-lg overflow-hidden p-1.5 animate-pulse">
                 <Image
                   src="/images/logo-icon.png"
                   alt="GULNAAR"
@@ -72,10 +72,10 @@ export default function LuxuryLoader() {
 
             {/* Brand Typography */}
             <div className="mt-4 text-center">
-              <span className="font-heading text-lg font-bold tracking-[0.25em] text-[#7A0C2E] block">
+              <span className="font-heading text-lg font-bold tracking-[0.25em] text-[#B81D4E] block">
                 GULNAAR
               </span>
-              <span className="text-[10px] uppercase tracking-[0.35em] text-[#DFB76C] font-semibold block mt-0.5">
+              <span className="text-[10px] uppercase tracking-[0.35em] text-[#F6D365] font-semibold block mt-0.5">
                 by MK • Crafting Heirlooms
               </span>
             </div>
@@ -99,7 +99,7 @@ export function BangleSpinner({ size = 'md', className = '' }: { size?: 'sm' | '
   return (
     <div className={`relative inline-flex items-center justify-center ${className}`}>
       <div
-        className={`${sizeMap[size]} rounded-full border-[#DFB76C]/30 border-t-[#DFB76C] border-r-[#7A0C2E] animate-spin`}
+        className={`${sizeMap[size]} rounded-full border-[#F6D365]/30 border-t-[#F6D365] border-r-[#B81D4E] animate-spin`}
       />
     </div>
   );

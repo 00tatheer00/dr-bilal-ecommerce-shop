@@ -44,7 +44,7 @@ export default function StorefrontShell({ children }: { children: React.ReactNod
     if (typeof window !== 'undefined') {
       console.log(
         '%c Crafted by Tatheer %c Tech4Edges • 03275792600 ',
-        'background: #7A0C2E; color: #DFB76C; font-weight: bold; padding: 4px 8px; border-radius: 4px 0 0 4px;',
+        'background: #B81D4E; color: #F6D365; font-weight: bold; padding: 4px 8px; border-radius: 4px 0 0 4px;',
         'background: #0F0E17; color: #FFFFFF; padding: 4px 8px; border-radius: 0 4px 4px 0;'
       );
     }

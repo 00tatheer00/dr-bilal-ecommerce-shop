@@ -7,7 +7,7 @@ import { APP_VERSION } from '@/config/version';
 export default function Footer() {
   return (
     <footer className="relative bg-[#FFFFFF] text-text-primary border-t border-[#E8E5DF] overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#DFB76C] via-[#7A0C2E] to-[#DFB76C]" />
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F6D365] via-[#B81D4E] to-[#F6D365]" />
 
       {/* Main Footer Container */}
       <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
@@ -25,10 +25,10 @@ export default function Footer() {
                 />
               </div>
               <div>
-                <span className="font-heading text-2xl font-bold tracking-[0.18em] text-[#7A0C2E] block leading-none">
+                <span className="font-heading text-2xl font-bold tracking-[0.18em] text-[#B81D4E] block leading-none">
                   GULNAAR
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.35em] text-[#C5A059] font-bold mt-1 block">
+                <span className="text-[10px] uppercase tracking-[0.35em] text-[#D4AF37] font-bold mt-1 block">
                   by MK • Lahore Atelier
                 </span>
               </div>
@@ -42,7 +42,7 @@ export default function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-9 w-9 rounded-xl bg-[#FAF9F6] hover:bg-[#7A0C2E] hover:text-white border border-[#E8E5DF] flex items-center justify-center transition-all duration-300 text-text-primary"
+                className="h-9 w-9 rounded-xl bg-[#FAF9F6] hover:bg-[#B81D4E] hover:text-white border border-[#E8E5DF] flex items-center justify-center transition-all duration-300 text-text-primary"
                 aria-label="Instagram"
               >
                 <svg className="h-4 w-4 fill-currentColor" viewBox="0 0 24 24">
@@ -60,7 +60,7 @@ export default function Footer() {
               </a>
               <Link
                 href="/contact"
-                className="h-9 w-9 rounded-xl bg-[#FAF9F6] hover:bg-[#7A0C2E] hover:text-white border border-[#E8E5DF] flex items-center justify-center transition-all duration-300 text-text-primary"
+                className="h-9 w-9 rounded-xl bg-[#FAF9F6] hover:bg-[#B81D4E] hover:text-white border border-[#E8E5DF] flex items-center justify-center transition-all duration-300 text-text-primary"
                 aria-label="Email Support"
               >
                 <Mail className="h-4 w-4" />
@@ -70,37 +70,37 @@ export default function Footer() {
 
           {/* Shop Column */}
           <div>
-            <h4 className="text-xs font-bold tracking-[0.2em] text-[#7A0C2E] uppercase mb-4">
+            <h4 className="text-xs font-bold tracking-[0.2em] text-[#B81D4E] uppercase mb-4">
               Vault Collections
             </h4>
             <ul className="space-y-2.5 text-xs text-text-secondary">
               <li>
-                <Link href="/shop" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
+                <Link href="/shop" prefetch={true} className="hover:text-[#B81D4E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#D4AF37]" />
                   All Bangles
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=bridal" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
+                <Link href="/shop?category=bridal" prefetch={true} className="hover:text-[#B81D4E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#D4AF37]" />
                   Bridal Kangan Sets
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=everyday" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
+                <Link href="/shop?category=everyday" prefetch={true} className="hover:text-[#B81D4E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#D4AF37]" />
                   Everyday Silk & Glass
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=statement" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
+                <Link href="/shop?category=statement" prefetch={true} className="hover:text-[#B81D4E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#D4AF37]" />
                   Statement Kadas
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=kundan-meenakari" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
+                <Link href="/shop?category=kundan-meenakari" prefetch={true} className="hover:text-[#B81D4E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#D4AF37]" />
                   Kundan & Meenakari
                 </Link>
               </li>
@@ -109,37 +109,37 @@ export default function Footer() {
 
           {/* Customer Care Column */}
           <div>
-            <h4 className="text-xs font-bold tracking-[0.2em] text-[#7A0C2E] uppercase mb-4">
+            <h4 className="text-xs font-bold tracking-[0.2em] text-[#B81D4E] uppercase mb-4">
               Customer Services
             </h4>
             <ul className="space-y-2.5 text-xs text-text-secondary">
               <li>
-                <Link href="/size-guide" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
+                <Link href="/size-guide" prefetch={true} className="hover:text-[#B81D4E] transition-colors">
                   Bangle Sizing Guide
                 </Link>
               </li>
               <li>
-                <Link href="/care-guide" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
+                <Link href="/care-guide" prefetch={true} className="hover:text-[#B81D4E] transition-colors">
                   Jewellery Care Instructions
                 </Link>
               </li>
               <li>
-                <Link href="/track-order" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
+                <Link href="/track-order" prefetch={true} className="hover:text-[#B81D4E] transition-colors">
                   Track Your Order
                 </Link>
               </li>
               <li>
-                <Link href="/shipping-policy" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
+                <Link href="/shipping-policy" prefetch={true} className="hover:text-[#B81D4E] transition-colors">
                   Shipping & Delivery
                 </Link>
               </li>
               <li>
-                <Link href="/returns-policy" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
+                <Link href="/returns-policy" prefetch={true} className="hover:text-[#B81D4E] transition-colors">
                   Returns & Exchange Policy
                 </Link>
               </li>
               <li>
-                <Link href="/faqs" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
+                <Link href="/faqs" prefetch={true} className="hover:text-[#B81D4E] transition-colors">
                   Frequently Asked Questions
                 </Link>
               </li>
@@ -148,23 +148,23 @@ export default function Footer() {
 
           {/* Contact & Studio */}
           <div>
-            <h4 className="text-xs font-bold tracking-[0.2em] text-[#7A0C2E] uppercase mb-4">
+            <h4 className="text-xs font-bold tracking-[0.2em] text-[#B81D4E] uppercase mb-4">
               Studio & Contact
             </h4>
             <div className="space-y-3.5 text-xs text-text-secondary">
               <div className="flex items-start gap-2.5">
-                <MapPin className="h-4 w-4 text-[#C5A059] mt-0.5 shrink-0" />
+                <MapPin className="h-4 w-4 text-[#D4AF37] mt-0.5 shrink-0" />
                 <p>Gulberg III, Lahore, Punjab, Pakistan</p>
               </div>
               <div className="flex items-start gap-2.5">
-                <Phone className="h-4 w-4 text-[#C5A059] mt-0.5 shrink-0" />
+                <Phone className="h-4 w-4 text-[#D4AF37] mt-0.5 shrink-0" />
                 <div>
                   <p className="font-semibold text-text-primary">WhatsApp Orders</p>
-                  <p className="font-mono text-[#7A0C2E] font-bold">0327-5792600</p>
+                  <p className="font-mono text-[#B81D4E] font-bold">0327-5792600</p>
                 </div>
               </div>
               <div className="flex items-start gap-2.5">
-                <Mail className="h-4 w-4 text-[#C5A059] mt-0.5 shrink-0" />
+                <Mail className="h-4 w-4 text-[#D4AF37] mt-0.5 shrink-0" />
                 <p>support@gulnaarbymk.com</p>
               </div>
               <p className="text-[11px] text-text-secondary/70 pl-6.5">
@@ -190,7 +190,7 @@ export default function Footer() {
             <Link
               href="/admin"
               prefetch={false}
-              className="inline-flex items-center gap-1 text-[11px] text-text-secondary/70 hover:text-[#7A0C2E] transition-colors"
+              className="inline-flex items-center gap-1 text-[11px] text-text-secondary/70 hover:text-[#B81D4E] transition-colors"
               title="Admin Portal"
             >
               <Lock className="h-2.5 w-2.5" />
@@ -201,11 +201,11 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row items-center gap-2 text-center md:text-right text-[11px]">
             <span>
               © 2026 GULNAAR by MK. Handcrafted with{' '}
-              <Heart className="h-3 w-3 text-[#7A0C2E] fill-[#7A0C2E] inline mx-0.5" /> in Pakistan.
+              <Heart className="h-3 w-3 text-[#B81D4E] fill-[#B81D4E] inline mx-0.5" /> in Pakistan.
             </span>
             <span className="hidden sm:inline text-border">•</span>
             <span className="text-text-secondary/60 hover:text-text-primary transition-colors" title="Engineered by Tatheer (03275792600)">
-              Crafted by <span className="text-[#7A0C2E] font-semibold">Tech4Edges</span> (03275792600)
+              Crafted by <span className="text-[#B81D4E] font-semibold">Tech4Edges</span> (03275792600)
             </span>
           </div>
         </div>

@@ -57,7 +57,7 @@ export default function Header() {
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-300 ${
         scrolled
-          ? 'glass-luxury shadow-[0_8px_30px_rgba(0,0,0,0.06)] border-b border-[#C5A059]/30'
+          ? 'glass-luxury shadow-[0_8px_30px_rgba(0,0,0,0.06)] border-b border-[#D4AF37]/30'
           : 'bg-white/95 backdrop-blur-md border-b border-border'
       }`}
     >
@@ -68,7 +68,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden rounded-xl p-2.5 text-text-primary hover:bg-[#FDF2F4] hover:text-[#7A0C2E] transition-colors"
+              className="lg:hidden rounded-xl p-2.5 text-text-primary hover:bg-[#FFF0F5] hover:text-[#B81D4E] transition-colors"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -88,10 +88,10 @@ export default function Header() {
               </div>
 
               <div className="flex flex-col">
-                <span className="font-heading text-2xl font-bold tracking-[0.18em] text-[#7A0C2E] group-hover:text-[#560820] transition-colors leading-none">
+                <span className="font-heading text-2xl font-bold tracking-[0.18em] text-[#B81D4E] group-hover:text-[#8E0E3B] transition-colors leading-none">
                   GULNAAR
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.35em] text-[#C5A059] font-bold mt-1 block">
+                <span className="text-[10px] uppercase tracking-[0.35em] text-[#D4AF37] font-bold mt-1 block">
                   by MK • Lahore Atelier
                 </span>
               </div>
@@ -108,11 +108,11 @@ export default function Header() {
             >
               <button
                 type="button"
-                className="text-nav flex items-center gap-1.5 px-4 py-2.5 rounded-full text-text-primary hover:text-[#7A0C2E] hover:bg-[#FDF2F4] transition-all cursor-pointer group"
+                className="text-nav flex items-center gap-1.5 px-4 py-2.5 rounded-full text-text-primary hover:text-[#B81D4E] hover:bg-[#FFF0F5] transition-all cursor-pointer group"
               >
                 <span>Collections</span>
                 <ChevronDown
-                  className={`h-3.5 w-3.5 text-[#C5A059] transition-transform duration-300 ${
+                  className={`h-3.5 w-3.5 text-[#D4AF37] transition-transform duration-300 ${
                     collectionsOpen ? 'rotate-180' : ''
                   }`}
                 />
@@ -121,19 +121,19 @@ export default function Header() {
               {/* Mega Menu Dropdown */}
               {collectionsOpen && (
                 <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50 animate-dropdown">
-                  <div className="w-[580px] rounded-3xl bg-white border border-[#C5A059]/40 shadow-[0_24px_60px_rgba(122,12,46,0.14)] p-6">
+                  <div className="w-[580px] rounded-3xl bg-white border border-[#D4AF37]/40 shadow-[0_24px_60px_rgba(122,12,46,0.14)] p-6">
                     {/* Header */}
                     <div className="flex items-center justify-between mb-4 pb-3 border-b border-border">
                       <div className="flex items-center gap-2">
-                        <Gem className="h-3.5 w-3.5 text-[#C5A059]" />
-                        <span className="text-[11px] uppercase tracking-[0.25em] font-bold text-[#C5A059]">
+                        <Gem className="h-3.5 w-3.5 text-[#D4AF37]" />
+                        <span className="text-[11px] uppercase tracking-[0.25em] font-bold text-[#D4AF37]">
                           Bangle Collections
                         </span>
                       </div>
                       <Link
                         href="/shop"
                         prefetch={true}
-                        className="text-xs font-bold text-[#7A0C2E] hover:text-[#560820] transition-colors"
+                        className="text-xs font-bold text-[#B81D4E] hover:text-[#8E0E3B] transition-colors"
                       >
                         Explore Entire Vault &rarr;
                       </Link>
@@ -146,13 +146,13 @@ export default function Header() {
                           key={col.label}
                           href={col.href}
                           prefetch={true}
-                          className="group/item flex items-start gap-3.5 rounded-2xl p-3.5 hover:bg-[#FDF2F4] border border-transparent hover:border-[#C5A059]/40 transition-all duration-300 hover:translate-x-1"
+                          className="group/item flex items-start gap-3.5 rounded-2xl p-3.5 hover:bg-[#FFF0F5] border border-transparent hover:border-[#D4AF37]/40 transition-all duration-300 hover:translate-x-1"
                         >
                           <span className="text-2xl mt-0.5 group-hover/item:scale-125 transition-transform duration-300">
                             {col.icon}
                           </span>
                           <div>
-                            <span className="text-sm font-bold text-text-primary group-hover/item:text-[#7A0C2E] transition-colors block">
+                            <span className="text-sm font-bold text-text-primary group-hover/item:text-[#B81D4E] transition-colors block">
                               {col.label}
                             </span>
                             <span className="text-xs text-text-secondary leading-snug block mt-0.5">
@@ -168,14 +168,14 @@ export default function Header() {
                       <Link
                         href="/shop?category=bridal"
                         prefetch={true}
-                        className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-[#7A0C2E] to-[#4A0E2E] p-4 text-white hover:shadow-lg hover:scale-[1.01] transition-all duration-300 border border-[#DFB76C]/40 group/spot"
+                        className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-[#B81D4E] to-[#700B2E] p-4 text-white hover:shadow-lg hover:scale-[1.01] transition-all duration-300 border border-[#F6D365]/40 group/spot"
                       >
                         <div className="flex items-center gap-3">
                           <div className="h-10 w-10 rounded-xl bg-white/15 flex items-center justify-center">
-                            <Crown className="h-5 w-5 text-[#DFB76C]" />
+                            <Crown className="h-5 w-5 text-[#F6D365]" />
                           </div>
                           <div>
-                            <span className="text-xs uppercase tracking-wider font-bold text-[#DFB76C] block">
+                            <span className="text-xs uppercase tracking-wider font-bold text-[#F6D365] block">
                               Bridal Season Edit 2026
                             </span>
                             <span className="text-xs text-white/80">
@@ -183,7 +183,7 @@ export default function Header() {
                             </span>
                           </div>
                         </div>
-                        <span className="text-xs font-bold text-[#DFB76C] group-hover/spot:translate-x-1 transition-transform">
+                        <span className="text-xs font-bold text-[#F6D365] group-hover/spot:translate-x-1 transition-transform">
                           Shop Bridal &rarr;
                         </span>
                       </Link>
@@ -199,10 +199,10 @@ export default function Header() {
                 key={link.label}
                 href={link.href}
                 prefetch={true}
-                className="relative text-nav px-4 py-2.5 text-text-primary hover:text-[#7A0C2E] transition-colors group"
+                className="relative text-nav px-4 py-2.5 text-text-primary hover:text-[#B81D4E] transition-colors group"
               >
                 <span>{link.label}</span>
-                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#DFB76C] to-[#7A0C2E] transition-all duration-300 group-hover:w-3/4 rounded-full" />
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-[#F6D365] to-[#B81D4E] transition-all duration-300 group-hover:w-3/4 rounded-full" />
               </Link>
             ))}
           </nav>
@@ -213,7 +213,7 @@ export default function Header() {
             <Link
               href="/search"
               prefetch={true}
-              className="rounded-full p-2.5 text-text-secondary hover:bg-[#FDF2F4] hover:text-[#7A0C2E] transition-all hover:scale-105 active:scale-95"
+              className="rounded-full p-2.5 text-text-secondary hover:bg-[#FFF0F5] hover:text-[#B81D4E] transition-all hover:scale-105 active:scale-95"
               aria-label="Search Collection"
             >
               <Search className="h-5 w-5" />
@@ -223,9 +223,9 @@ export default function Header() {
             <Link
               href="/track-order"
               prefetch={true}
-              className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-text-secondary hover:text-[#7A0C2E] px-3.5 py-2 rounded-full border border-border hover:border-[#C5A059] hover:bg-[#FDF2F4] transition-all hover:scale-102"
+              className="hidden sm:flex items-center gap-1.5 text-xs font-bold text-text-secondary hover:text-[#B81D4E] px-3.5 py-2 rounded-full border border-border hover:border-[#D4AF37] hover:bg-[#FFF0F5] transition-all hover:scale-102"
             >
-              <Compass className="h-3.5 w-3.5 text-[#C5A059]" />
+              <Compass className="h-3.5 w-3.5 text-[#D4AF37]" />
               <span>Track Order</span>
             </Link>
 
@@ -233,13 +233,13 @@ export default function Header() {
             <button
               type="button"
               onClick={openCart}
-              className="relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#7A0C2E] to-[#4A0E2E] px-4.5 py-2.5 text-white border border-[#DFB76C]/40 shadow-md hover:shadow-[0_8px_24px_rgba(122,12,46,0.25)] hover:scale-105 active:scale-95 transition-all duration-300 btn-luxury-shine cursor-pointer group"
+              className="relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#B81D4E] to-[#700B2E] px-4.5 py-2.5 text-white border border-[#F6D365]/40 shadow-md hover:shadow-[0_8px_24px_rgba(122,12,46,0.25)] hover:scale-105 active:scale-95 transition-all duration-300 btn-luxury-shine cursor-pointer group"
               aria-label={`Shopping bag with ${totalItems} items`}
             >
-              <ShoppingBag className="h-4 w-4 text-[#DFB76C] group-hover:rotate-12 transition-transform duration-300" />
+              <ShoppingBag className="h-4 w-4 text-[#F6D365] group-hover:rotate-12 transition-transform duration-300" />
               <span className="text-xs font-bold tracking-wider">{totalItems}</span>
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-br from-[#DFB76C] to-[#C5A059] text-[10px] font-bold text-[#4A0E2E] flex items-center justify-center shadow-md animate-scale-in">
+                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-br from-[#F6D365] to-[#D4AF37] text-[10px] font-bold text-[#700B2E] flex items-center justify-center shadow-md animate-scale-in">
                   {totalItems}
                 </span>
               )}
@@ -287,10 +287,10 @@ export default function Header() {
                     />
                   </div>
                   <div>
-                    <span className="font-heading text-lg font-bold tracking-wider text-[#7A0C2E] block leading-none">
+                    <span className="font-heading text-lg font-bold tracking-wider text-[#B81D4E] block leading-none">
                       GULNAAR
                     </span>
-                    <span className="text-[9px] uppercase tracking-[0.25em] text-[#C5A059] font-bold mt-0.5 block">
+                    <span className="text-[9px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold mt-0.5 block">
                       by MK • Lahore Atelier
                     </span>
                   </div>
@@ -299,7 +299,7 @@ export default function Header() {
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="h-9 w-9 rounded-full bg-white border border-[#E8E5DF] hover:bg-[#FDF2F4] text-text-primary hover:text-[#7A0C2E] flex items-center justify-center transition-colors cursor-pointer shadow-xs"
+                  className="h-9 w-9 rounded-full bg-white border border-[#E8E5DF] hover:bg-[#FFF0F5] text-text-primary hover:text-[#B81D4E] flex items-center justify-center transition-colors cursor-pointer shadow-xs"
                   aria-label="Close Navigation Menu"
                 >
                   <X className="h-5 w-5" />
@@ -314,9 +314,9 @@ export default function Header() {
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#4A0E2E]/90 via-[#7A0C2E]/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#700B2E]/90 via-[#B81D4E]/60 to-transparent" />
                 <div className="absolute bottom-3 left-4 text-white">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#DFB76C] block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#F6D365] block">
                     Bridal & Festive 2026
                   </span>
                   <span className="font-heading text-base font-bold block">
@@ -327,7 +327,7 @@ export default function Header() {
 
               {/* Mobile Collections */}
               <div className="p-4">
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059] block mb-2 px-1">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#D4AF37] block mb-2 px-1">
                   Vault Collections
                 </span>
                 <div className="space-y-1">
@@ -337,7 +337,7 @@ export default function Header() {
                       href={col.href}
                       prefetch={true}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 rounded-xl p-2.5 hover:bg-[#FDF2F4] transition-colors"
+                      className="flex items-center gap-3 rounded-xl p-2.5 hover:bg-[#FFF0F5] transition-colors"
                     >
                       <span className="text-xl">{col.icon}</span>
                       <div>
@@ -359,7 +359,7 @@ export default function Header() {
                     href={link.href}
                     prefetch={true}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block rounded-xl px-3 py-2 text-sm font-bold text-text-primary hover:bg-[#FDF2F4] hover:text-[#7A0C2E] transition-colors"
+                    className="block rounded-xl px-3 py-2 text-sm font-bold text-text-primary hover:bg-[#FFF0F5] hover:text-[#B81D4E] transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -368,9 +368,9 @@ export default function Header() {
                   href="/track-order"
                   prefetch={true}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-text-secondary hover:bg-[#FDF2F4] hover:text-[#7A0C2E] transition-colors"
+                  className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-text-secondary hover:bg-[#FFF0F5] hover:text-[#B81D4E] transition-colors"
                 >
-                  <Compass className="h-4 w-4 text-[#C5A059]" />
+                  <Compass className="h-4 w-4 text-[#D4AF37]" />
                   <span>Track Order</span>
                 </Link>
               </div>
@@ -382,9 +382,9 @@ export default function Header() {
                     href="https://wa.me/923275792600"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-[#7A0C2E] font-bold hover:underline"
+                    className="flex items-center gap-1.5 text-[#B81D4E] font-bold hover:underline"
                   >
-                    <Phone className="h-3.5 w-3.5 text-[#C5A059]" />
+                    <Phone className="h-3.5 w-3.5 text-[#D4AF37]" />
                     <span>0327-5792600</span>
                   </a>
                   <span className="font-mono text-[10px] text-text-secondary">

@@ -66,7 +66,7 @@ export default function CategoryStoriesBar() {
               className="flex flex-col items-center gap-1.5 shrink-0 group focus:outline-none"
             >
               {/* Instagram-style Ring */}
-              <div className="relative p-0.5 rounded-full bg-gradient-to-tr from-[#C5A059] via-[#DFB76C] to-[#7A0C2E] group-hover:scale-105 transition-transform duration-300 shadow-xs">
+              <div className="relative p-0.5 rounded-full bg-gradient-to-tr from-[#FF2E93] via-[#F6D365] to-[#B81D4E] group-hover:scale-105 transition-transform duration-300 shadow-xs">
                 <div className="relative h-16 w-16 sm:h-20 sm:w-20 rounded-full overflow-hidden bg-white p-0.5 border-2 border-white">
                   <Image
                     src={story.image}
@@ -77,12 +77,12 @@ export default function CategoryStoriesBar() {
                   />
                 </div>
                 {story.isHot && (
-                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-[#7A0C2E] text-white text-[8px] font-extrabold uppercase px-1.5 py-0.2 rounded-full tracking-wider border border-white shadow-xs">
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#FF2E93] to-[#B81D4E] text-white text-[8px] font-extrabold uppercase px-1.5 py-0.2 rounded-full tracking-wider border border-white shadow-xs">
                     Hot
                   </span>
                 )}
               </div>
-              <span className="text-[11px] sm:text-xs font-semibold text-text-primary group-hover:text-[#7A0C2E] transition-colors tracking-tight text-center max-w-[72px] truncate">
+              <span className="text-[11px] sm:text-xs font-semibold text-text-primary group-hover:text-[#B81D4E] transition-colors tracking-tight text-center max-w-[72px] truncate">
                 {story.name}
               </span>
             </Link>

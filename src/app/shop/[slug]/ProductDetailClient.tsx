@@ -193,7 +193,7 @@ export default function ProductDetailClient({
         particleCount: 50,
         spread: 60,
         origin: { y: 0.65 },
-        colors: ['#DFB76C', '#7A0C2E', '#C5A059', '#FFFFFF'],
+        colors: ['#F6D365', '#B81D4E', '#D4AF37', '#FFFFFF'],
       });
     } catch {
       // ignore
@@ -355,8 +355,8 @@ export default function ProductDetailClient({
                       onClick={() => handleSizeChange(size)}
                       className={`flex h-12 w-12 items-center justify-center rounded-2xl text-sm font-bold transition-all border cursor-pointer ${
                         isSelected
-                          ? 'border-[#DFB76C] bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] text-white shadow-md scale-105 ring-2 ring-[#DFB76C]/40'
-                          : 'border-border bg-white text-text-primary hover:border-[#C5A059] hover:shadow-xs'
+                          ? 'border-[#F6D365] bg-gradient-to-br from-[#B81D4E] to-[#700B2E] text-white shadow-md scale-105 ring-2 ring-[#F6D365]/40'
+                          : 'border-border bg-white text-text-primary hover:border-[#D4AF37] hover:shadow-xs'
                       }`}
                     >
                       {size}
@@ -439,11 +439,11 @@ export default function ProductDetailClient({
                 fullWidth
                 onClick={handleAddToCart}
                 disabled={isOutOfStock}
-                className="h-13 rounded-2xl bg-gradient-to-r from-[#7A0C2E] via-[#560820] to-[#7A0C2E] hover:from-[#560820] hover:to-[#380414] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-[0_12px_30px_rgba(122,12,46,0.3)] border border-[#DFB76C]/40 btn-luxury-shine active:scale-98 transition-all cursor-pointer"
+                className="h-13 rounded-2xl bg-gradient-to-r from-[#B81D4E] via-[#8E0E3B] to-[#B81D4E] hover:from-[#8E0E3B] hover:to-[#5C0724] text-white font-bold text-sm sm:text-base shadow-lg hover:shadow-[0_12px_30px_rgba(122,12,46,0.3)] border border-[#F6D365]/40 btn-luxury-shine active:scale-98 transition-all cursor-pointer"
               >
                 {isAdded ? (
-                  <span className="flex items-center gap-2 text-[#DFB76C]">
-                    <Check className="h-5 w-5 text-[#DFB76C]" />
+                  <span className="flex items-center gap-2 text-[#F6D365]">
+                    <Check className="h-5 w-5 text-[#F6D365]" />
                     Added to Bag Successfully!
                   </span>
                 ) : isOutOfStock ? (
@@ -461,10 +461,10 @@ export default function ProductDetailClient({
           </div>
 
           {/* Trust Guarantees */}
-          <div className="rounded-3xl border border-[#C5A059]/30 bg-gradient-to-br from-[#FAF9F6] via-white to-[#FDF2F4] p-6 space-y-4 text-xs text-text-secondary shadow-xs">
+          <div className="rounded-3xl border border-[#D4AF37]/30 bg-gradient-to-br from-[#FAF9F6] via-white to-[#FFF0F5] p-6 space-y-4 text-xs text-text-secondary shadow-xs">
             <div className="flex items-center gap-3.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#7A0C2E] text-white shrink-0 shadow-xs">
-                <Truck className="h-4.5 w-4.5 text-[#DFB76C]" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#B81D4E] text-white shrink-0 shadow-xs">
+                <Truck className="h-4.5 w-4.5 text-[#F6D365]" />
               </div>
               <div>
                 <span className="font-bold text-text-primary block text-xs">Express Courier Delivery</span>
@@ -472,8 +472,8 @@ export default function ProductDetailClient({
               </div>
             </div>
             <div className="flex items-center gap-3.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#DFB76C] text-[#4A0E2E] shrink-0 shadow-xs">
-                <ShieldCheck className="h-4.5 w-4.5 text-[#4A0E2E]" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#F6D365] text-[#700B2E] shrink-0 shadow-xs">
+                <ShieldCheck className="h-4.5 w-4.5 text-[#700B2E]" />
               </div>
               <div>
                 <span className="font-bold text-text-primary block text-xs">Cash on Delivery (COD)</span>
@@ -481,8 +481,8 @@ export default function ProductDetailClient({
               </div>
             </div>
             <div className="flex items-center gap-3.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#7A0C2E] text-white shrink-0 shadow-xs">
-                <RefreshCw className="h-4.5 w-4.5 text-[#DFB76C]" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#B81D4E] text-white shrink-0 shadow-xs">
+                <RefreshCw className="h-4.5 w-4.5 text-[#F6D365]" />
               </div>
               <div>
                 <span className="font-bold text-text-primary block text-xs">Easy 3-Day Size Exchange</span>
@@ -590,7 +590,7 @@ export default function ProductDetailClient({
         <div className="pt-12 border-t border-border">
           <div className="text-center max-w-xl mx-auto mb-10">
             <span className="text-xs uppercase tracking-[0.2em] text-[#D4A017] font-bold block mb-1 inline-flex items-center gap-1.5 justify-center">
-              <Crown className="h-3.5 w-3.5 text-[#DFB76C]" />
+              <Crown className="h-3.5 w-3.5 text-[#F6D365]" />
               Complete The Look
             </span>
             <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary">
@@ -608,13 +608,13 @@ export default function ProductDetailClient({
 
       {/* Floating Sticky Quick Buy Bar */}
       <div
-        className={`fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#DFB76C]/40 p-3 sm:p-4 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 transform ${
+        className={`fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#F6D365]/40 p-3 sm:p-4 shadow-[0_-8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 transform ${
           showStickyBar ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="relative h-12 w-12 rounded-xl overflow-hidden border border-[#DFB76C]/30 shrink-0 hidden sm:block">
+            <div className="relative h-12 w-12 rounded-xl overflow-hidden border border-[#F6D365]/30 shrink-0 hidden sm:block">
               <Image
                 src={galleryImages[0]}
                 alt={product.name}
@@ -629,7 +629,7 @@ export default function ProductDetailClient({
               </h4>
               <p className="text-xs text-text-secondary">
                 {selectedVariant?.size ? `Size: ${selectedVariant.size} • ` : ''}
-                <span className="font-bold text-[#7A0C2E]">
+                <span className="font-bold text-[#B81D4E]">
                   {formatPrice(currentPrice)}
                 </span>
               </p>

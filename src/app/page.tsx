@@ -45,12 +45,12 @@ async function HomeContent() {
       />
 
       {/* 4. TRENDING BESTSELLERS ROW (2-COL MOBILE GRID) */}
-      <section className="py-8 sm:py-12 bg-[#FAF9F6] border-y border-[#E8E5DF]">
+      <section className="py-8 sm:py-12 bg-[#FFF9FB] border-y border-[#F0DFE7]">
         <Container size="xl">
           <div className="flex items-end justify-between mb-6">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#7A0C2E] mb-1">
-                <Crown className="h-3.5 w-3.5 text-[#C5A059]" />
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#B81D4E] mb-1">
+                <Crown className="h-3.5 w-3.5 text-[#D4AF37]" />
                 <span>Customer Favorites</span>
               </div>
               <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
@@ -60,7 +60,7 @@ async function HomeContent() {
             <Link
               href="/shop?category=bridal"
               prefetch={true}
-              className="text-xs sm:text-sm font-bold text-[#7A0C2E] hover:text-[#560820] inline-flex items-center gap-1 group"
+              className="text-xs sm:text-sm font-bold text-[#B81D4E] hover:text-[#8E0E3B] inline-flex items-center gap-1 group"
             >
               <span>See More</span>
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -79,7 +79,7 @@ async function HomeContent() {
       <section className="py-8 sm:py-12 bg-[#FFFFFF]">
         <Container size="xl">
           <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#C5A059] font-bold block mb-1">
+            <span className="text-xs uppercase tracking-[0.2em] text-[#D4AF37] font-bold block mb-1">
               Curated by Occasion
             </span>
             <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary">
@@ -127,7 +127,7 @@ async function HomeContent() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
 
                 <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 text-white">
-                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-bold text-[#DFB76C] uppercase tracking-wider mb-1.5 border border-white/20">
+                  <span className="inline-block px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-bold text-[#F6D365] uppercase tracking-wider mb-1.5 border border-white/20">
                     {col.badge}
                   </span>
                   <h3 className="font-heading text-lg sm:text-xl font-bold leading-tight">
@@ -136,7 +136,7 @@ async function HomeContent() {
                   <p className="text-[11px] text-white/80 line-clamp-1 mt-0.5">
                     {col.desc}
                   </p>
-                  <span className="text-xs font-bold text-[#DFB76C] inline-flex items-center gap-1 mt-2 group-hover:translate-x-1 transition-transform">
+                  <span className="text-xs font-bold text-[#F6D365] inline-flex items-center gap-1 mt-2 group-hover:translate-x-1 transition-transform">
                     Shop Collection &rarr;
                   </span>
                 </div>
@@ -148,12 +148,12 @@ async function HomeContent() {
 
       {/* 6. AFFORDABLE FAVORITES (UNDER RS 4,000) — LIKE KAAJTAANKA */}
       {budgetProducts.length > 0 && (
-        <section className="py-8 sm:py-12 bg-[#FAF9F6] border-y border-[#E8E5DF]">
+        <section className="py-8 sm:py-12 bg-[#FFF9FB] border-y border-[#F0DFE7]">
           <Container size="xl">
             <div className="flex items-end justify-between mb-6">
               <div>
-                <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#7A0C2E] mb-1">
-                  <Gem className="h-3.5 w-3.5 text-[#C5A059]" />
+                <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#B81D4E] mb-1">
+                  <Gem className="h-3.5 w-3.5 text-[#D4AF37]" />
                   <span>Pocket-Friendly Luxury</span>
                 </div>
                 <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary tracking-tight">
@@ -163,7 +163,7 @@ async function HomeContent() {
               <Link
                 href="/shop?category=everyday"
                 prefetch={true}
-                className="text-xs sm:text-sm font-bold text-[#7A0C2E] hover:text-[#560820] inline-flex items-center gap-1 group"
+                className="text-xs sm:text-sm font-bold text-[#B81D4E] hover:text-[#8E0E3B] inline-flex items-center gap-1 group"
               >
                 <span>View All</span>
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
@@ -209,10 +209,10 @@ async function HomeContent() {
               return (
                 <div
                   key={pillar.title}
-                  className="p-4 sm:p-5 rounded-2xl bg-[#FAF9F6] border border-[#E8E5DF] text-center flex flex-col items-center justify-center hover:border-[#C5A059] transition-colors"
+                  className="p-4 sm:p-5 rounded-2xl bg-[#FFF9FB] border border-[#F0DFE7] text-center flex flex-col items-center justify-center hover:border-[#D4AF37] transition-colors"
                 >
-                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-white border border-[#E8E5DF] flex items-center justify-center text-[#7A0C2E] mb-2.5 shadow-xs">
-                    <Icon className="h-5 w-5 text-[#7A0C2E]" />
+                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-white border border-[#F0DFE7] flex items-center justify-center text-[#B81D4E] mb-2.5 shadow-xs">
+                    <Icon className="h-5 w-5 text-[#B81D4E]" />
                   </div>
                   <h4 className="font-heading text-xs sm:text-sm font-bold text-text-primary">
                     {pillar.title}
@@ -231,7 +231,7 @@ async function HomeContent() {
       <section className="py-8 sm:py-12 bg-[#FAF9F6] border-t border-[#E8E5DF]">
         <Container size="xl">
           <div className="text-center max-w-xl mx-auto mb-6 sm:mb-8">
-            <span className="text-xs uppercase tracking-[0.2em] text-[#C5A059] font-bold block mb-1">
+            <span className="text-xs uppercase tracking-[0.2em] text-[#D4AF37] font-bold block mb-1">
               Verified Shopper Love
             </span>
             <h2 className="font-heading text-2xl sm:text-3xl font-bold text-text-primary">
@@ -265,9 +265,9 @@ async function HomeContent() {
                 className="p-5 rounded-2xl bg-white border border-[#E8E5DF] shadow-xs flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-1 text-[#C5A059] mb-2.5">
+                  <div className="flex items-center gap-1 text-[#D4AF37] mb-2.5">
                     {Array.from({ length: review.rating }).map((_, i) => (
-                      <Star key={i} className="h-3.5 w-3.5 fill-[#C5A059]" />
+                      <Star key={i} className="h-3.5 w-3.5 fill-[#D4AF37]" />
                     ))}
                   </div>
                   <p className="text-xs text-text-secondary leading-relaxed italic">

@@ -57,13 +57,13 @@ export default function MobileBottomNav() {
               prefetch={true}
               className={`flex flex-col items-center justify-center py-1 transition-colors ${
                 item.isActive
-                  ? 'text-[#7A0C2E] font-bold'
-                  : 'text-text-secondary hover:text-[#7A0C2E]'
+                  ? 'text-[#B81D4E] font-bold'
+                  : 'text-text-secondary hover:text-[#B81D4E]'
               }`}
             >
               <Icon
                 className={`h-5 w-5 ${
-                  item.isActive ? 'stroke-[2.5] text-[#7A0C2E]' : 'stroke-[1.75]'
+                  item.isActive ? 'stroke-[2.5] text-[#B81D4E]' : 'stroke-[1.75]'
                 }`}
               />
               <span className="text-[10px] tracking-tight mt-0.5">{item.label}</span>
@@ -92,18 +92,18 @@ export default function MobileBottomNav() {
         <button
           type="button"
           onClick={openCart}
-          className="relative flex flex-col items-center justify-center py-1 text-[#7A0C2E] cursor-pointer"
+          className="relative flex flex-col items-center justify-center py-1 text-[#B81D4E] cursor-pointer"
           aria-label={`Shopping Cart with ${totalItems} items`}
         >
           <div className="relative">
-            <ShoppingBag className="h-5 w-5 stroke-[2] text-[#7A0C2E]" />
+            <ShoppingBag className="h-5 w-5 stroke-[2] text-[#B81D4E]" />
             {totalItems > 0 && (
-              <span className="absolute -top-1.5 -right-2 min-w-4 h-4 px-1 rounded-full bg-gradient-to-r from-[#DFB76C] to-[#C5A059] text-[9px] font-bold text-[#4A0E2E] flex items-center justify-center shadow-xs">
+              <span className="absolute -top-1.5 -right-2 min-w-4 h-4 px-1 rounded-full bg-gradient-to-r from-[#F6D365] to-[#D4AF37] text-[9px] font-bold text-[#700B2E] flex items-center justify-center shadow-xs">
                 {totalItems}
               </span>
             )}
           </div>
-          <span className="text-[10px] font-bold tracking-tight text-[#7A0C2E] mt-0.5">
+          <span className="text-[10px] font-bold tracking-tight text-[#B81D4E] mt-0.5">
             Cart
           </span>
         </button>

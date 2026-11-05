@@ -89,13 +89,13 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         {/* Status Badges with Luxury Styling */}
         <div className="absolute left-3 top-3 z-10 flex flex-col gap-1.5 pointer-events-none">
           {isNew && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#DFB76C] to-[#C5A059] px-2.5 py-0.5 text-[10px] font-bold text-[#4A0E2E] shadow-sm">
+            <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-[#F6D365] to-[#D4AF37] px-2.5 py-0.5 text-[10px] font-bold text-[#700B2E] shadow-sm">
               <Gem className="h-3 w-3" />
               New Heirloom
             </span>
           )}
           {hasComparePrice && (
-            <span className="inline-flex items-center rounded-full bg-gradient-to-r from-[#991B1B] to-[#7A0C2E] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm">
+            <span className="inline-flex items-center rounded-full bg-gradient-to-r from-[#FF2E93] to-[#B81D4E] px-2.5 py-0.5 text-[10px] font-bold text-white shadow-sm">
               Sale Offer
             </span>
           )}
@@ -109,8 +109,8 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 
         {/* Quick View Button (Smooth Slide & Shine on Hover) */}
         <div className="absolute inset-x-3 bottom-3 z-10 opacity-0 transform translate-y-3 transition-all duration-400 group-hover:opacity-100 group-hover:translate-y-0 pointer-events-none">
-          <div className="flex items-center justify-center gap-2 rounded-xl bg-white/95 backdrop-blur-md py-2.5 text-xs font-bold text-[#7A0C2E] shadow-lg border border-[#C5A059]/40 btn-luxury-shine">
-            <Eye className="h-3.5 w-3.5 text-[#C5A059]" />
+          <div className="flex items-center justify-center gap-2 rounded-xl bg-white/95 backdrop-blur-md py-2.5 text-xs font-bold text-[#B81D4E] shadow-lg border border-[#D4AF37]/40 btn-luxury-shine">
+            <Eye className="h-3.5 w-3.5 text-[#D4AF37]" />
             <span>View Details & Sizes</span>
           </div>
         </div>
@@ -120,11 +120,11 @@ export default function ProductCard({ product, className }: ProductCardProps) {
       <div className="space-y-1.5 flex-1 flex flex-col justify-between px-1 pb-1">
         <div>
           {product.category && (
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059]">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#D4AF37]">
               {product.category.name}
             </p>
           )}
-          <h3 className="font-heading text-sm sm:text-base font-bold text-text-primary line-clamp-1 transition-colors duration-200 group-hover:text-[#7A0C2E] mt-0.5">
+          <h3 className="font-heading text-sm sm:text-base font-bold text-text-primary line-clamp-1 transition-colors duration-200 group-hover:text-[#B81D4E] mt-0.5">
             {product.name}
           </h3>
           {availableSizes.length > 0 && (
@@ -133,7 +133,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
               {availableSizes.slice(0, 3).map((s) => (
                 <span
                   key={s}
-                  className="inline-flex items-center justify-center h-4 px-1.5 rounded-md bg-[#FAF9F6] border border-border text-[9px] font-semibold text-text-primary group-hover:border-[#DFB76C]/60 group-hover:bg-[#FDF2F4] transition-colors"
+                  className="inline-flex items-center justify-center h-4 px-1.5 rounded-md bg-[#FAF9F6] border border-border text-[9px] font-semibold text-text-primary group-hover:border-[#F6D365]/60 group-hover:bg-[#FFF0F5] transition-colors"
                 >
                   {s}
                 </span>
@@ -147,7 +147,7 @@ export default function ProductCard({ product, className }: ProductCardProps) {
 
         <div className="flex items-baseline justify-between pt-1.5 border-t border-border/40">
           <div className="flex items-baseline gap-2">
-            <p className="font-bold text-sm sm:text-base text-[#7A0C2E]">
+            <p className="font-bold text-sm sm:text-base text-[#B81D4E]">
               {formatPrice(price)}
             </p>
             {hasComparePrice && (
@@ -167,9 +167,9 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         </div>
 
         {/* Mobile Quick Tap Indicator */}
-        <div className="sm:hidden mt-2 pt-1.5 border-t border-dashed border-[#E8E5DF] flex items-center justify-between text-[10px] font-bold text-[#7A0C2E]">
+        <div className="sm:hidden mt-2 pt-1.5 border-t border-dashed border-[#E8E5DF] flex items-center justify-between text-[10px] font-bold text-[#B81D4E]">
           <span>View Sizes</span>
-          <span className="text-[#C5A059]">&rarr;</span>
+          <span className="text-[#D4AF37]">&rarr;</span>
         </div>
       </div>
     </Link>

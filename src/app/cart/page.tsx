@@ -218,7 +218,7 @@ export default function CartPage() {
                 variant="primary"
                 size="lg"
                 fullWidth
-                className="bg-gradient-to-r from-[#7A0C2E] via-[#560820] to-[#7A0C2E] hover:from-[#560820] hover:to-[#380414] text-white font-bold shadow-lg border border-[#DFB76C]/40 btn-luxury-shine"
+                className="bg-gradient-to-r from-[#B81D4E] via-[#8E0E3B] to-[#B81D4E] hover:from-[#8E0E3B] hover:to-[#5C0724] text-white font-bold shadow-lg border border-[#F6D365]/40 btn-luxury-shine"
               >
                 Proceed to Checkout
                 <ArrowRight className="h-4 w-4 ml-1.5" />

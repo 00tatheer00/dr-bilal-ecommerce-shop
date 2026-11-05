@@ -48,7 +48,7 @@ export default async function AdminLayout({
                   <span className="font-heading text-lg font-bold tracking-widest text-[#FAF7F2] leading-none">
                     GULNAAR
                   </span>
-                  <span className="text-[9px] uppercase tracking-[0.25em] text-[#DFB76C] font-semibold mt-1">
+                  <span className="text-[9px] uppercase tracking-[0.25em] text-[#F6D365] font-semibold mt-1">
                     Management Console
                   </span>
                 </div>

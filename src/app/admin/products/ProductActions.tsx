@@ -50,7 +50,7 @@ export default function ProductActions({ productId, productSlug, productName }: 
 
       <Link
         href={`/admin/products/new?edit=${productId}`}
-        className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#7A0C2E]/10 text-[#7A0C2E] hover:bg-[#7A0C2E] hover:text-white text-[11px] font-medium transition-colors"
+        className="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-[#B81D4E]/10 text-[#B81D4E] hover:bg-[#B81D4E] hover:text-white text-[11px] font-medium transition-colors"
         title="Edit product, prices, stock & photos"
       >
         <Edit2 className="h-3 w-3" />

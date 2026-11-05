@@ -94,7 +94,7 @@ export default function LuxuryHero() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#FAF9F6] border-b border-[#E8E5DF] select-none"
+      className="relative overflow-hidden bg-gradient-to-b from-[#FFF9FB] to-white border-b border-[#F0DFE7] select-none"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -131,9 +131,9 @@ export default function LuxuryHero() {
               <div className="absolute inset-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
                 <div className="max-w-xl space-y-2.5 sm:space-y-4">
                   {/* Badge */}
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur-md px-3 py-1 border border-[#C5A059]/40 shadow-xs">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[#7A0C2E]" />
-                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#7A0C2E]">
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/90 backdrop-blur-md px-3 py-1 border border-[#D4AF37]/40 shadow-xs">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#B81D4E]" />
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#B81D4E]">
                       {slide.badge}
                     </span>
                   </div>
@@ -141,7 +141,7 @@ export default function LuxuryHero() {
                   {/* Title */}
                   <h1 className="font-heading text-2xl min-[420px]:text-3xl sm:text-4xl lg:text-5xl font-bold text-[#18181B] leading-[1.12] tracking-tight">
                     {slide.titlePrefix}{' '}
-                    <span className="text-[#7A0C2E] underline decoration-[#DFB76C]/50 decoration-2 underline-offset-4">
+                    <span className="text-[#B81D4E] underline decoration-[#F6D365]/50 decoration-2 underline-offset-4">
                       {slide.titleHighlight}
                     </span>{' '}
                     <span className="block text-[#27272A]">{slide.titleSuffix}</span>
@@ -157,9 +157,9 @@ export default function LuxuryHero() {
                     <Link
                       href={slide.ctaHref}
                       prefetch={true}
-                      className="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full bg-gradient-to-r from-[#7A0C2E] to-[#560820] hover:from-[#560820] hover:to-[#3B0411] text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] btn-luxury-shine cursor-pointer"
+                      className="inline-flex items-center justify-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full bg-gradient-to-r from-[#B81D4E] to-[#8E0E3B] hover:from-[#8E0E3B] hover:to-[#3B0411] text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] btn-luxury-shine cursor-pointer"
                     >
-                      <Crown className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#DFB76C]" />
+                      <Crown className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#F6D365]" />
                       <span>{slide.ctaText}</span>
                       <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                     </Link>
@@ -167,7 +167,7 @@ export default function LuxuryHero() {
                     <Link
                       href="/shop"
                       prefetch={true}
-                      className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-full bg-white hover:bg-[#FDF2F4] text-[#7A0C2E] font-bold text-xs sm:text-sm border border-[#7A0C2E]/30 hover:border-[#7A0C2E] transition-all shadow-xs cursor-pointer"
+                      className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-6 py-2.5 sm:py-3.5 rounded-full bg-white hover:bg-[#FFF0F5] text-[#B81D4E] font-bold text-xs sm:text-sm border border-[#B81D4E]/30 hover:border-[#B81D4E] transition-all shadow-xs cursor-pointer"
                     >
                       <span>All Bangles</span>
                     </Link>
@@ -183,7 +183,7 @@ export default function LuxuryHero() {
       <button
         type="button"
         onClick={prevSlide}
-        className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white/90 hover:bg-[#7A0C2E] hover:text-white text-text-primary border border-border shadow-md items-center justify-center transition-all cursor-pointer"
+        className="hidden lg:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white/90 hover:bg-[#B81D4E] hover:text-white text-text-primary border border-border shadow-md items-center justify-center transition-all cursor-pointer"
         aria-label="Previous Slide"
       >
         <ChevronLeft className="h-5 w-5" />
@@ -192,7 +192,7 @@ export default function LuxuryHero() {
       <button
         type="button"
         onClick={nextSlide}
-        className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white/90 hover:bg-[#7A0C2E] hover:text-white text-text-primary border border-border shadow-md items-center justify-center transition-all cursor-pointer"
+        className="hidden lg:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 h-10 w-10 rounded-full bg-white/90 hover:bg-[#B81D4E] hover:text-white text-text-primary border border-border shadow-md items-center justify-center transition-all cursor-pointer"
         aria-label="Next Slide"
       >
         <ChevronRight className="h-5 w-5" />
@@ -212,7 +212,7 @@ export default function LuxuryHero() {
             >
               <span
                 className={`block h-1.5 rounded-full transition-all duration-300 ${
-                  isActive ? 'w-6 bg-[#7A0C2E]' : 'w-2 bg-[#D4D4D8] hover:bg-[#A1A1AA]'
+                  isActive ? 'w-6 bg-[#B81D4E]' : 'w-2 bg-[#D4D4D8] hover:bg-[#A1A1AA]'
                 }`}
               />
             </button>

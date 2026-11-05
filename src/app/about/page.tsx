@@ -21,8 +21,8 @@ export default function AboutPage() {
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E17]/95 via-[#0F0E17]/80 to-[#7A0C2E]/60" />
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#DFB76C] via-[#7A0C2E] to-[#DFB76C]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E17]/95 via-[#0F0E17]/80 to-[#B81D4E]/60" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F6D365] via-[#B81D4E] to-[#F6D365]" />
 
         <Container size="md" className="relative z-10 py-16 text-white space-y-4">
           <div className="relative mx-auto h-24 w-24 mb-2 drop-shadow-lg">
@@ -34,7 +34,7 @@ export default function AboutPage() {
               className="object-contain"
             />
           </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-[#DFB76C] border border-white/20">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 backdrop-blur-md px-4 py-1.5 text-xs font-bold text-[#F6D365] border border-white/20">
             <Crown className="h-4 w-4" />
             The Heritage of GULNAAR by MK
           </span>
@@ -52,8 +52,8 @@ export default function AboutPage() {
         <Container size="lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <span className="text-xs uppercase tracking-[0.25em] text-[#C5A059] font-bold block inline-flex items-center gap-1.5">
-                <Crown className="h-3.5 w-3.5 text-[#C5A059]" />
+              <span className="text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-bold block inline-flex items-center gap-1.5">
+                <Crown className="h-3.5 w-3.5 text-[#D4AF37]" />
                 Born in Lahore
               </span>
               <h2 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary leading-tight">
@@ -77,7 +77,7 @@ export default function AboutPage() {
 
             {/* Visual Mosaic */}
             <div className="relative">
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#C5A059]/40 shadow-2xl">
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#D4AF37]/40 shadow-2xl">
                 <Image
                   src={CRAFT_IMAGE_1}
                   alt="Bridal Bangles Craftsmanship"
@@ -104,7 +104,7 @@ export default function AboutPage() {
       <section className="py-20 bg-[#FAF9F6] border-y border-border">
         <Container size="xl">
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#C5A059] font-bold block mb-2">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#D4AF37] font-bold block mb-2">
               ✦ Uncompromising Standards
             </span>
             <h2 className="font-heading text-3xl sm:text-4xl font-bold text-text-primary">
@@ -138,10 +138,10 @@ export default function AboutPage() {
                 className="rounded-3xl bg-white p-8 border border-border shadow-xs hover-luxury-card space-y-4"
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#7A0C2E] to-[#4A0E2E] text-white shadow-sm">
-                    <pillar.icon className="h-6 w-6 text-[#DFB76C]" />
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#B81D4E] to-[#700B2E] text-white shadow-sm">
+                    <pillar.icon className="h-6 w-6 text-[#F6D365]" />
                   </div>
-                  <span className="rounded-full bg-[#FDF2F4] border border-[#7A0C2E]/20 px-3 py-1 text-[11px] font-bold text-[#7A0C2E]">
+                  <span className="rounded-full bg-[#FFF0F5] border border-[#B81D4E]/20 px-3 py-1 text-[11px] font-bold text-[#B81D4E]">
                     {pillar.badge}
                   </span>
                 </div>
@@ -160,9 +160,9 @@ export default function AboutPage() {
       {/* 4. INVITATION CTA */}
       <section className="pt-20">
         <Container size="md">
-          <div className="rounded-3xl bg-gradient-to-r from-[#7A0C2E] via-[#560820] to-[#7A0C2E] p-10 sm:p-14 text-center text-white space-y-6 shadow-2xl relative overflow-hidden border border-[#DFB76C]/40">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#DFB76C]/10 to-transparent animate-shimmer pointer-events-none" />
-            <Crown className="h-12 w-12 text-[#DFB76C] mx-auto animate-pulse" />
+          <div className="rounded-3xl bg-gradient-to-r from-[#B81D4E] via-[#8E0E3B] to-[#B81D4E] p-10 sm:p-14 text-center text-white space-y-6 shadow-2xl relative overflow-hidden border border-[#F6D365]/40">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#F6D365]/10 to-transparent animate-shimmer pointer-events-none" />
+            <Crown className="h-12 w-12 text-[#F6D365] mx-auto animate-pulse" />
             <h2 className="font-heading text-3xl sm:text-4xl font-bold">
               Find Your Signature Heirloom Piece
             </h2>
@@ -174,10 +174,10 @@ export default function AboutPage() {
                 <Button
                   variant="primary"
                   size="lg"
-                  className="bg-gradient-to-r from-[#DFB76C] to-[#C5A059] text-[#4A0E2E] font-bold shadow-[0_10px_30px_rgba(223,183,108,0.4)] border-0 btn-luxury-shine"
+                  className="bg-gradient-to-r from-[#F6D365] to-[#D4AF37] text-[#700B2E] font-bold shadow-[0_10px_30px_rgba(223,183,108,0.4)] border-0 btn-luxury-shine"
                 >
                   Explore All Handcrafted Bangles
-                  <ArrowRight className="h-4 w-4 ml-1.5 text-[#4A0E2E]" />
+                  <ArrowRight className="h-4 w-4 ml-1.5 text-[#700B2E]" />
                 </Button>
               </Link>
             </div>

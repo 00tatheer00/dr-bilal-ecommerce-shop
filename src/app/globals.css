@@ -9,54 +9,54 @@
 
 /* --- CSS Custom Properties --- */
 :root {
-  /* Pristine Luxury Canvas (Clean White & Platinum Mist) */
+  /* Pristine Luxury Canvas (Pure Luminous White & Gentle Rose Petal Mist) */
   --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #FAF9F6;
-  --color-bg-surface: #F5F3EF;
+  --color-bg-secondary: #FFF9FB;
+  --color-bg-surface: #FFF0F5;
 
-  /* Royal Velvet Ruby Brand */
-  --color-brand: #7A0C2E;
-  --color-brand-hover: #560820;
-  --color-brand-light: #FDF2F4;
+  /* Royal Rani Ruby & Vibrant Rose Jewel */
+  --color-brand: #B81D4E;
+  --color-brand-hover: #8E0E3B;
+  --color-brand-light: #FFF0F5;
 
-  /* Florentine & Champagne Gold */
-  --color-gold: #C5A059;
-  --color-gold-light: #DFB76C;
-  --color-gold-dark: #9E7938;
+  /* Radiant Champagne & Royal Jewelry Gold */
+  --color-gold: #D4AF37;
+  --color-gold-light: #F6D365;
+  --color-gold-dark: #A67C1E;
 
-  /* Accent — Imperial Emerald */
-  --color-accent: #114226;
-  --color-accent-light: #F0FDF4;
+  /* Accent — Vibrant Emerald Jewel */
+  --color-accent: #059669;
+  --color-accent-light: #ECFDF5;
 
   /* Text — Crisp Obsidian & Soft Slate */
   --color-text: #18181B;
   --color-text-secondary: #52525B;
   --color-text-inverse: #FFFFFF;
 
-  /* Borders — Razor-thin Metallic & Neutral */
-  --color-border: #E8E5DF;
-  --color-border-strong: #C5A059;
+  /* Borders — Soft Rose-Gold & Neutral */
+  --color-border: #F0DFE7;
+  --color-border-strong: #D4AF37;
 
   /* Semantic */
-  --color-success: #166534;
-  --color-success-light: #F0FDF4;
-  --color-warning: #B45309;
+  --color-success: #059669;
+  --color-success-light: #ECFDF5;
+  --color-warning: #D97706;
   --color-warning-light: #FFFBEB;
-  --color-error: #991B1B;
-  --color-error-light: #FEF2F2;
-  --color-info: #1D4ED8;
+  --color-error: #E11D48;
+  --color-error-light: #FFF1F2;
+  --color-info: #2563EB;
 
   /* Admin */
   --color-admin-sidebar: #0F0E17;
   --color-admin-sidebar-text: #D4D4D8;
-  --color-admin-sidebar-active: #7A0C2E;
+  --color-admin-sidebar-active: #B81D4E;
 
-  /* High-Fashion Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
-  --shadow-lg: 0 12px 36px rgba(122, 12, 46, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 24px 60px rgba(122, 12, 46, 0.12), 0 8px 24px rgba(0, 0, 0, 0.06);
-  --shadow-gold: 0 8px 30px rgba(197, 160, 89, 0.25);
+  /* High-Fashion Shadows with Vibrant Rose/Gold Bloom */
+  --shadow-sm: 0 1px 3px rgba(184, 29, 78, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 20px rgba(184, 29, 78, 0.06), 0 2px 6px rgba(0, 0, 0, 0.03);
+  --shadow-lg: 0 12px 36px rgba(184, 29, 78, 0.12), 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 24px 60px rgba(184, 29, 78, 0.16), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-gold: 0 8px 30px rgba(212, 175, 55, 0.28);
 
   /* Radii */
   --radius-sm: 6px;
@@ -344,20 +344,20 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAF9F6;
+  background: #FFF9FB;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C5A059;
+  background: #F6D365;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7A0C2E;
+  background: #B81D4E;
 }
 
 /* Selection */
 ::selection {
-  background-color: #7A0C2E;
+  background-color: #B81D4E;
   color: #FFFFFF;
 }

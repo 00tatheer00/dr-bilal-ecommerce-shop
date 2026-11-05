@@ -10,7 +10,7 @@ interface CelebrationConfettiProps {
 export default function CelebrationConfetti({ durationMs = 3000 }: CelebrationConfettiProps) {
   useEffect(() => {
     const end = Date.now() + durationMs;
-    const colors = ['#DFB76C', '#7A0C2E', '#C5A059', '#114226', '#FAF9F6'];
+    const colors = ['#F6D365', '#B81D4E', '#D4AF37', '#114226', '#FAF9F6'];
 
     (function frame() {
       try {
