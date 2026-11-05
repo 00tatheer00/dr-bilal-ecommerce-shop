@@ -407,7 +407,7 @@ export async function uploadAdminProductImage(
   // Fallback for local development when Supabase storage is not yet connected
   return {
     success: true,
-    url: 'https://images.unsplash.com/photo-1611591475853-29471f008271?auto=format&fit=crop&q=80&w=1000',
+    url: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&q=80&w=1000',
   };
 }
 export async function archiveAdminProduct(id: string): Promise<AdminProductResult> {

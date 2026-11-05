@@ -67,11 +67,11 @@ const PRODUCT_IMAGE_URLS: Record<string, string[]> = {
   '3': [
     'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1200&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&auto=format&fit=crop&q=85',
-    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=1200&auto=format&fit=crop&q=85',
   ],
   '4': [
-    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=1200&auto=format&fit=crop&q=85',
   ],
@@ -82,7 +82,7 @@ const PRODUCT_IMAGE_URLS: Record<string, string[]> = {
   ],
   '6': [
     'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&auto=format&fit=crop&q=85',
-    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&auto=format&fit=crop&q=85',
   ],

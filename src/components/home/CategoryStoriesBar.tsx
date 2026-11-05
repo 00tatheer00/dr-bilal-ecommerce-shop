@@ -49,7 +49,7 @@ const STORY_ITEMS: StoryItem[] = [
     id: 'all',
     name: 'View All',
     href: '/shop',
-    image: 'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=240&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=240&auto=format&fit=crop&q=80',
   },
 ];
 
