@@ -154,6 +154,11 @@ export async function createAdminProduct(data: {
     comparePriceMinor?: number;
     stockQuantity: number;
   }[];
+  images?: {
+    url: string;
+    altText?: string;
+    isPrimary?: boolean;
+  }[];
 }): Promise<AdminProductResult> {
   const session = await getAdminSession();
   if (!session.isAuthenticated) {
@@ -185,10 +190,12 @@ export async function createAdminProduct(data: {
         return { success: false, error: prodErr?.message || 'Failed to create product.' };
       }
 
+      const newProdId = (newProd as any).id;
+
       // Insert variants
       if (data.variants && data.variants.length > 0) {
         const variantRows = data.variants.map((v) => ({
-          product_id: (newProd as any).id,
+          product_id: newProdId,
           sku: v.sku.trim().toUpperCase(),
           size: v.size || null,
           color: v.color || null,
@@ -201,12 +208,30 @@ export async function createAdminProduct(data: {
 
         const { error: varErr } = await (adminClient as any).from('product_variants').insert(variantRows);
         if (varErr) {
-          // Log variant creation issue
+          console.error('[createAdminProduct] Variants insert error:', varErr);
         }
       }
 
+      // Insert images
+      if (data.images && data.images.length > 0) {
+        const imageRows = data.images.map((img, idx) => ({
+          product_id: newProdId,
+          storage_path: img.url,
+          alt_text: img.altText || data.name,
+          sort_order: idx,
+          is_primary: img.isPrimary ?? idx === 0,
+        }));
+
+        const { error: imgErr } = await (adminClient as any).from('product_images').insert(imageRows);
+        if (imgErr) {
+          console.error('[createAdminProduct] Images insert error:', imgErr);
+        }
+      }
+
+      revalidatePath('/');
       revalidatePath('/shop');
       revalidatePath('/admin/products');
+      revalidatePath('/admin/inventory');
       return { success: true };
     } catch (e: any) {
       return { success: false, error: e?.message || 'Error creating product.' };
@@ -310,6 +335,19 @@ export async function updateAdminProduct(
     material?: string;
     isFeatured?: boolean;
     status?: 'active' | 'draft' | 'archived';
+    variants?: {
+      sku: string;
+      size?: string;
+      color?: string;
+      priceMinor: number;
+      comparePriceMinor?: number;
+      stockQuantity: number;
+    }[];
+    images?: {
+      url: string;
+      altText?: string;
+      isPrimary?: boolean;
+    }[];
   }
 ): Promise<AdminProductResult> {
   const session = await getAdminSession();
@@ -330,14 +368,60 @@ export async function updateAdminProduct(
       if (data.isFeatured !== undefined) updatePayload.is_featured = data.isFeatured;
       if (data.status !== undefined) updatePayload.status = data.status;
 
-      const { error } = await (adminClient as any).from('products').update(updatePayload).eq('id', id);
-      if (error) {
-        return { success: false, error: error.message };
+      const { error: prodErr } = await (adminClient as any).from('products').update(updatePayload).eq('id', id);
+      if (prodErr) {
+        return { success: false, error: prodErr.message };
       }
 
+      // Sync variants if provided
+      if (data.variants && data.variants.length > 0) {
+        // Delete existing variants for this product
+        await (adminClient as any).from('product_variants').delete().eq('product_id', id);
+
+        const variantRows = data.variants.map((v) => ({
+          product_id: id,
+          sku: v.sku.trim().toUpperCase(),
+          size: v.size || null,
+          color: v.color || null,
+          price_minor: v.priceMinor,
+          compare_at_price_minor: v.comparePriceMinor || null,
+          stock_quantity: v.stockQuantity,
+          low_stock_threshold: 3,
+          is_active: true,
+        }));
+
+        const { error: varErr } = await (adminClient as any).from('product_variants').insert(variantRows);
+        if (varErr) {
+          console.error('[updateAdminProduct] Variants sync error:', varErr);
+        }
+      }
+
+      // Sync images if provided
+      if (data.images && data.images.length > 0) {
+        // Delete existing images for this product
+        await (adminClient as any).from('product_images').delete().eq('product_id', id);
+
+        const imageRows = data.images.map((img, idx) => ({
+          product_id: id,
+          storage_path: img.url,
+          alt_text: img.altText || data.name || 'Bangle Product Photo',
+          sort_order: idx,
+          is_primary: img.isPrimary ?? idx === 0,
+        }));
+
+        const { error: imgErr } = await (adminClient as any).from('product_images').insert(imageRows);
+        if (imgErr) {
+          console.error('[updateAdminProduct] Images sync error:', imgErr);
+        }
+      }
+
+      revalidatePath('/');
       revalidatePath('/shop');
-      revalidatePath(`/shop/${data.slug}`);
+      if (data.slug) {
+        revalidatePath(`/shop/${data.slug}`);
+      }
       revalidatePath('/admin/products');
+      revalidatePath('/admin/inventory');
       return { success: true };
     } catch (e: any) {
       return { success: false, error: e?.message || 'Error updating product.' };
@@ -430,6 +514,33 @@ export async function archiveAdminProduct(id: string): Promise<AdminProductResul
       return { success: true };
     } catch (e: any) {
       return { success: false, error: e?.message || 'Error archiving product.' };
+    }
+  }
+
+  return { success: true };
+}
+
+/**
+ * Permanently delete a product and its associated variants/images
+ */
+export async function deleteAdminProduct(id: string): Promise<AdminProductResult> {
+  const session = await getAdminSession();
+  if (!session.isAuthenticated) {
+    return { success: false, error: 'Unauthorized.' };
+  }
+
+  const adminClient = createAdminClient();
+  if (adminClient) {
+    try {
+      const { error } = await (adminClient as any).from('products').delete().eq('id', id);
+      if (error) return { success: false, error: error.message };
+      revalidatePath('/admin/products');
+      revalidatePath('/admin/inventory');
+      revalidatePath('/shop');
+      revalidatePath('/');
+      return { success: true };
+    } catch (e: any) {
+      return { success: false, error: e?.message || 'Error deleting product.' };
     }
   }
 

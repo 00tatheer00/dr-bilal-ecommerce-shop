@@ -211,8 +211,22 @@ function ProductFormContent() {
     setLoading(true);
 
     try {
+      const formattedVariants = variants.map((v) => ({
+        sku: v.sku.trim().toUpperCase(),
+        size: v.size || undefined,
+        color: v.color || undefined,
+        priceMinor: Math.round(parseFloat(v.price) * 100),
+        stockQuantity: parseInt(v.stock, 10) || 0,
+      }));
+
+      const formattedImages = images.map((img) => ({
+        url: img.url,
+        altText: img.alt_text || name,
+        isPrimary: img.is_primary,
+      }));
+
       if (editId) {
-        // Edit Mode: Update existing product
+        // Edit Mode: Update existing product + variants + images
         const res = await updateAdminProduct(editId, {
           name,
           slug: slug || undefined,
@@ -222,28 +236,22 @@ function ProductFormContent() {
           material,
           isFeatured,
           status,
+          variants: formattedVariants,
+          images: formattedImages,
         });
 
         if (!res.success) {
           setError(res.error || 'Failed to update product.');
           setLoading(false);
         } else {
-          setSuccessMsg('Product updated successfully!');
+          setSuccessMsg('Product, prices, stock & photos updated successfully!');
           setTimeout(() => {
             router.push('/admin/products');
             router.refresh();
           }, 1000);
         }
       } else {
-        // Create Mode: Insert new product & variants
-        const formattedVariants = variants.map((v) => ({
-          sku: v.sku.trim().toUpperCase(),
-          size: v.size || undefined,
-          color: v.color || undefined,
-          priceMinor: Math.round(parseFloat(v.price) * 100),
-          stockQuantity: parseInt(v.stock, 10) || 0,
-        }));
-
+        // Create Mode: Insert new product, variants & images
         const res = await createAdminProduct({
           name,
           slug: slug || undefined,
@@ -254,14 +262,18 @@ function ProductFormContent() {
           isFeatured,
           status,
           variants: formattedVariants,
+          images: formattedImages,
         });
 
         if (!res.success) {
           setError(res.error || 'Failed to save product.');
           setLoading(false);
         } else {
-          router.push('/admin/products');
-          router.refresh();
+          setSuccessMsg('New product published successfully!');
+          setTimeout(() => {
+            router.push('/admin/products');
+            router.refresh();
+          }, 1000);
         }
       }
     } catch {

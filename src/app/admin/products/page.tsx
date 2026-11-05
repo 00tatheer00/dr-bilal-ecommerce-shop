@@ -1,13 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAdminProducts } from '@/actions/admin-products';
 import { getAdminCategories } from '@/actions/admin-categories';
 import { formatPrice } from '@/lib/utils';
 import Button from '@/components/ui/Button';
+import ProductActions from './ProductActions';
 import {
   Plus,
   Search,
-  Edit2,
   Gem,
 } from 'lucide-react';
 
@@ -126,8 +127,18 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                     <tr key={product.id} className="hover:bg-bg-surface/40 transition-colors">
                       <td className="p-3.5">
                         <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 shrink-0 rounded-lg bg-bg-secondary border border-border flex items-center justify-center">
-                            <Gem className="h-4 w-4 text-gold" />
+                          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-bg-secondary border border-border flex items-center justify-center">
+                            {product.images && product.images.length > 0 && product.images[0].url ? (
+                              <Image
+                                src={product.images[0].url}
+                                alt={product.name}
+                                fill
+                                sizes="44px"
+                                className="object-cover"
+                              />
+                            ) : (
+                              <Gem className="h-4 w-4 text-gold" />
+                            )}
                           </div>
                           <div>
                             <span className="font-heading font-semibold text-sm block">
@@ -175,23 +186,11 @@ export default async function AdminProductsPage({ searchParams }: Props) {
                         </span>
                       </td>
                       <td className="p-3.5 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <Link
-                            href={`/shop/${product.slug}`}
-                            target="_blank"
-                            className="p-1.5 rounded hover:bg-bg-surface text-text-secondary hover:text-brand"
-                            title="Preview on Store"
-                          >
-                            Preview
-                          </Link>
-                          <Link
-                            href={`/admin/products/new?edit=${product.id}`}
-                            className="p-1.5 rounded bg-brand-light text-brand hover:bg-brand hover:text-white transition-colors"
-                            title="Edit Product"
-                          >
-                            <Edit2 className="h-3.5 w-3.5" />
-                          </Link>
-                        </div>
+                        <ProductActions
+                          productId={product.id}
+                          productSlug={product.slug}
+                          productName={product.name}
+                        />
                       </td>
                     </tr>
                   );
