@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Phone, Mail, MapPin } from 'lucide-react';
+import { Heart, Phone, Mail, MapPin, Lock } from 'lucide-react';
 import { APP_VERSION } from '@/config/version';
 
 export default function Footer() {
@@ -186,6 +186,16 @@ export default function Footer() {
             </span>
             <span className="text-border">|</span>
             <span className="text-[11px]">All systems operational</span>
+            <span className="text-border">|</span>
+            <Link
+              href="/admin"
+              prefetch={false}
+              className="inline-flex items-center gap-1 text-[11px] text-text-secondary/70 hover:text-[#7A0C2E] transition-colors"
+              title="Admin Portal"
+            >
+              <Lock className="h-2.5 w-2.5" />
+              <span>Admin Portal</span>
+            </Link>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-2 text-center md:text-right text-[11px]">
