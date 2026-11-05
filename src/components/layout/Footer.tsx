@@ -4,57 +4,45 @@ import Image from 'next/image';
 import { Heart, Phone, Mail, MapPin } from 'lucide-react';
 import { APP_VERSION } from '@/config/version';
 
-const FOOTER_IMAGE = 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1400&auto=format&fit=crop&q=60';
-
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0F0E17] text-white overflow-hidden">
-      {/* Decorative background image */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <Image
-          src={FOOTER_IMAGE}
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-      </div>
+    <footer className="relative bg-[#FFFFFF] text-text-primary border-t border-[#E8E5DF] overflow-hidden">
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#DFB76C] via-[#7A0C2E] to-[#DFB76C]" />
 
       {/* Main Footer Container */}
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
           {/* Brand Column */}
-          <div className="md:col-span-1 space-y-5">
-            <Link href="/" prefetch={true} className="inline-flex items-center gap-3.5 group">
-              <div className="relative h-14 w-14 shrink-0 group-hover:scale-105 transition-transform duration-300 drop-shadow-md">
+          <div className="md:col-span-1 space-y-4">
+            <Link href="/" prefetch={true} className="inline-flex items-center gap-3 group">
+              <div className="relative h-12 w-12 shrink-0 group-hover:scale-105 transition-transform duration-300 drop-shadow-xs">
                 <Image
                   src="/images/logo-icon.png"
                   alt="GULNAAR by MK"
                   fill
-                  sizes="56px"
+                  sizes="48px"
                   className="object-contain"
                 />
               </div>
               <div>
-                <span className="font-heading text-2xl font-bold tracking-[0.2em] text-white block leading-none">
+                <span className="font-heading text-2xl font-bold tracking-[0.18em] text-[#7A0C2E] block leading-none">
                   GULNAAR
                 </span>
-                <span className="text-[10px] uppercase tracking-[0.35em] text-[#DFB76C] font-bold mt-1 block">
+                <span className="text-[10px] uppercase tracking-[0.35em] text-[#C5A059] font-bold mt-1 block">
                   by MK • Lahore Atelier
                 </span>
               </div>
             </Link>
-            <p className="text-xs leading-relaxed text-white/70 max-w-xs">
+            <p className="text-xs leading-relaxed text-text-secondary max-w-xs">
               Handcrafted heirloom bangles curated for bridal celebrations and everyday elegance. Reflecting centuries of traditional South Asian artisanal mastery.
             </p>
             {/* Social Icons */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5 pt-1">
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-10 w-10 rounded-2xl bg-white/10 hover:bg-[#7A0C2E] hover:border-[#DFB76C]/60 border border-white/10 flex items-center justify-center transition-all duration-300 text-white"
+                className="h-9 w-9 rounded-xl bg-[#FAF9F6] hover:bg-[#7A0C2E] hover:text-white border border-[#E8E5DF] flex items-center justify-center transition-all duration-300 text-text-primary"
                 aria-label="Instagram"
               >
                 <svg className="h-4 w-4 fill-currentColor" viewBox="0 0 24 24">
@@ -62,17 +50,17 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://wa.me/923000000000"
+                href="https://wa.me/923275792600"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-10 w-10 rounded-2xl bg-white/10 hover:bg-[#25D366] hover:border-[#25D366] border border-white/10 flex items-center justify-center transition-all duration-300 text-white"
+                className="h-9 w-9 rounded-xl bg-[#FAF9F6] hover:bg-[#25D366] hover:text-white border border-[#E8E5DF] flex items-center justify-center transition-all duration-300 text-text-primary"
                 aria-label="WhatsApp"
               >
                 <Phone className="h-4 w-4" />
               </a>
               <Link
                 href="/contact"
-                className="h-10 w-10 rounded-2xl bg-white/10 hover:bg-[#DFB76C] hover:text-[#4A0E2E] border border-white/10 flex items-center justify-center transition-all duration-300 text-white"
+                className="h-9 w-9 rounded-xl bg-[#FAF9F6] hover:bg-[#7A0C2E] hover:text-white border border-[#E8E5DF] flex items-center justify-center transition-all duration-300 text-text-primary"
                 aria-label="Email Support"
               >
                 <Mail className="h-4 w-4" />
@@ -82,37 +70,37 @@ export default function Footer() {
 
           {/* Shop Column */}
           <div>
-            <h4 className="text-xs font-bold tracking-[0.2em] text-[#DFB76C] uppercase mb-5">
+            <h4 className="text-xs font-bold tracking-[0.2em] text-[#7A0C2E] uppercase mb-4">
               Vault Collections
             </h4>
-            <ul className="space-y-3 text-xs text-white/70">
+            <ul className="space-y-2.5 text-xs text-text-secondary">
               <li>
-                <Link href="/shop" prefetch={true} className="hover:text-[#DFB76C] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#DFB76C]" />
+                <Link href="/shop" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
                   All Bangles
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=bridal" prefetch={true} className="hover:text-[#DFB76C] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#DFB76C]" />
+                <Link href="/shop?category=bridal" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
                   Bridal Kangan Sets
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=everyday" prefetch={true} className="hover:text-[#DFB76C] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#DFB76C]" />
+                <Link href="/shop?category=everyday" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
                   Everyday Silk & Glass
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=statement" prefetch={true} className="hover:text-[#DFB76C] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#DFB76C]" />
+                <Link href="/shop?category=statement" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
                   Statement Kadas
                 </Link>
               </li>
               <li>
-                <Link href="/shop?category=kundan-meenakari" prefetch={true} className="hover:text-[#DFB76C] transition-colors inline-flex items-center gap-2">
-                  <span className="h-1 w-1 rounded-full bg-[#DFB76C]" />
+                <Link href="/shop?category=kundan-meenakari" prefetch={true} className="hover:text-[#7A0C2E] transition-colors inline-flex items-center gap-2">
+                  <span className="h-1 w-1 rounded-full bg-[#C5A059]" />
                   Kundan & Meenakari
                 </Link>
               </li>
@@ -121,37 +109,37 @@ export default function Footer() {
 
           {/* Customer Care Column */}
           <div>
-            <h4 className="text-xs font-bold tracking-[0.2em] text-[#DFB76C] uppercase mb-5">
+            <h4 className="text-xs font-bold tracking-[0.2em] text-[#7A0C2E] uppercase mb-4">
               Customer Services
             </h4>
-            <ul className="space-y-3 text-xs text-white/70">
+            <ul className="space-y-2.5 text-xs text-text-secondary">
               <li>
-                <Link href="/size-guide" prefetch={true} className="hover:text-[#DFB76C] transition-colors">
+                <Link href="/size-guide" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
                   Bangle Sizing Guide
                 </Link>
               </li>
               <li>
-                <Link href="/care-guide" prefetch={true} className="hover:text-[#DFB76C] transition-colors">
+                <Link href="/care-guide" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
                   Jewellery Care Instructions
                 </Link>
               </li>
               <li>
-                <Link href="/track-order" prefetch={true} className="hover:text-[#DFB76C] transition-colors">
+                <Link href="/track-order" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
                   Track Your Order
                 </Link>
               </li>
               <li>
-                <Link href="/shipping-policy" prefetch={true} className="hover:text-[#DFB76C] transition-colors">
+                <Link href="/shipping-policy" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
                   Shipping & Delivery
                 </Link>
               </li>
               <li>
-                <Link href="/returns-policy" prefetch={true} className="hover:text-[#DFB76C] transition-colors">
+                <Link href="/returns-policy" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
                   Returns & Exchange Policy
                 </Link>
               </li>
               <li>
-                <Link href="/faqs" prefetch={true} className="hover:text-[#DFB76C] transition-colors">
+                <Link href="/faqs" prefetch={true} className="hover:text-[#7A0C2E] transition-colors">
                   Frequently Asked Questions
                 </Link>
               </li>
@@ -160,26 +148,26 @@ export default function Footer() {
 
           {/* Contact & Studio */}
           <div>
-            <h4 className="text-xs font-bold tracking-[0.2em] text-[#DFB76C] uppercase mb-5">
+            <h4 className="text-xs font-bold tracking-[0.2em] text-[#7A0C2E] uppercase mb-4">
               Studio & Contact
             </h4>
-            <div className="space-y-4 text-xs text-white/70">
-              <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-[#DFB76C] mt-0.5 shrink-0" />
+            <div className="space-y-3.5 text-xs text-text-secondary">
+              <div className="flex items-start gap-2.5">
+                <MapPin className="h-4 w-4 text-[#C5A059] mt-0.5 shrink-0" />
                 <p>Gulberg III, Lahore, Punjab, Pakistan</p>
               </div>
-              <div className="flex items-start gap-3">
-                <Phone className="h-4 w-4 text-[#DFB76C] mt-0.5 shrink-0" />
+              <div className="flex items-start gap-2.5">
+                <Phone className="h-4 w-4 text-[#C5A059] mt-0.5 shrink-0" />
                 <div>
-                  <p className="font-semibold text-white/90">WhatsApp Direct Orders</p>
-                  <p className="font-mono text-[#DFB76C]">+92 300 0000000</p>
+                  <p className="font-semibold text-text-primary">WhatsApp Orders</p>
+                  <p className="font-mono text-[#7A0C2E] font-bold">0327-5792600</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3">
-                <Mail className="h-4 w-4 text-[#DFB76C] mt-0.5 shrink-0" />
+              <div className="flex items-start gap-2.5">
+                <Mail className="h-4 w-4 text-[#C5A059] mt-0.5 shrink-0" />
                 <p>support@gulnaarbymk.com</p>
               </div>
-              <p className="text-[11px] text-white/50 pl-7">
+              <p className="text-[11px] text-text-secondary/70 pl-6.5">
                 Monday – Saturday (10:00 AM – 8:00 PM PKT)
               </p>
             </div>
@@ -187,27 +175,27 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar with Deployment Version Indicator */}
-        <div className="mt-16 border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/50">
+        <div className="mt-12 border-t border-[#E8E5DF] pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-text-secondary">
           <div className="flex items-center gap-3">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
-            <span className="font-mono text-[11px] text-white/80">
+            <span className="font-mono text-[11px] text-text-primary font-semibold">
               v{APP_VERSION.version} • {APP_VERSION.build}
             </span>
-            <span className="text-white/20">|</span>
-            <span>All systems operational</span>
+            <span className="text-border">|</span>
+            <span className="text-[11px]">All systems operational</span>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-2 text-center md:text-right">
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-center md:text-right text-[11px]">
             <span>
               © 2026 GULNAAR by MK. Handcrafted with{' '}
-              <Heart className="h-3 w-3 text-[#DFB76C] fill-[#DFB76C] inline mx-0.5" /> in Pakistan.
+              <Heart className="h-3 w-3 text-[#7A0C2E] fill-[#7A0C2E] inline mx-0.5" /> in Pakistan.
             </span>
-            <span className="hidden sm:inline text-white/20">•</span>
-            <span className="text-[11px] text-white/40 hover:text-white/70 transition-colors" title="Engineered by Tatheer (03275792600)">
-              Engineered by <span className="text-[#DFB76C]/80 font-medium">Tech4Edges</span>
+            <span className="hidden sm:inline text-border">•</span>
+            <span className="text-text-secondary/60 hover:text-text-primary transition-colors" title="Engineered by Tatheer (03275792600)">
+              Crafted by <span className="text-[#7A0C2E] font-semibold">Tech4Edges</span> (03275792600)
             </span>
           </div>
         </div>

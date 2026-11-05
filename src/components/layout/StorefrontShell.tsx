@@ -7,6 +7,7 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/cart/CartDrawer';
 import LuxuryLoader from '@/components/ui/LuxuryLoader';
+import MobileBottomNav from '@/components/layout/MobileBottomNav';
 
 function StorefrontChrome() {
   const pathname = usePathname();
@@ -22,6 +23,7 @@ function StorefrontChrome() {
       <AnnouncementBar />
       <Header />
       <CartDrawer />
+      <MobileBottomNav />
     </>
   );
 }
@@ -53,7 +55,7 @@ export default function StorefrontShell({ children }: { children: React.ReactNod
       <Suspense fallback={null}>
         <StorefrontChrome />
       </Suspense>
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 pb-16 md:pb-0">{children}</main>
       <Suspense fallback={null}>
         <StorefrontFooter />
       </Suspense>

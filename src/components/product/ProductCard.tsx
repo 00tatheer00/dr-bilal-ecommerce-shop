@@ -146,14 +146,30 @@ export default function ProductCard({ product, className }: ProductCardProps) {
         </div>
 
         <div className="flex items-baseline justify-between pt-1.5 border-t border-border/40">
-          <p className="font-bold text-base text-[#7A0C2E]">
-            {formatPrice(price)}
-          </p>
+          <div className="flex items-baseline gap-2">
+            <p className="font-bold text-sm sm:text-base text-[#7A0C2E]">
+              {formatPrice(price)}
+            </p>
+            {hasComparePrice && (
+              <span className="text-[11px] text-text-secondary line-through">
+                {formatPrice(
+                  product.variants?.find((v) => v.compare_at_price_cents)
+                    ?.compare_at_price_cents || 0
+                )}
+              </span>
+            )}
+          </div>
           {product.variants && product.variants.length > 1 && (
-            <span className="text-[11px] text-text-secondary font-medium">
-              {product.variants.length} size options
+            <span className="text-[10px] text-text-secondary font-medium hidden sm:inline">
+              {product.variants.length} sizes
             </span>
           )}
+        </div>
+
+        {/* Mobile Quick Tap Indicator */}
+        <div className="sm:hidden mt-2 pt-1.5 border-t border-dashed border-[#E8E5DF] flex items-center justify-between text-[10px] font-bold text-[#7A0C2E]">
+          <span>View Sizes</span>
+          <span className="text-[#C5A059]">&rarr;</span>
         </div>
       </div>
     </Link>
