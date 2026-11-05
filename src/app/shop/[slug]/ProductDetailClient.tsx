@@ -73,6 +73,36 @@ const PRODUCT_GALLERIES: Record<string, string[]> = {
     'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
     'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1200&auto=format&fit=crop&q=85',
   ],
+  'pearl-gold-statement-kada': [
+    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&auto=format&fit=crop&q=85',
+  ],
+  'glass-bangles-set-emerald': [
+    'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=1200&auto=format&fit=crop&q=85',
+  ],
+  'zircon-studded-bridal-set': [
+    'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&auto=format&fit=crop&q=85',
+  ],
+  'lacquer-bangles-sunset': [
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
+  ],
+  'mirror-work-bangle-pair': [
+    'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+  ],
 };
 
 const DEFAULT_GALLERY = [

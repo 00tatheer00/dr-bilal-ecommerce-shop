@@ -20,7 +20,11 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const product = await getProductBySlug(slug);
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://gulnaarbymk.com';
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : 'https://dbshop.vercel.app');
 
   if (!product) {
     return {
@@ -28,7 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   }
 
-  const primaryImage = product.images?.[0]?.url || `${siteUrl}/images/brand-og.jpg`;
+  const primaryImage = product.images?.[0]?.url || `${siteUrl}/og-image.jpg`;
 
   return {
     title: `${product.name} — Handcrafted Bangles | GULNAAR by MK`,

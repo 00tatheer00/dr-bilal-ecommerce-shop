@@ -1,23 +1,43 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useSyncExternalStore } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
 import { ShoppingBag, Search, Menu, X, Compass, ChevronDown, Crown, Phone, Gem } from 'lucide-react';
 import { APP_VERSION } from '@/config/version';
 
+const emptySubscribe = () => () => {};
+
 export default function Header() {
   const { openCart, totalItems } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 15);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
 
   const collections = [
     { label: 'Bridal Collection', href: '/shop?category=bridal', icon: '💍', desc: 'Opulent 24K dipped Kundan sets' },
@@ -228,114 +248,157 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 top-[76px] z-50 lg:hidden animate-fade-in"
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          <div className="absolute inset-0 bg-[#0F0E17]/60 backdrop-blur-sm" />
-
+      {/* Mobile Drawer Navigation (Teleported to document.body to avoid backdrop-filter stacking context bugs) */}
+      {isMounted &&
+        mobileMenuOpen &&
+        createPortal(
           <div
-            className="relative flex h-full w-[85%] max-w-sm flex-col bg-white shadow-2xl animate-slide-in-left overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
+            className="fixed inset-0 z-[100] lg:hidden flex justify-start animate-fade-in"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile Navigation"
           >
-            {/* Mobile Header Banner */}
-            <div className="relative h-44 overflow-hidden">
-              <Image
-                src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&auto=format&fit=crop&q=80"
-                alt="Bridal Bangles"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#4A0E2E]/95 via-[#7A0C2E]/70 to-transparent" />
-              <div className="absolute bottom-4 left-5 flex items-center gap-3 text-white">
-                <div className="relative h-14 w-14 shrink-0 drop-shadow-md">
-                  <Image
-                    src="/images/logo-icon.png"
-                    alt="GULNAAR by MK"
-                    fill
-                    sizes="56px"
-                    className="object-contain"
-                  />
-                </div>
-                <div>
-                  <span className="font-heading text-xl font-bold tracking-wider block">GULNAAR</span>
-                  <span className="text-[10px] uppercase tracking-[0.25em] text-[#DFB76C] font-semibold block">
-                    by MK • Handcrafted Bangles
+            {/* Dark Backdrop */}
+            <div
+              className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity"
+              onClick={() => setMobileMenuOpen(false)}
+            />
+
+            {/* Drawer Container */}
+            <div
+              className="relative z-10 flex h-full max-h-[100dvh] w-[85%] max-w-sm flex-col bg-white shadow-2xl overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Drawer Top Bar with Brand & Close Button */}
+              <div className="flex items-center justify-between p-4 border-b border-[#E8E5DF] bg-[#FAF9F6]">
+                <Link
+                  href="/"
+                  prefetch={true}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2.5"
+                >
+                  <div className="relative h-9 w-9 shrink-0 drop-shadow-xs">
+                    <Image
+                      src="/images/logo-icon.png"
+                      alt="GULNAAR by MK"
+                      fill
+                      sizes="36px"
+                      className="object-contain"
+                    />
+                  </div>
+                  <div>
+                    <span className="font-heading text-lg font-bold tracking-wider text-[#7A0C2E] block leading-none">
+                      GULNAAR
+                    </span>
+                    <span className="text-[9px] uppercase tracking-[0.25em] text-[#C5A059] font-bold mt-0.5 block">
+                      by MK • Lahore Atelier
+                    </span>
+                  </div>
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="h-9 w-9 rounded-full bg-white border border-[#E8E5DF] hover:bg-[#FDF2F4] text-text-primary hover:text-[#7A0C2E] flex items-center justify-center transition-colors cursor-pointer shadow-xs"
+                  aria-label="Close Navigation Menu"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Mobile Header Banner */}
+              <div className="relative h-32 overflow-hidden">
+                <Image
+                  src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&auto=format&fit=crop&q=80"
+                  alt="Bridal Bangles"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#4A0E2E]/90 via-[#7A0C2E]/60 to-transparent" />
+                <div className="absolute bottom-3 left-4 text-white">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#DFB76C] block">
+                    Bridal & Festive 2026
+                  </span>
+                  <span className="font-heading text-base font-bold block">
+                    Handcrafted Heirloom Bangles
                   </span>
                 </div>
               </div>
-            </div>
 
-            {/* Mobile Collections */}
-            <div className="px-5 py-4">
-              <span className="text-[11px] uppercase tracking-[0.2em] font-bold text-[#C5A059] block mb-3">
-                Collections
-              </span>
-              <div className="space-y-1.5">
-                {collections.map((col) => (
+              {/* Mobile Collections */}
+              <div className="p-4">
+                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#C5A059] block mb-2 px-1">
+                  Vault Collections
+                </span>
+                <div className="space-y-1">
+                  {collections.map((col) => (
+                    <Link
+                      key={col.label}
+                      href={col.href}
+                      prefetch={true}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 rounded-xl p-2.5 hover:bg-[#FDF2F4] transition-colors"
+                    >
+                      <span className="text-xl">{col.icon}</span>
+                      <div>
+                        <span className="text-sm font-bold text-text-primary block">{col.label}</span>
+                        <span className="text-[11px] text-text-secondary">{col.desc}</span>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mx-4 border-t border-[#E8E5DF]" />
+
+              {/* Other Mobile Links */}
+              <div className="p-4 space-y-1">
+                {navLinks.map((link) => (
                   <Link
-                    key={col.label}
-                    href={col.href}
+                    key={link.label}
+                    href={link.href}
                     prefetch={true}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-3 rounded-2xl p-3 hover:bg-[#FDF2F4] transition-colors"
+                    className="block rounded-xl px-3 py-2 text-sm font-bold text-text-primary hover:bg-[#FDF2F4] hover:text-[#7A0C2E] transition-colors"
                   >
-                    <span className="text-xl">{col.icon}</span>
-                    <div>
-                      <span className="text-sm font-bold text-text-primary block">{col.label}</span>
-                      <span className="text-xs text-text-secondary">{col.desc}</span>
-                    </div>
+                    {link.label}
                   </Link>
                 ))}
-              </div>
-            </div>
-
-            <div className="mx-5 border-t border-border" />
-
-            {/* Other Mobile Links */}
-            <div className="px-5 py-4 space-y-1">
-              {navLinks.map((link) => (
                 <Link
-                  key={link.label}
-                  href={link.href}
+                  href="/track-order"
                   prefetch={true}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block rounded-xl px-3 py-2.5 text-sm font-bold text-text-primary hover:bg-[#FDF2F4] hover:text-[#7A0C2E] transition-colors"
+                  className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-text-secondary hover:bg-[#FDF2F4] hover:text-[#7A0C2E] transition-colors"
                 >
-                  {link.label}
+                  <Compass className="h-4 w-4 text-[#C5A059]" />
+                  <span>Track Order</span>
                 </Link>
-              ))}
-              <Link
-                href="/track-order"
-                prefetch={true}
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-text-secondary hover:bg-[#FDF2F4] hover:text-[#7A0C2E] transition-colors"
-              >
-                <Compass className="h-4 w-4 text-[#C5A059]" />
-                Track Order
-              </Link>
-            </div>
-
-            {/* Drawer Footer with Version Info */}
-            <div className="mt-auto border-t border-border p-5 bg-[#FAF9F6]">
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center gap-1.5 text-[#7A0C2E] font-bold">
-                  <Phone className="h-3.5 w-3.5 text-[#C5A059]" />
-                  <span>+92 300 0000000</span>
-                </div>
-                <span className="font-mono text-[10px] text-text-secondary">
-                  v{APP_VERSION.version}
-                </span>
               </div>
-              <p className="text-[11px] text-text-secondary mt-1">
-                Cash on Delivery Available Across Pakistan
-              </p>
+
+              {/* Drawer Footer with Version Info */}
+              <div className="mt-auto border-t border-[#E8E5DF] p-4 bg-[#FAF9F6]">
+                <div className="flex items-center justify-between text-xs">
+                  <a
+                    href="https://wa.me/923275792600"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-[#7A0C2E] font-bold hover:underline"
+                  >
+                    <Phone className="h-3.5 w-3.5 text-[#C5A059]" />
+                    <span>0327-5792600</span>
+                  </a>
+                  <span className="font-mono text-[10px] text-text-secondary">
+                    v{APP_VERSION.version}
+                  </span>
+                </div>
+                <p className="text-[10px] text-text-secondary mt-1">
+                  Cash on Delivery Available Across Pakistan
+                </p>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body
+        )}
     </header>
   );
 }

@@ -11,7 +11,7 @@ export const sampleCategories: Category[] = [
     name: 'Bridal Collection',
     slug: 'bridal',
     description: 'Exquisite handcrafted bangles for your special day. Each piece is designed to complement bridal attire with intricate detailing and premium materials.',
-    image_url: '/images/categories/bridal.jpg',
+    image_url: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&auto=format&fit=crop&q=80',
     sort_order: 1,
     is_active: true,
     created_at: '2024-01-01T00:00:00Z',
@@ -22,7 +22,7 @@ export const sampleCategories: Category[] = [
     name: 'Everyday Elegance',
     slug: 'everyday',
     description: 'Beautiful bangles for daily wear. Lightweight, comfortable and designed to add a touch of elegance to your everyday style.',
-    image_url: '/images/categories/everyday.jpg',
+    image_url: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&auto=format&fit=crop&q=80',
     sort_order: 2,
     is_active: true,
     created_at: '2024-01-01T00:00:00Z',
@@ -33,7 +33,7 @@ export const sampleCategories: Category[] = [
     name: 'Statement Pieces',
     slug: 'statement',
     description: 'Bold and distinctive bangles that make a statement. Perfect for special occasions and celebrations.',
-    image_url: '/images/categories/statement.jpg',
+    image_url: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&auto=format&fit=crop&q=80',
     sort_order: 3,
     is_active: true,
     created_at: '2024-01-01T00:00:00Z',
@@ -44,7 +44,7 @@ export const sampleCategories: Category[] = [
     name: 'Kundan & Meenakari',
     slug: 'kundan-meenakari',
     description: 'Traditional Kundan and Meenakari work bangles featuring precious stones and vibrant enamel artistry.',
-    image_url: '/images/categories/kundan.jpg',
+    image_url: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=800&auto=format&fit=crop&q=80',
     sort_order: 4,
     is_active: true,
     created_at: '2024-01-01T00:00:00Z',
@@ -52,16 +52,66 @@ export const sampleCategories: Category[] = [
   },
 ];
 
-const makeImages = (productId: string, count: number): ProductImage[] =>
-  Array.from({ length: count }, (_, i) => ({
+const PRODUCT_IMAGE_URLS: Record<string, string[]> = {
+  '1': [
+    'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1200&auto=format&fit=crop&q=85',
+  ],
+  '2': [
+    'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&auto=format&fit=crop&q=85',
+  ],
+  '3': [
+    'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=1200&auto=format&fit=crop&q=85',
+  ],
+  '4': [
+    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=1200&auto=format&fit=crop&q=85',
+  ],
+  '5': [
+    'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1200&auto=format&fit=crop&q=85',
+  ],
+  '6': [
+    'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1515562141589-67f0d569b6fc?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&auto=format&fit=crop&q=85',
+  ],
+  '7': [
+    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1200&auto=format&fit=crop&q=85',
+  ],
+  '8': [
+    'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=1200&auto=format&fit=crop&q=85',
+    'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=1200&auto=format&fit=crop&q=85',
+  ],
+};
+
+const makeImages = (productId: string, count: number): ProductImage[] => {
+  const urls = PRODUCT_IMAGE_URLS[productId] || [
+    'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1200&auto=format&fit=crop&q=85',
+  ];
+  return Array.from({ length: Math.min(count, urls.length) }, (_, i) => ({
     id: `img-${productId}-${i + 1}`,
     product_id: productId,
-    url: `/images/products/product-${productId}-${i + 1}.jpg`,
+    url: urls[i] || urls[0],
     alt_text: `Product image ${i + 1}`,
     sort_order: i,
     is_primary: i === 0,
     created_at: '2024-01-01T00:00:00Z',
   }));
+};
 
 const makeVariant = (
   productId: string,
