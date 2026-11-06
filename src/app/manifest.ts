@@ -1,0 +1,69 @@
+import type { MetadataRoute } from 'next';
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: 'GULNAAR by MK — Handcrafted Luxury Bangles',
+    short_name: 'GULNAAR',
+    description:
+      'Discover bespoke handcrafted bangles, bridal kangan sets, Meenakari artistry, and everyday elegance. Cash on Delivery available across Pakistan.',
+    start_url: '/',
+    id: '/',
+    display: 'standalone',
+    background_color: '#FFFFFF',
+    theme_color: '#B81D4E',
+    orientation: 'portrait-primary',
+    scope: '/',
+    lang: 'en-PK',
+    dir: 'ltr',
+    categories: ['shopping', 'lifestyle'],
+    icons: [
+      {
+        src: '/icons/icon-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        purpose: 'any',
+      },
+      {
+        src: '/icons/icon-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'any',
+      },
+      {
+        src: '/icons/icon-maskable-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'maskable',
+      },
+      {
+        src: '/icons/apple-touch-icon.png',
+        sizes: '180x180',
+        type: 'image/png',
+      },
+    ],
+    shortcuts: [
+      {
+        name: 'Shop All Bangles',
+        short_name: 'Shop',
+        description: 'Browse complete handcrafted collection',
+        url: '/shop',
+        icons: [{ src: '/icons/icon-192x192.png', sizes: '192x192' }],
+      },
+      {
+        name: 'Bridal Collection',
+        short_name: 'Bridal',
+        description: 'Explore royal Kundan bridal sets',
+        url: '/shop?category=bridal',
+        icons: [{ src: '/icons/icon-192x192.png', sizes: '192x192' }],
+      },
+      {
+        name: 'Track Order',
+        short_name: 'Track',
+        description: 'Track your parcel delivery across Pakistan',
+        url: '/track-order',
+        icons: [{ src: '/icons/icon-192x192.png', sizes: '192x192' }],
+      },
+    ],
+  };
+}
+

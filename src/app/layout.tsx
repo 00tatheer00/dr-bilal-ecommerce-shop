@@ -1,7 +1,8 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { CartProvider } from '@/context/CartContext';
 import StorefrontShell from '@/components/layout/StorefrontShell';
+import PwaRegister from '@/components/layout/PwaRegister';
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ||
@@ -9,8 +10,32 @@ const siteUrl =
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
     : 'https://dbshop.vercel.app');
 
+export const viewport: Viewport = {
+  themeColor: '#B81D4E',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  applicationName: 'GULNAAR by MK',
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'GULNAAR by MK',
+  },
+  icons: {
+    icon: [
+      { url: '/icons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   title: {
     default: 'GULNAAR by MK — Handcrafted Luxury Bangles',
     template: '%s | GULNAAR by MK',
@@ -91,6 +116,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-bg-primary text-text-primary selection:bg-brand-light selection:text-brand">
         <CartProvider>
           <StorefrontShell>{children}</StorefrontShell>
+          <PwaRegister />
         </CartProvider>
       </body>
     </html>

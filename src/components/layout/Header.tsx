@@ -44,6 +44,7 @@ export default function Header() {
     { label: 'Everyday Elegance', href: '/shop?category=everyday', icon: '🌸', desc: 'Featherlight silk thread bangles' },
     { label: 'Statement Pieces', href: '/shop?category=statement', icon: '👑', desc: 'Openable royal kadas & brass cuffs' },
     { label: 'Kundan & Meenakari', href: '/shop?category=kundan-meenakari', icon: '💎', desc: 'Vibrant hand-painted enamel artistry' },
+    { label: 'Shop', href: '/shop', icon: '🛍️', desc: 'Browse all handcrafted bangles & sets' },
   ];
 
   const navLinks = [
@@ -141,12 +142,14 @@ export default function Header() {
 
                     {/* Collection Grid */}
                     <div className="grid grid-cols-2 gap-3.5">
-                      {collections.map((col) => (
+                      {collections.map((col, idx) => (
                         <Link
                           key={col.label}
                           href={col.href}
                           prefetch={true}
-                          className="group/item flex items-start gap-3.5 rounded-2xl p-3.5 hover:bg-[#FFF0F5] border border-transparent hover:border-[#D4AF37]/40 transition-all duration-300 hover:translate-x-1"
+                          className={`group/item flex items-start gap-3.5 rounded-2xl p-3.5 hover:bg-[#FFF0F5] border border-transparent hover:border-[#D4AF37]/40 transition-all duration-300 hover:translate-x-1 ${
+                            idx === 4 ? 'col-span-2 bg-[#FFF9FB] border-[#F0DFE7]' : ''
+                          }`}
                         >
                           <span className="text-2xl mt-0.5 group-hover/item:scale-125 transition-transform duration-300">
                             {col.icon}
