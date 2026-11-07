@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '@/context/CartContext';
-import { ShoppingBag, Search, Menu, X, Compass, ChevronDown, Crown, Phone, Gem } from 'lucide-react';
+import { ShoppingBag, Search, Menu, X, Compass, ChevronDown, Crown, Phone, Gem, ArrowLeft, ArrowRight } from 'lucide-react';
 import { APP_VERSION } from '@/config/version';
 
 const emptySubscribe = () => () => {};
@@ -13,6 +13,7 @@ const emptySubscribe = () => () => {};
 export default function Header() {
   const { openCart, totalItems } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileSubmenu, setMobileSubmenu] = useState<'main' | 'shop'>('shop');
   const [scrolled, setScrolled] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const isMounted = useSyncExternalStore(
@@ -45,6 +46,16 @@ export default function Header() {
     { label: 'Statement Pieces', href: '/shop?category=statement', icon: '👑', desc: 'Openable royal kadas & brass cuffs' },
     { label: 'Kundan & Meenakari', href: '/shop?category=kundan-meenakari', icon: '💎', desc: 'Vibrant hand-painted enamel artistry' },
     { label: 'Shop', href: '/shop', icon: '🛍️', desc: 'Browse all handcrafted bangles & sets' },
+  ];
+
+  const shopCategories = [
+    { label: 'EARRINGS', href: '/shop?category=earrings', hasArrow: true },
+    { label: 'GEN-Z', href: '/shop?category=gen-z', hasArrow: false },
+    { label: 'OTHER JEWELLERY', href: '/shop?category=other-jewellery', hasArrow: true },
+    { label: 'HAIR ACCESSORIES', href: '/shop?category=hair-accessories', hasArrow: true },
+    { label: 'WOODEN PRODUCTS', href: '/shop?category=wooden-products', hasArrow: false },
+    { label: 'DAILY LIFE PRODUCTS', href: '/shop?category=daily-life-products', hasArrow: true },
+    { label: 'SHOP ALL', href: '/shop', hasArrow: false },
   ];
 
   const navLinks = [
@@ -269,116 +280,195 @@ export default function Header() {
 
             {/* Drawer Container */}
             <div
-              className="relative z-10 flex h-full max-h-[100dvh] w-[85%] max-w-sm flex-col bg-white shadow-2xl overflow-y-auto"
+              className="relative z-10 flex h-full max-h-[100dvh] w-[88%] max-w-sm flex-col bg-white shadow-2xl overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Drawer Top Bar with Brand & Close Button */}
-              <div className="flex items-center justify-between p-4 border-b border-[#E8E5DF] bg-[#FAF9F6]">
+              {/* Drawer Top Bar matching Knack design (Close - Center Logo - Search & Cart) */}
+              <div className="flex items-center justify-between px-4 py-3 border-b border-[#E8E5DF] bg-white">
+                {/* Left: Close X Button */}
+                <button
+                  type="button"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 -ml-1 text-text-primary hover:text-[#B81D4E] transition-colors cursor-pointer"
+                  aria-label="Close Navigation Menu"
+                >
+                  <X className="h-6 w-6 stroke-[1.75]" />
+                </button>
+
+                {/* Center: Brand Logo */}
                 <Link
                   href="/"
                   prefetch={true}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2.5"
+                  className="flex flex-col items-center justify-center text-center group"
                 >
-                  <div className="relative h-9 w-9 shrink-0 drop-shadow-xs">
+                  <div className="relative h-7 w-7 drop-shadow-xs">
                     <Image
                       src="/images/logo-icon.png"
                       alt="GULNAAR by MK"
                       fill
-                      sizes="36px"
+                      sizes="28px"
                       className="object-contain"
                     />
                   </div>
-                  <div>
-                    <span className="font-heading text-lg font-bold tracking-wider text-[#B81D4E] block leading-none">
-                      GULNAAR
-                    </span>
-                    <span className="text-[9px] uppercase tracking-[0.25em] text-[#D4AF37] font-bold mt-0.5 block">
-                      by MK • Lahore Atelier
-                    </span>
-                  </div>
+                  <span className="font-heading text-sm font-bold tracking-[0.22em] text-[#B81D4E] block leading-tight mt-0.5">
+                    GULNAAR
+                  </span>
+                  <span className="text-[7.5px] uppercase tracking-[0.25em] text-[#D4AF37] font-semibold -mt-0.5">
+                    by MK
+                  </span>
                 </Link>
 
-                <button
-                  type="button"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="h-9 w-9 rounded-full bg-white border border-[#E8E5DF] hover:bg-[#FFF0F5] text-text-primary hover:text-[#B81D4E] flex items-center justify-center transition-colors cursor-pointer shadow-xs"
-                  aria-label="Close Navigation Menu"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* Mobile Header Banner */}
-              <div className="relative h-32 overflow-hidden">
-                <Image
-                  src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=800&auto=format&fit=crop&q=80"
-                  alt="Bridal Bangles"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#700B2E]/90 via-[#B81D4E]/60 to-transparent" />
-                <div className="absolute bottom-3 left-4 text-white">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#F6D365] block">
-                    Bridal & Festive 2026
-                  </span>
-                  <span className="font-heading text-base font-bold block">
-                    Handcrafted Heirloom Bangles
-                  </span>
+                {/* Right: Search & Shopping Bag */}
+                <div className="flex items-center gap-1 -mr-1">
+                  <Link
+                    href="/search"
+                    prefetch={true}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 text-text-primary hover:text-[#B81D4E] transition-colors"
+                    aria-label="Search Catalog"
+                  >
+                    <Search className="h-5 w-5 stroke-[1.75]" />
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openCart();
+                    }}
+                    className="relative p-2 text-text-primary hover:text-[#B81D4E] transition-colors cursor-pointer"
+                    aria-label={`Shopping Cart with ${totalItems} items`}
+                  >
+                    <ShoppingBag className="h-5 w-5 stroke-[1.75]" />
+                    {totalItems > 0 && (
+                      <span className="absolute top-1 right-1 h-4 min-w-4 px-1 rounded-full bg-[#B81D4E] text-[9px] font-bold text-white flex items-center justify-center">
+                        {totalItems}
+                      </span>
+                    )}
+                  </button>
                 </div>
               </div>
 
-              {/* Mobile Collections */}
-              <div className="p-4">
-                <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#D4AF37] block mb-2 px-1">
-                  Vault Collections
-                </span>
-                <div className="space-y-1">
-                  {collections.map((col) => (
+              {/* Back / Section Switcher Header matching screenshot */}
+              {mobileSubmenu === 'shop' ? (
+                <button
+                  type="button"
+                  onClick={() => setMobileSubmenu('main')}
+                  className="w-full flex items-center justify-between px-6 py-3.5 bg-[#FAF9F6] border-b border-[#E8E5DF] text-xs font-bold uppercase tracking-wider text-text-primary hover:text-[#B81D4E] transition-colors"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <ArrowLeft className="h-4 w-4 text-text-secondary" />
+                    <span className="font-heading tracking-[0.16em] text-sm">SHOP</span>
+                  </div>
+                  <span className="text-[10px] text-text-secondary/70 font-normal normal-case">
+                    Other Pages &rarr;
+                  </span>
+                </button>
+              ) : (
+                <div className="px-6 py-3.5 bg-[#FAF9F6] border-b border-[#E8E5DF] flex items-center justify-between">
+                  <span className="font-heading tracking-[0.16em] text-xs font-bold uppercase text-text-secondary">
+                    PAGES MENU
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setMobileSubmenu('shop')}
+                    className="text-[11px] font-bold text-[#B81D4E] uppercase tracking-wider hover:underline"
+                  >
+                    View Shop &rarr;
+                  </button>
+                </div>
+              )}
+
+              {/* View 1: SHOP Submenu (Exact layout from user screenshot) */}
+              {mobileSubmenu === 'shop' ? (
+                <div className="flex-1 overflow-y-auto divide-y divide-[#E8E5DF]/70 bg-white">
+                  {shopCategories.map((cat) => (
                     <Link
-                      key={col.label}
-                      href={col.href}
+                      key={cat.label}
+                      href={cat.href}
                       prefetch={true}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 rounded-xl p-2.5 hover:bg-[#FFF0F5] transition-colors"
+                      className="flex items-center justify-between px-6 py-4.5 text-text-primary hover:text-[#B81D4E] hover:bg-[#FFF0F5] transition-colors group"
                     >
-                      <span className="text-xl">{col.icon}</span>
-                      <div>
-                        <span className="text-sm font-bold text-text-primary block">{col.label}</span>
-                        <span className="text-[11px] text-text-secondary">{col.desc}</span>
-                      </div>
+                      <span className="font-heading text-[13px] font-semibold tracking-[0.12em] text-[#18181B] group-hover:text-[#B81D4E] transition-colors">
+                        {cat.label}
+                      </span>
+                      {cat.hasArrow && (
+                        <ArrowRight className="h-4 w-4 text-text-secondary/60 group-hover:text-[#B81D4E] group-hover:translate-x-1 transition-all" />
+                      )}
                     </Link>
                   ))}
                 </div>
-              </div>
-
-              <div className="mx-4 border-t border-[#E8E5DF]" />
-
-              {/* Other Mobile Links */}
-              <div className="p-4 space-y-1">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.label}
-                    href={link.href}
-                    prefetch={true}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block rounded-xl px-3 py-2 text-sm font-bold text-text-primary hover:bg-[#FFF0F5] hover:text-[#B81D4E] transition-colors"
+              ) : (
+                /* View 2: MAIN Navigation Menu */
+                <div className="flex-1 overflow-y-auto p-4 space-y-2 bg-white">
+                  <button
+                    type="button"
+                    onClick={() => setMobileSubmenu('shop')}
+                    className="w-full flex items-center justify-between rounded-2xl p-3.5 bg-gradient-to-r from-[#FFF0F5] to-white border border-[#B81D4E]/25 text-left group hover:border-[#B81D4E] transition-all cursor-pointer shadow-xs"
                   >
-                    {link.label}
-                  </Link>
-                ))}
-                <Link
-                  href="/track-order"
-                  prefetch={true}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-text-secondary hover:bg-[#FFF0F5] hover:text-[#B81D4E] transition-colors"
-                >
-                  <Compass className="h-4 w-4 text-[#D4AF37]" />
-                  <span>Track Order</span>
-                </Link>
-              </div>
+                    <div>
+                      <span className="font-heading text-sm font-bold text-[#B81D4E] block">
+                        SHOP DIRECTORY
+                      </span>
+                      <span className="text-[11px] text-text-secondary">
+                        Earrings, Jewellery, Wooden & Daily Products
+                      </span>
+                    </div>
+                    <ArrowRight className="h-4 w-4 text-[#B81D4E] group-hover:translate-x-1 transition-transform" />
+                  </button>
 
-              {/* Drawer Footer with Version Info */}
+                  <div className="pt-2">
+                    <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#D4AF37] block mb-2 px-2">
+                      Vault Collections
+                    </span>
+                    <div className="space-y-1">
+                      {collections.map((col) => (
+                        <Link
+                          key={col.label}
+                          href={col.href}
+                          prefetch={true}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="flex items-center gap-3 rounded-xl p-2.5 hover:bg-[#FFF0F5] transition-colors"
+                        >
+                          <span className="text-xl">{col.icon}</span>
+                          <div>
+                            <span className="text-sm font-bold text-text-primary block">{col.label}</span>
+                            <span className="text-[11px] text-text-secondary">{col.desc}</span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="my-2 border-t border-[#E8E5DF]" />
+
+                  <div className="space-y-1">
+                    {navLinks.map((link) => (
+                      <Link
+                        key={link.label}
+                        href={link.href}
+                        prefetch={true}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block rounded-xl px-3 py-2 text-sm font-bold text-text-primary hover:bg-[#FFF0F5] hover:text-[#B81D4E] transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    ))}
+                    <Link
+                      href="/track-order"
+                      prefetch={true}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-text-secondary hover:bg-[#FFF0F5] hover:text-[#B81D4E] transition-colors"
+                    >
+                      <Compass className="h-4 w-4 text-[#D4AF37]" />
+                      <span>Track Order</span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* Drawer Footer with Helpline & COD Guarantee */}
               <div className="mt-auto border-t border-[#E8E5DF] p-4 bg-[#FAF9F6]">
                 <div className="flex items-center justify-between text-xs">
                   <a

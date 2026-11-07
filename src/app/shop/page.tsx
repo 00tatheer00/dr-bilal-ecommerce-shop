@@ -41,6 +41,42 @@ const CATEGORY_BANNERS: Record<string, { image: string; tag: string; title: stri
     title: 'Kundan & Meenakari Artistry',
     desc: 'Centuries-old enamel painting and hand-set uncut stones showcasing the true soul of South Asian jewelry craft.',
   },
+  earrings: {
+    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=1600&auto=format&fit=crop&q=85',
+    tag: 'Royal Ear Ornaments',
+    title: 'Earrings & Jhumkas Collection',
+    desc: 'Handcrafted Kundan chaandbalis, polki drops, zircon tops, and traditional wedding jhumkas.',
+  },
+  'gen-z': {
+    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1600&auto=format&fit=crop&q=85',
+    tag: 'Modern Chic & Minimalist',
+    title: 'Gen-Z Aesthetic Jewels',
+    desc: 'Dainty stackable rings, celestial pendants, and everyday aesthetic essentials.',
+  },
+  'other-jewellery': {
+    image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&auto=format&fit=crop&q=85',
+    tag: 'Heirloom Treasures',
+    title: 'Other Jewellery & Bangles',
+    desc: 'Royal bridal kangan sets, velvet churis, handcrafted cuffs, and festive rings.',
+  },
+  'hair-accessories': {
+    image: 'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=1600&auto=format&fit=crop&q=85',
+    tag: 'Bridal Crown & Hair Finery',
+    title: 'Hair Accessories Vault',
+    desc: 'Embellished matha patti, traditional passas, floral hair pins, and pearl clips.',
+  },
+  'wooden-products': {
+    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=1600&auto=format&fit=crop&q=85',
+    tag: 'Artisanal Sheesham Woodcraft',
+    title: 'Wooden Boxes & Organizers',
+    desc: 'Hand-carved solid Sheesham jewellery chests, bangle holders, and vanity organizers with brass inlay.',
+  },
+  'daily-life-products': {
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=1600&auto=format&fit=crop&q=85',
+    tag: 'Daily Care & Vanity Luxuries',
+    title: 'Daily Life Products & Organizers',
+    desc: 'Velvet travel pouches, jewelry preservation kits, and everyday vanity accessories.',
+  },
 };
 
 const DEFAULT_BANNER = {
@@ -185,7 +221,7 @@ async function ShopContent({ searchParams }: ShopPageProps) {
                     : 'bg-white text-text-primary hover:bg-[#FFF0F5] border border-border hover:border-[#D4AF37]'
                 }`}
               >
-                All Bangles
+                Shop All
               </Link>
               {categories.map((c) => (
                 <Link

@@ -4,7 +4,7 @@
  */
 export const APP_VERSION = {
   version: '2.1.0',
-  build: '2026.11.07-d62ee46',
+  build: '2026.11.07-dd30076',
   releaseName: 'Royal Velvet & Champagne Gold Edition',
   updatedAt: 'Nov 7, 2026',
   environment: process.env.NODE_ENV || 'production',

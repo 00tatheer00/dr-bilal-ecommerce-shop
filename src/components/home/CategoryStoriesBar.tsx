@@ -14,11 +14,30 @@ interface StoryItem {
 
 const STORY_ITEMS: StoryItem[] = [
   {
+    id: 'earrings',
+    name: 'Earrings',
+    href: '/shop?category=earrings',
+    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=240&auto=format&fit=crop&q=80',
+    isHot: true,
+  },
+  {
     id: 'bridal',
     name: 'Bridal Sets',
     href: '/shop?category=bridal',
     image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=240&auto=format&fit=crop&q=80',
     isHot: true,
+  },
+  {
+    id: 'hair-accessories',
+    name: 'Hair Decor',
+    href: '/shop?category=hair-accessories',
+    image: 'https://images.unsplash.com/photo-1596944924616-7b38e7cfac36?w=240&auto=format&fit=crop&q=80',
+  },
+  {
+    id: 'wooden-products',
+    name: 'Wooden Boxes',
+    href: '/shop?category=wooden-products',
+    image: 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=240&auto=format&fit=crop&q=80',
   },
   {
     id: 'everyday',
@@ -27,23 +46,16 @@ const STORY_ITEMS: StoryItem[] = [
     image: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=240&auto=format&fit=crop&q=80',
   },
   {
-    id: 'kundan-meenakari',
-    name: 'Meenakari',
-    href: '/shop?category=kundan-meenakari',
-    image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=240&auto=format&fit=crop&q=80',
-    isHot: true,
+    id: 'daily-life',
+    name: 'Daily Pouches',
+    href: '/shop?category=daily-life-products',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=240&auto=format&fit=crop&q=80',
   },
   {
     id: 'statement',
     name: 'Royal Kadas',
     href: '/shop?category=statement',
-    image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=240&auto=format&fit=crop&q=80',
-  },
-  {
-    id: 'under-3000',
-    name: 'Under Rs 3k',
-    href: '/shop',
-    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=240&auto=format&fit=crop&q=80',
+    image: 'https://images.unsplash.com/photo-1602173574767-37ac01994b2a?w=240&auto=format&fit=crop&q=80',
   },
   {
     id: 'all',
