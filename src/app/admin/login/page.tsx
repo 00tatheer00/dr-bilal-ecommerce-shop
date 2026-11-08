@@ -71,8 +71,8 @@ export default function AdminLoginPage() {
               type="email"
               name="email"
               required
-              defaultValue="admin@gulnaarbymk.com"
-              placeholder="admin@gulnaarbymk.com"
+              autoComplete="email"
+              placeholder="Enter your admin email"
               className="w-full rounded-lg border border-border bg-bg-surface px-3.5 py-2.5 text-text-primary focus:border-brand focus:outline-none"
             />
           </div>
@@ -85,8 +85,8 @@ export default function AdminLoginPage() {
               type="password"
               name="password"
               required
-              defaultValue="gulnaar2026"
-              placeholder="••••••••"
+              autoComplete="current-password"
+              placeholder="Enter your password"
               className="w-full rounded-lg border border-border bg-bg-surface px-3.5 py-2.5 text-text-primary focus:border-brand focus:outline-none"
             />
           </div>
