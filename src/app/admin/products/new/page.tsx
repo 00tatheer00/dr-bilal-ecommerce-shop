@@ -9,6 +9,8 @@ import {
   getAdminProductById,
   uploadAdminProductImage,
 } from '@/actions/admin-products';
+import { getAdminCategories } from '@/actions/admin-categories';
+import type { Category } from '@/types';
 import Button from '@/components/ui/Button';
 import {
   ArrowLeft,
@@ -41,11 +43,31 @@ function ProductFormContent() {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
   const [categoryId, setCategoryId] = useState('11111111-1111-1111-1111-111111111111');
+  const [availableCategories, setAvailableCategories] = useState<Category[]>([]);
   const [shortDescription, setShortDescription] = useState('');
   const [description, setDescription] = useState('');
   const [material, setMaterial] = useState('24K Gold-dipped Brass, Kundan Stones');
   const [isFeatured, setIsFeatured] = useState(false);
   const [status, setStatus] = useState<'active' | 'draft' | 'archived'>('active');
+
+  // Load available categories dynamically
+  useEffect(() => {
+    let isMounted = true;
+    async function loadCats() {
+      try {
+        const cats = await getAdminCategories();
+        if (cats && cats.length > 0 && isMounted) {
+          setAvailableCategories(cats);
+        }
+      } catch (e) {
+        console.error('Failed to load categories', e);
+      }
+    }
+    loadCats();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // Images State
   const [images, setImages] = useState<ImageItem[]>([
@@ -401,10 +423,26 @@ function ProductFormContent() {
                 onChange={(e) => setCategoryId(e.target.value)}
                 className="w-full rounded-lg border border-border bg-bg-surface px-3 py-2 text-text-primary focus:border-brand focus:outline-none"
               >
-                <option value="11111111-1111-1111-1111-111111111111">Bridal & Formal Kangan</option>
-                <option value="22222222-2222-2222-2222-222222222222">Silk Thread Bangles</option>
-                <option value="33333333-3333-3333-3333-333333333333">Velvet & Glass Chooriyan</option>
-                <option value="44444444-4444-4444-4444-444444444444">Meenakari & Polki Classics</option>
+                {availableCategories.length > 0 ? (
+                  availableCategories.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.name}
+                    </option>
+                  ))
+                ) : (
+                  <>
+                    <option value="11111111-1111-1111-1111-111111111111">Bridal Collection</option>
+                    <option value="22222222-2222-2222-2222-222222222222">Everyday Elegance</option>
+                    <option value="33333333-3333-3333-3333-333333333333">Statement Pieces</option>
+                    <option value="44444444-4444-4444-4444-444444444444">Kundan & Meenakari</option>
+                    <option value="55555555-5555-5555-5555-555555555555">Earrings</option>
+                    <option value="66666666-6666-6666-6666-666666666666">Gen-Z</option>
+                    <option value="77777777-7777-7777-7777-777777777777">Other Jewellery</option>
+                    <option value="88888888-8888-8888-8888-888888888888">Hair Accessories</option>
+                    <option value="99999999-9999-9999-9999-999999999999">Wooden Products</option>
+                    <option value="aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa">Daily Life Products</option>
+                  </>
+                )}
               </select>
             </div>
 
