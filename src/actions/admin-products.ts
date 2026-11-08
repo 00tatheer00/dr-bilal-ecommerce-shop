@@ -448,14 +448,23 @@ export async function uploadAdminProductImage(
   }
 
   // Validate file type
-  const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
-  if (!validTypes.includes(file.type)) {
+  const validTypes = [
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+    'image/webp',
+    'image/avif',
+    'image/heic',
+    'image/heif',
+    'image/gif',
+  ];
+  if (!validTypes.includes(file.type?.toLowerCase()) && !file.type?.startsWith('image/')) {
     return { success: false, error: 'Invalid file format. Please upload JPG, PNG, WEBP, or AVIF.' };
   }
 
-  // Validate file size (max 5MB)
-  if (file.size > 5 * 1024 * 1024) {
-    return { success: false, error: 'Image size exceeds maximum limit of 5MB.' };
+  // Validate file size (max 10MB)
+  if (file.size > 10 * 1024 * 1024) {
+    return { success: false, error: 'Image size exceeds maximum limit of 10MB.' };
   }
 
   const client = createAdminClient();

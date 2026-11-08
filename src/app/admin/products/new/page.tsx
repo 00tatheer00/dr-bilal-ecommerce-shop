@@ -154,13 +154,41 @@ function ProductFormContent() {
       const formData = new FormData();
       formData.append('image', file);
 
-      const res = await uploadAdminProductImage(formData);
-      if (res.success && res.url) {
+      let uploadedUrl: string | null = null;
+      let uploadError: string | null = null;
+
+      // 1. Try fast streaming API route first
+      try {
+        const response = await fetch('/api/admin/upload-image', {
+          method: 'POST',
+          body: formData,
+        });
+        const result = await response.json();
+        if (result.success && result.url) {
+          uploadedUrl = result.url;
+        } else {
+          uploadError = result.error || null;
+        }
+      } catch {
+        // Fall through to server action
+      }
+
+      // 2. If API route didn't succeed, fallback to Server Action
+      if (!uploadedUrl) {
+        const res = await uploadAdminProductImage(formData);
+        if (res.success && res.url) {
+          uploadedUrl = res.url;
+        } else {
+          uploadError = uploadError || res.error || 'Upload failed.';
+        }
+      }
+
+      if (uploadedUrl) {
         setImages((prev) => [
           ...prev,
           {
             id: `img-${Date.now()}`,
-            url: res.url!,
+            url: uploadedUrl!,
             alt_text: name || 'Bangle Product Photo',
             is_primary: prev.length === 0,
           },
@@ -168,10 +196,10 @@ function ProductFormContent() {
         setSuccessMsg('Photo uploaded successfully to Supabase Storage!');
         setTimeout(() => setSuccessMsg(null), 3000);
       } else {
-        setError(res.error || 'Failed to upload photo.');
+        setError(uploadError || 'Failed to upload photo. Please verify image is under 10MB.');
       }
-    } catch {
-      setError('An error occurred during image upload.');
+    } catch (err: any) {
+      setError(err?.message || 'An error occurred during image upload.');
     } finally {
       setUploadingImage(false);
       e.target.value = '';
