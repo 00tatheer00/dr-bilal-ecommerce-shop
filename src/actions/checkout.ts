@@ -10,6 +10,8 @@ export interface CheckoutResult {
   totalMinor?: number;
   subtotalMinor?: number;
   deliveryChargeMinor?: number;
+  paymentMethod?: 'cod' | 'easypaisa' | 'bank_transfer';
+  paymentReference?: string;
   error?: string;
   fieldErrors?: Record<string, string>;
   isMock?: boolean;
@@ -43,9 +45,31 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
     city,
     province,
     specialInstructions,
+    paymentMethod,
+    paymentReference,
+    senderAccountName,
     items,
     idempotencyKey,
   } = validation.data;
+
+  // Build structured payment instruction snapshot
+  const paymentTagParts: string[] = [];
+  if (paymentMethod === 'easypaisa') {
+    paymentTagParts.push('Method: Easypaisa (03125880988)');
+    if (paymentReference) paymentTagParts.push(`TRX ID: ${paymentReference}`);
+    if (senderAccountName) paymentTagParts.push(`Sender: ${senderAccountName}`);
+  } else if (paymentMethod === 'bank_transfer') {
+    paymentTagParts.push('Method: MCB Bank Transfer');
+    if (paymentReference) paymentTagParts.push(`Ref: ${paymentReference}`);
+    if (senderAccountName) paymentTagParts.push(`Sender: ${senderAccountName}`);
+  } else {
+    paymentTagParts.push('Method: Cash on Delivery (COD)');
+  }
+
+  const structuredPaymentNote = `[${paymentTagParts.join(' | ')}]`;
+  const combinedInstructions = specialInstructions
+    ? `${structuredPaymentNote} ${specialInstructions}`
+    : structuredPaymentNote;
 
   // 2. Attempt remote Supabase RPC execution
   const supabase = await createClient();
@@ -68,7 +92,7 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
           p_address_line2: addressLine2 || null,
           p_city: city,
           p_province: province || null,
-          p_special_instructions: specialInstructions || null,
+          p_special_instructions: combinedInstructions,
           p_items: rpcItems,
           p_idempotency_key: idempotencyKey || null,
         }
@@ -97,6 +121,8 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
         totalMinor: res.total_minor,
         subtotalMinor: res.subtotal_minor,
         deliveryChargeMinor: res.delivery_charge_minor,
+        paymentMethod,
+        paymentReference: paymentReference || undefined,
       };
     } catch {
       // Fallback to local calculation if connection was interrupted
@@ -139,6 +165,8 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
     totalMinor: calculatedTotal,
     subtotalMinor: calculatedSubtotal,
     deliveryChargeMinor: deliveryCharge,
+    paymentMethod,
+    paymentReference: paymentReference || undefined,
     isMock: true,
   };
 }

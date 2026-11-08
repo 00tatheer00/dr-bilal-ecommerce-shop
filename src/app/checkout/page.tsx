@@ -15,6 +15,12 @@ import {
   ShoppingBag,
   ArrowLeft,
   AlertCircle,
+  Copy,
+  Check,
+  Smartphone,
+  Building2,
+  Banknote,
+  CheckCircle2,
 } from 'lucide-react';
 
 const FALLBACK_BANGLE_THUMBS = [
@@ -81,6 +87,20 @@ export default function CheckoutPage() {
   const [province, setProvince] = useState('Punjab');
   const [specialInstructions, setSpecialInstructions] = useState('');
 
+  // Payment State
+  const [paymentMethod, setPaymentMethod] = useState<'cod' | 'easypaisa' | 'bank_transfer'>('easypaisa');
+  const [paymentReference, setPaymentReference] = useState('');
+  const [senderAccountName, setSenderAccountName] = useState('');
+  const [copiedField, setCopiedField] = useState<string | null>(null);
+
+  const handleCopy = (text: string, fieldKey: string) => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      setCopiedField(fieldKey);
+      setTimeout(() => setCopiedField(null), 2500);
+    }
+  };
+
   if (items.length === 0) {
     return (
       <div className="py-20 text-center">
@@ -108,6 +128,17 @@ export default function CheckoutPage() {
     e.preventDefault();
     setFormErrors({});
     setServerError(null);
+
+    // Validate TRX ID if online payment selected
+    if (paymentMethod === 'easypaisa' && !paymentReference.trim()) {
+      setFormErrors({ paymentReference: 'Please enter your Easypaisa Transaction ID (TRX ID).' });
+      return;
+    }
+    if (paymentMethod === 'bank_transfer' && !paymentReference.trim()) {
+      setFormErrors({ paymentReference: 'Please enter your bank transfer reference or sender account name.' });
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -120,6 +151,9 @@ export default function CheckoutPage() {
         city,
         province,
         specialInstructions: specialInstructions || undefined,
+        paymentMethod,
+        paymentReference: paymentReference || undefined,
+        senderAccountName: senderAccountName || undefined,
         items: items.map((i) => ({
           variantId: i.variant_id,
           quantity: i.quantity,
@@ -140,7 +174,15 @@ export default function CheckoutPage() {
 
       // Order created successfully! Clear bag and redirect to receipt screen
       clearCart();
-      const url = `/order-success/${result.orderNumber}?token=${result.trackingToken || ''}`;
+      const queryParams = new URLSearchParams({
+        token: result.trackingToken || '',
+        method: paymentMethod,
+        amount: totalCents.toString(),
+      });
+      if (paymentReference) {
+        queryParams.set('ref', paymentReference);
+      }
+      const url = `/order-success/${result.orderNumber}?${queryParams.toString()}`;
       router.push(url);
     } catch {
       setServerError('A network error occurred. Please try again.');
@@ -325,24 +367,321 @@ export default function CheckoutPage() {
                   />
                 </div>
 
-                {/* 7. Payment Method Box */}
-                <div className="rounded-xl border border-brand/40 bg-brand-light/30 p-4">
+                {/* 7. Pakistani Payment Method Selection */}
+                <div className="space-y-3 pt-2">
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="h-5 w-5 rounded-full border-4 border-brand bg-white" />
+                    <label className="block text-xs font-semibold text-text-primary uppercase tracking-wider">
+                      Select Payment Method *
+                    </label>
+                    <span className="text-[11px] font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                      100% Secure Checkout
+                    </span>
+                  </div>
+
+                  {/* Payment Options Grid / Tabs */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    {/* 1. Easypaisa */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentMethod('easypaisa');
+                        setFormErrors((prev) => ({ ...prev, paymentReference: '' }));
+                      }}
+                      className={`relative p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                        paymentMethod === 'easypaisa'
+                          ? 'border-[#00c389] bg-[#00c389]/10 shadow-xs ring-2 ring-[#00c389]/30'
+                          : 'border-border bg-bg-surface hover:border-[#00c389]/50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className={`p-1.5 rounded-lg ${paymentMethod === 'easypaisa' ? 'bg-[#00c389] text-white' : 'bg-gray-100 text-gray-600'}`}>
+                            <Smartphone className="h-4 w-4" />
+                          </div>
+                          <span className="font-bold text-xs text-text-primary">Easypaisa</span>
+                        </div>
+                        {paymentMethod === 'easypaisa' && (
+                          <div className="h-4 w-4 rounded-full bg-[#00c389] flex items-center justify-center text-white text-[10px]">
+                            ✓
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-text-secondary leading-tight">
+                        Direct wallet transfer to 03125880988
+                      </span>
+                    </button>
+
+                    {/* 2. Bank Transfer (MCB) */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentMethod('bank_transfer');
+                        setFormErrors((prev) => ({ ...prev, paymentReference: '' }));
+                      }}
+                      className={`relative p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                        paymentMethod === 'bank_transfer'
+                          ? 'border-[#1b3a6b] bg-[#1b3a6b]/10 shadow-xs ring-2 ring-[#1b3a6b]/30'
+                          : 'border-border bg-bg-surface hover:border-[#1b3a6b]/50'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className={`p-1.5 rounded-lg ${paymentMethod === 'bank_transfer' ? 'bg-[#1b3a6b] text-white' : 'bg-gray-100 text-gray-600'}`}>
+                            <Building2 className="h-4 w-4" />
+                          </div>
+                          <span className="font-bold text-xs text-text-primary">MCB Bank</span>
+                        </div>
+                        {paymentMethod === 'bank_transfer' && (
+                          <div className="h-4 w-4 rounded-full bg-[#1b3a6b] flex items-center justify-center text-white text-[10px]">
+                            ✓
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-text-secondary leading-tight">
+                        Online / Raast / 1Link transfer
+                      </span>
+                    </button>
+
+                    {/* 3. Cash on Delivery (COD) */}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setPaymentMethod('cod');
+                        setFormErrors((prev) => ({ ...prev, paymentReference: '' }));
+                      }}
+                      className={`relative p-3.5 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                        paymentMethod === 'cod'
+                          ? 'border-brand bg-brand-light/40 shadow-xs ring-2 ring-brand/30'
+                          : 'border-border bg-bg-surface hover:border-brand/40'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className={`p-1.5 rounded-lg ${paymentMethod === 'cod' ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600'}`}>
+                            <Banknote className="h-4 w-4" />
+                          </div>
+                          <span className="font-bold text-xs text-text-primary">Cash on Delivery</span>
+                        </div>
+                        {paymentMethod === 'cod' && (
+                          <div className="h-4 w-4 rounded-full bg-brand flex items-center justify-center text-white text-[10px]">
+                            ✓
+                          </div>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-text-secondary leading-tight">
+                        Pay cash at your doorstep
+                      </span>
+                    </button>
+                  </div>
+
+                  {/* Easypaisa Transfer Details Card */}
+                  {paymentMethod === 'easypaisa' && (
+                    <div className="rounded-xl border border-[#00c389]/40 bg-gradient-to-br from-[#00c389]/5 to-transparent p-4 sm:p-5 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#00c389]/20 pb-3">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-heading font-bold text-sm text-[#008a60]">
+                              Easypaisa Official Account
+                            </span>
+                            <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-[#00c389]/20 text-[#008a60]">
+                              Verified
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-text-secondary mt-0.5">
+                            Transfer <strong>{formatPrice(totalCents)}</strong> from your Easypaisa app or USSD (*786#).
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Account Box with 1-Click Copy */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-white p-3.5 rounded-lg border border-border">
+                        <div>
+                          <span className="text-[10px] text-text-secondary uppercase tracking-wider block font-semibold">
+                            Account Number
+                          </span>
+                          <div className="flex items-center gap-2 mt-0.5">
+                            <span className="font-mono text-base font-bold text-text-primary tracking-wide">
+                              03125880988
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => handleCopy('03125880988', 'easypaisa_acc')}
+                              className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#008a60] bg-[#00c389]/15 hover:bg-[#00c389]/25 px-2 py-1 rounded transition-colors"
+                            >
+                              {copiedField === 'easypaisa_acc' ? (
+                                <>
+                                  <Check className="h-3 w-3" /> Copied!
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3 w-3" /> Copy
+                                </>
+                              )}
+                            </button>
+                          </div>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] text-text-secondary uppercase tracking-wider block font-semibold">
+                            Account Title
+                          </span>
+                          <span className="font-bold text-sm text-text-primary block mt-1">
+                            Bilal Khan
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* TRX ID Input */}
                       <div>
-                        <h4 className="text-xs font-bold text-brand uppercase tracking-wider">
-                          Cash on Delivery (COD)
-                        </h4>
-                        <p className="text-[11px] text-text-secondary mt-0.5">
-                          Pay cash to courier upon inspecting parcel at your doorstep.
+                        <label className="block text-xs font-semibold text-text-primary uppercase tracking-wider mb-1.5">
+                          Easypaisa Transaction ID (TRX ID) *
+                        </label>
+                        <input
+                          type="text"
+                          value={paymentReference}
+                          onChange={(e) => setPaymentReference(e.target.value)}
+                          placeholder="e.g. 11-digit TRX ID from 3737 SMS"
+                          className="w-full rounded-lg border border-border bg-bg-surface px-3.5 py-2.5 text-xs text-text-primary focus:border-[#00c389] focus:outline-none"
+                        />
+                        {formErrors.paymentReference && (
+                          <p className="mt-1 text-[11px] text-error font-medium">
+                            {formErrors.paymentReference}
+                          </p>
+                        )}
+                        <p className="text-[10px] text-text-secondary mt-1">
+                          💬 After clicking Confirm, you will also be able to send your payment screenshot on WhatsApp with 1 click.
                         </p>
                       </div>
                     </div>
-                    <span className="rounded bg-brand/10 px-2 py-0.5 text-[10px] font-bold text-brand">
-                      Standard
-                    </span>
-                  </div>
+                  )}
+
+                  {/* Bank Transfer (MCB) Details Card */}
+                  {paymentMethod === 'bank_transfer' && (
+                    <div className="rounded-xl border border-[#1b3a6b]/40 bg-gradient-to-br from-[#1b3a6b]/5 to-transparent p-4 sm:p-5 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1b3a6b]/20 pb-3">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-heading font-bold text-sm text-[#1b3a6b]">
+                              Muslim Commercial Bank (MCB)
+                            </span>
+                            <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-[#1b3a6b]/15 text-[#1b3a6b]">
+                              Official Account
+                            </span>
+                          </div>
+                          <p className="text-[11px] text-text-secondary mt-0.5">
+                            Transfer <strong>{formatPrice(totalCents)}</strong> via online banking, Raast, or ATM transfer.
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Bank Account Info Box with 1-Click Copy */}
+                      <div className="space-y-2.5 bg-white p-3.5 rounded-lg border border-border">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-2 border-b border-border/60">
+                          <div>
+                            <span className="text-[10px] text-text-secondary uppercase tracking-wider block font-semibold">
+                              Bank Name
+                            </span>
+                            <span className="font-bold text-xs text-text-primary block mt-0.5">
+                              Muslim Commercial Bank (MCB)
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-[10px] text-text-secondary uppercase tracking-wider block font-semibold">
+                              Account Title
+                            </span>
+                            <span className="font-bold text-xs text-text-primary block mt-0.5">
+                              Bilal Khan
+                            </span>
+                          </div>
+                        </div>
+
+                        <div>
+                          <span className="text-[10px] text-text-secondary uppercase tracking-wider block font-semibold">
+                            IBAN / Account Number
+                          </span>
+                          <div className="flex items-center justify-between gap-2 mt-1">
+                            <span className="font-mono text-xs sm:text-sm font-bold text-text-primary break-all">
+                              PK16MUCB0857263901006723
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => handleCopy('PK16MUCB0857263901006723', 'mcb_iban')}
+                              className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#1b3a6b] bg-[#1b3a6b]/15 hover:bg-[#1b3a6b]/25 px-2 py-1 rounded transition-colors shrink-0"
+                            >
+                              {copiedField === 'mcb_iban' ? (
+                                <>
+                                  <Check className="h-3 w-3" /> Copied!
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3 w-3" /> Copy IBAN
+                                </>
+                              )}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Transaction Reference Input */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-xs font-semibold text-text-primary uppercase tracking-wider mb-1.5">
+                            Bank Reference / Transaction ID *
+                          </label>
+                          <input
+                            type="text"
+                            value={paymentReference}
+                            onChange={(e) => setPaymentReference(e.target.value)}
+                            placeholder="e.g. MCB / Raast Ref #"
+                            className="w-full rounded-lg border border-border bg-bg-surface px-3.5 py-2.5 text-xs text-text-primary focus:border-[#1b3a6b] focus:outline-none"
+                          />
+                          {formErrors.paymentReference && (
+                            <p className="mt-1 text-[11px] text-error font-medium">
+                              {formErrors.paymentReference}
+                            </p>
+                          )}
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-semibold text-text-primary uppercase tracking-wider mb-1.5">
+                            Sender Account Name (Optional)
+                          </label>
+                          <input
+                            type="text"
+                            value={senderAccountName}
+                            onChange={(e) => setSenderAccountName(e.target.value)}
+                            placeholder="e.g. Account holder name"
+                            className="w-full rounded-lg border border-border bg-bg-surface px-3.5 py-2.5 text-xs text-text-primary focus:border-[#1b3a6b] focus:outline-none"
+                          />
+                        </div>
+                      </div>
+                      <p className="text-[10px] text-text-secondary">
+                        💬 You can attach your bank transfer receipt on WhatsApp after placing this order.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Cash on Delivery Notice */}
+                  {paymentMethod === 'cod' && (
+                    <div className="rounded-xl border border-brand/40 bg-brand-light/30 p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="h-5 w-5 rounded-full border-4 border-brand bg-white" />
+                          <div>
+                            <h4 className="text-xs font-bold text-brand uppercase tracking-wider">
+                              Cash on Delivery (Doorstep Payment)
+                            </h4>
+                            <p className="text-[11px] text-text-secondary mt-0.5">
+                              Please keep exact cash ready: <strong>{formatPrice(totalCents)}</strong> upon courier delivery.
+                            </p>
+                          </div>
+                        </div>
+                        <span className="rounded bg-brand/10 px-2 py-0.5 text-[10px] font-bold text-brand">
+                          Doorstep Inspection
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Submit Action */}

@@ -468,24 +468,24 @@ export default function Header() {
                 </div>
               )}
 
-              {/* Drawer Footer with Helpline & COD Guarantee */}
+              {/* Drawer Footer with Helpline & Online/COD Guarantee */}
               <div className="mt-auto border-t border-[#E8E5DF] p-4 bg-[#FAF9F6]">
                 <div className="flex items-center justify-between text-xs">
                   <a
-                    href="https://wa.me/923275792600"
+                    href="https://wa.me/923125880988"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 text-[#B81D4E] font-bold hover:underline"
                   >
                     <Phone className="h-3.5 w-3.5 text-[#D4AF37]" />
-                    <span>0327-5792600</span>
+                    <span>0312-5880988 (Dr. Bilal)</span>
                   </a>
                   <span className="font-mono text-[10px] text-text-secondary">
                     v{APP_VERSION.version}
                   </span>
                 </div>
                 <p className="text-[10px] text-text-secondary mt-1">
-                  Cash on Delivery Available Across Pakistan
+                  Easypaisa • Bank Transfer • Cash on Delivery Across Pakistan
                 </p>
               </div>
             </div>

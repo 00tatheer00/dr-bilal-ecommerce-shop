@@ -176,37 +176,71 @@ export default function OrderDetailClient({ initialOrder }: Props) {
             </div>
           </div>
 
-          {/* COD Payment Status Reconciliation Box */}
-          <div className="rounded-xl border border-border bg-bg-primary p-6 shadow-xs flex items-center justify-between">
-            <div>
-              <span className="text-xs uppercase font-bold text-text-secondary block">
-                Cash on Delivery Reconciliation
-              </span>
-              <p className="text-xs text-text-secondary mt-0.5">
-                Current Payment Status: <strong className="uppercase text-text-primary">{order.payment_status}</strong>
-              </p>
+          {/* Payment Method & Status Reconciliation Box */}
+          <div className="rounded-xl border border-border bg-bg-primary p-6 shadow-xs space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-4">
+              <div>
+                <span className="text-xs uppercase font-bold text-text-secondary block">
+                  Payment Verification & Reconciliation
+                </span>
+                <div className="flex items-center gap-2 mt-1.5">
+                  <span
+                    className={`inline-block px-2.5 py-0.5 rounded text-[11px] font-bold uppercase ${
+                      order.payment_status === 'paid'
+                        ? 'bg-emerald-100 text-emerald-800'
+                        : 'bg-amber-100 text-amber-800'
+                    }`}
+                  >
+                    Payment: {order.payment_status}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {order.payment_status === 'pending' ? (
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => handlePaymentToggle('paid')}
+                    loading={loading}
+                    className="bg-emerald-700 hover:bg-emerald-800"
+                  >
+                    Mark Payment as Received (Paid)
+                  </Button>
+                ) : (
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => handlePaymentToggle('pending')}
+                    loading={loading}
+                  >
+                    Revert to Pending
+                  </Button>
+                )}
+              </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              {order.payment_status === 'pending' ? (
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => handlePaymentToggle('paid')}
-                  loading={loading}
-                  className="bg-emerald-700 hover:bg-emerald-800"
-                >
-                  Mark Cash Collected (Paid)
-                </Button>
-              ) : (
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => handlePaymentToggle('pending')}
-                  loading={loading}
-                >
-                  Revert to Pending
-                </Button>
+            {/* Payment Details Parsed from special_instructions */}
+            <div className="bg-bg-secondary p-3.5 rounded-lg text-xs space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-text-secondary">Detected Method:</span>
+                <span className="font-bold text-text-primary">
+                  {order.special_instructions?.includes('Easypaisa')
+                    ? 'Easypaisa (0312-5880988)'
+                    : order.special_instructions?.includes('MCB') || order.special_instructions?.includes('Bank')
+                    ? 'MCB Bank Transfer'
+                    : 'Cash on Delivery (COD)'}
+                </span>
+              </div>
+              {order.special_instructions && (
+                <div className="pt-2 border-t border-border">
+                  <span className="text-text-secondary block font-semibold mb-0.5">
+                    Order Payment Notes / Reference:
+                  </span>
+                  <p className="font-mono text-[11px] text-brand bg-white p-2 rounded border border-border">
+                    {order.special_instructions}
+                  </p>
+                </div>
               )}
             </div>
           </div>

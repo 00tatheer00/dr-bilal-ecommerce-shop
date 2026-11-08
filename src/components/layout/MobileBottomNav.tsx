@@ -39,7 +39,7 @@ export default function MobileBottomNav() {
   const whatsappMessage = encodeURIComponent(
     'Salam! I want to order handcrafted bangles from GULNAAR by MK.'
   );
-  const whatsappUrl = `https://wa.me/923275792600?text=${whatsappMessage}`;
+  const whatsappUrl = `https://wa.me/923125880988?text=${whatsappMessage}`;
 
   return (
     <aside

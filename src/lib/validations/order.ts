@@ -58,6 +58,21 @@ export const checkoutFormSchema = z.object({
     .max(500, 'Special instructions cannot exceed 500 characters')
     .optional()
     .or(z.literal('')),
+  paymentMethod: z
+    .enum(['cod', 'easypaisa', 'bank_transfer'])
+    .default('cod'),
+  paymentReference: z
+    .string()
+    .trim()
+    .max(100)
+    .optional()
+    .or(z.literal('')),
+  senderAccountName: z
+    .string()
+    .trim()
+    .max(100)
+    .optional()
+    .or(z.literal('')),
   items: z
     .array(orderItemSchema)
     .min(1, 'At least one item must be present in the bag to checkout'),

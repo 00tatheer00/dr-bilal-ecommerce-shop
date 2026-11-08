@@ -24,7 +24,7 @@ export async function getCategories(): Promise<Category[]> {
           name: c.name,
           slug: c.slug,
           description: c.description,
-          image_url: c.image_path,
+          image_url: c.image_path || `/images/categories/${c.slug}.jpg`,
           sort_order: c.sort_order,
           is_active: c.is_active,
           created_at: c.created_at,

@@ -3,32 +3,67 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Container from '@/components/ui/Container';
 import Button from '@/components/ui/Button';
-import { CheckCircle2, PackageCheck, PhoneCall, Truck, Crown } from 'lucide-react';
+import {
+  CheckCircle2,
+  PackageCheck,
+  PhoneCall,
+  Truck,
+  Crown,
+  Smartphone,
+  Building2,
+  Banknote,
+  MessageCircle,
+  ExternalLink,
+} from 'lucide-react';
 import CelebrationConfetti from '@/components/ui/CelebrationConfetti';
 
 interface Props {
   params: Promise<{ orderNumber: string }>;
-  searchParams: Promise<{ token?: string }>;
+  searchParams: Promise<{
+    token?: string;
+    method?: string;
+    ref?: string;
+    amount?: string;
+  }>;
 }
 
 async function OrderSuccessContent({ params, searchParams }: Props) {
   const { orderNumber } = await params;
-  await searchParams;
+  const sp = await searchParams;
+
+  const method = sp.method || 'cod';
+  const paymentRef = sp.ref || '';
+  const amountMinor = sp.amount ? Number(sp.amount) : null;
+  const formattedAmount = amountMinor
+    ? `PKR ${(amountMinor / 100).toLocaleString('en-PK')}`
+    : null;
+
+  // Doctor Bilal Khan's official contact
+  const doctorWhatsapp = '923125880988';
+  let methodDisplayName = 'Cash on Delivery (COD)';
+  if (method === 'easypaisa') methodDisplayName = 'Easypaisa Mobile Transfer';
+  if (method === 'bank_transfer') methodDisplayName = 'MCB Bank Transfer';
+
+  const whatsappMessageText = `Assalam-o-Alaikum Dr. Bilal!%0A%0AI have placed an order on Gulnaar by MK.%0A%0A*Order Reference:* ${orderNumber}%0A*Payment Method:* ${methodDisplayName}${
+    paymentRef ? `%0A*Transaction ID / Ref:* ${paymentRef}` : ''
+  }${formattedAmount ? `%0A*Total Amount:* ${formattedAmount}` : ''}%0A%0APlease confirm my order. I am sharing my payment receipt/details for dispatch.`;
+
+  const whatsappHref = `https://wa.me/${doctorWhatsapp}?text=${whatsappMessageText}`;
 
   return (
     <div className="py-12 sm:py-20 bg-bg-secondary/40 min-h-screen">
       <CelebrationConfetti />
       <Container size="md">
-        <div className="rounded-2xl border border-border bg-bg-primary p-8 sm:p-12 text-center shadow-sm">
+        <div className="rounded-2xl border border-border bg-bg-primary p-6 sm:p-12 text-center shadow-sm">
           {/* Brand Monogram & Success Check Icon */}
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="relative h-16 w-16">
+            <div className="relative h-16 w-16 rounded-full overflow-hidden border border-[#D4AF37]/40 shadow-xs">
               <Image
                 src="/images/logo-icon.png"
-                alt="GULNAAR"
+                alt="GULNAAR by MK"
                 fill
                 sizes="64px"
-                className="object-contain"
+                className="object-cover"
               />
             </div>
             <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border-2 border-emerald-200">
@@ -45,9 +80,42 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
             Thank You for Your Patronage
           </h1>
 
-          <p className="text-xs sm:text-sm text-text-secondary max-w-md mx-auto mb-8 leading-relaxed">
-            Your handcrafted bangles order has been safely received. Our master artisans and dispatch team are preparing your jewellery set.
+          <p className="text-xs sm:text-sm text-text-secondary max-w-md mx-auto mb-6 leading-relaxed">
+            Your jewellery order has been safely recorded. Our master artisans and dispatch team are preparing your handcrafted set.
           </p>
+
+          {/* Prominent WhatsApp Confirmation Card */}
+          <div className="mb-8 rounded-2xl border-2 border-[#25D366]/40 bg-gradient-to-br from-[#25D366]/10 via-[#25D366]/5 to-transparent p-5 sm:p-6 text-left shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#25D366] animate-pulse" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#128C7E]">
+                    Fast WhatsApp Confirmation
+                  </span>
+                </div>
+                <h3 className="font-heading text-base sm:text-lg font-bold text-text-primary">
+                  {method === 'cod'
+                    ? 'Confirm Your Dispatch on WhatsApp'
+                    : 'Send Your Payment Receipt to Dr. Bilal'}
+                </h3>
+                <p className="text-xs text-text-secondary">
+                  Connect directly with Doctor Bilal Khan at <strong>0312-5880988</strong> with pre-filled order details.
+                </p>
+              </div>
+
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#25D366] hover:bg-[#20ba59] text-white px-5 py-3 text-xs sm:text-sm font-bold shadow-md hover:shadow-lg transition-all shrink-0 active:scale-95"
+              >
+                <MessageCircle className="h-4 w-4 fill-white" />
+                <span>Open WhatsApp Chat</span>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+            </div>
+          </div>
 
           {/* Order Details Card */}
           <div className="rounded-xl border border-border bg-bg-secondary p-6 mb-8 text-left space-y-4">
@@ -60,9 +128,76 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
                   {orderNumber}
                 </span>
               </div>
-              <span className="rounded-full bg-emerald-100 text-emerald-800 px-3 py-1 text-xs font-semibold self-start sm:self-center">
-                Cash on Delivery (COD)
-              </span>
+
+              {/* Payment Badge */}
+              <div className="self-start sm:self-center">
+                {method === 'easypaisa' && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#00c389]/15 text-[#008a60] border border-[#00c389]/30 px-3 py-1 text-xs font-bold">
+                    <Smartphone className="h-3.5 w-3.5" />
+                    Easypaisa Transfer
+                  </span>
+                )}
+                {method === 'bank_transfer' && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[#1b3a6b]/15 text-[#1b3a6b] border border-[#1b3a6b]/30 px-3 py-1 text-xs font-bold">
+                    <Building2 className="h-3.5 w-3.5" />
+                    MCB Bank Transfer
+                  </span>
+                )}
+                {method === 'cod' && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200 px-3 py-1 text-xs font-bold">
+                    <Banknote className="h-3.5 w-3.5" />
+                    Cash on Delivery (COD)
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Payment Summary Box */}
+            <div className="bg-bg-primary rounded-lg border border-border p-3.5 text-xs space-y-2">
+              {formattedAmount && (
+                <div className="flex justify-between items-center text-text-secondary">
+                  <span>Order Total:</span>
+                  <span className="font-bold text-text-primary text-sm">{formattedAmount}</span>
+                </div>
+              )}
+              {method === 'easypaisa' && (
+                <>
+                  <div className="flex justify-between items-center text-text-secondary">
+                    <span>Easypaisa Account:</span>
+                    <span className="font-mono font-semibold text-text-primary">03125880988 (Bilal Khan)</span>
+                  </div>
+                  {paymentRef && (
+                    <div className="flex justify-between items-center text-text-secondary">
+                      <span>Submitted TRX ID:</span>
+                      <span className="font-mono font-bold text-[#008a60]">{paymentRef}</span>
+                    </div>
+                  )}
+                </>
+              )}
+              {method === 'bank_transfer' && (
+                <>
+                  <div className="flex justify-between items-center text-text-secondary">
+                    <span>MCB Account Title:</span>
+                    <span className="font-semibold text-text-primary">Bilal Khan</span>
+                  </div>
+                  <div className="flex justify-between items-center text-text-secondary">
+                    <span>MCB IBAN:</span>
+                    <span className="font-mono text-[11px] font-semibold text-text-primary">PK16MUCB0857263901006723</span>
+                  </div>
+                  {paymentRef && (
+                    <div className="flex justify-between items-center text-text-secondary">
+                      <span>Transaction Ref:</span>
+                      <span className="font-mono font-bold text-[#1b3a6b]">{paymentRef}</span>
+                    </div>
+                  )}
+                </>
+              )}
+              {method === 'cod' && (
+                <div className="text-text-secondary">
+                  <span>Please keep exact cash ready upon delivery: </span>
+                  <strong className="text-brand">{formattedAmount || 'payable upon arrival'}</strong>
+                </div>
+              )}
             </div>
 
             {/* Next Steps List */}
@@ -70,9 +205,9 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
               <div className="flex items-start gap-3">
                 <PhoneCall className="h-4 w-4 text-brand shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-text-primary font-medium">WhatsApp Confirmation:</strong>
+                  <strong className="text-text-primary font-medium">Order Verification:</strong>
                   <p className="mt-0.5">
-                    Our team may reach out via WhatsApp/SMS to verify your wrist size and destination address.
+                    Our team verifies all orders and reconciles online payments prior to dispatch.
                   </p>
                 </div>
               </div>
@@ -80,9 +215,9 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
               <div className="flex items-start gap-3">
                 <PackageCheck className="h-4 w-4 text-brand shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-text-primary font-medium">Velvet Box Preparation:</strong>
+                  <strong className="text-text-primary font-medium">Velvet Keepsake Packaging:</strong>
                   <p className="mt-0.5">
-                    Your bangles are inspected, polished, and packaged in our signature velvet keepsake box.
+                    Your pieces are hand-inspected, polished, and cushioned in our signature velvet box.
                   </p>
                 </div>
               </div>
@@ -92,7 +227,7 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
                 <div>
                   <strong className="text-text-primary font-medium">Courier Delivery:</strong>
                   <p className="mt-0.5">
-                    Expected delivery in 3–5 business days. Please keep the exact cash amount ready for the rider.
+                    Expected delivery across Pakistan within 3–5 business days via courier tracking.
                   </p>
                 </div>
               </div>
@@ -123,7 +258,7 @@ export default function OrderSuccessPage(props: Props) {
     <Suspense
       fallback={
         <div className="py-24 text-center text-xs text-text-secondary">
-          Loading order details...
+          Loading order confirmation...
         </div>
       }
     >

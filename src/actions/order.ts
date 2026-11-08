@@ -131,6 +131,7 @@ export async function lookupOrder(data: OrderLookupInput): Promise<OrderLookupRe
           delivery_charge_minor,
           payment_method,
           payment_status,
+          special_instructions,
           order_items (
             product_name,
             variant_size,
@@ -179,7 +180,11 @@ export async function lookupOrder(data: OrderLookupInput): Promise<OrderLookupRe
           city: order.city,
           totalMinor: order.total_minor,
           deliveryChargeMinor: order.delivery_charge_minor,
-          paymentMethod: order.payment_method,
+          paymentMethod: order.special_instructions?.includes('Easypaisa')
+            ? 'Easypaisa (03125880988)'
+            : order.special_instructions?.includes('MCB') || order.special_instructions?.includes('Bank')
+            ? 'MCB Bank Transfer'
+            : 'Cash on Delivery (COD)',
           paymentStatus: order.payment_status,
           items: (order.order_items || []).map((it: any) => ({
             productName: it.product_name,
