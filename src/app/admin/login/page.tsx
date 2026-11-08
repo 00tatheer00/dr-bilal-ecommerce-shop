@@ -11,13 +11,17 @@ export default function AdminLoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', password);
     const result = await loginAdmin(formData);
 
     if (!result.success) {
@@ -62,7 +66,7 @@ export default function AdminLoginPage() {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+        <form onSubmit={handleSubmit} autoComplete="off" className="space-y-4 text-xs">
           <div>
             <label className="block font-semibold uppercase tracking-wider text-text-primary mb-1">
               Email Address
@@ -71,7 +75,9 @@ export default function AdminLoginPage() {
               type="email"
               name="email"
               required
-              autoComplete="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="off"
               placeholder="Enter your admin email"
               className="w-full rounded-lg border border-border bg-bg-surface px-3.5 py-2.5 text-text-primary focus:border-brand focus:outline-none"
             />
@@ -85,7 +91,9 @@ export default function AdminLoginPage() {
               type="password"
               name="password"
               required
-              autoComplete="current-password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="new-password"
               placeholder="Enter your password"
               className="w-full rounded-lg border border-border bg-bg-surface px-3.5 py-2.5 text-text-primary focus:border-brand focus:outline-none"
             />
