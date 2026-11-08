@@ -3,6 +3,16 @@ import { createClient } from '@/lib/supabase/server';
 import { sampleProducts } from '@/lib/sample-data';
 import { generateOrderNumber } from '@/lib/utils';
 
+export interface OrderEmailItem {
+  name: string;
+  sku?: string | null;
+  size?: string | null;
+  color?: string | null;
+  quantity: number;
+  unitPriceMinor: number;
+  totalMinor: number;
+}
+
 export interface CheckoutResult {
   success: boolean;
   orderNumber?: string;
@@ -15,6 +25,80 @@ export interface CheckoutResult {
   error?: string;
   fieldErrors?: Record<string, string>;
   isMock?: boolean;
+}
+
+async function enrichOrderItems(
+  items: { variantId: string; quantity: number }[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  supabase?: any
+): Promise<OrderEmailItem[]> {
+  const result: OrderEmailItem[] = [];
+
+  if (supabase) {
+    try {
+      const ids = items.map((i) => i.variantId);
+      const { data } = await supabase
+        .from('product_variants')
+        .select('id, sku, size, color, price_minor, product:products(name)')
+        .in('id', ids);
+
+      if (data && data.length > 0) {
+        for (const item of items) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          const v = data.find((row: any) => row.id === item.variantId);
+          if (v) {
+            result.push({
+              name: (v as any).product?.name || 'Handcrafted Bangle',
+              sku: v.sku,
+              size: v.size,
+              color: v.color,
+              quantity: item.quantity,
+              unitPriceMinor: v.price_minor,
+              totalMinor: v.price_minor * item.quantity,
+            });
+          }
+        }
+      }
+    } catch {
+      // Fallback
+    }
+  }
+
+  // Fallback to sampleProducts if any missing
+  if (result.length < items.length) {
+    for (const item of items) {
+      if (!result.find((r) => r.sku === item.variantId || result.length >= items.length)) {
+        for (const prod of sampleProducts) {
+          const v = prod.variants?.find((varItem) => varItem.id === item.variantId);
+          if (v) {
+            result.push({
+              name: prod.name,
+              sku: v.sku,
+              size: v.size,
+              color: v.color,
+              quantity: item.quantity,
+              unitPriceMinor: v.price_cents,
+              totalMinor: v.price_cents * item.quantity,
+            });
+            break;
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+function triggerOrderEmailsAsync(payload: any) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dbshop.vercel.app';
+  fetch(`${siteUrl}/api/send-order-email`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch((err) => {
+    console.error('[Async Order Email Dispatch Error]:', err?.message);
+  });
 }
 
 export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutResult> {
@@ -114,6 +198,31 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
         delivery_charge_minor: number;
       };
 
+      // Dispatch 2 Emails asynchronously:
+      // (1) Designed Customer Confirmation Email (to customer)
+      // (2) Store Owner New Order Alert Email (to Doctor Bilal / Admin)
+      enrichOrderItems(items, supabase).then((emailItems) => {
+        triggerOrderEmailsAsync({
+          orderNumber: res.order_number,
+          trackingToken: res.tracking_token,
+          customerName,
+          customerPhone,
+          customerEmail: customerEmail || undefined,
+          addressLine1,
+          addressLine2: addressLine2 || undefined,
+          city,
+          province: province || undefined,
+          items: emailItems,
+          subtotalMinor: res.subtotal_minor,
+          deliveryChargeMinor: res.delivery_charge_minor,
+          totalMinor: res.total_minor,
+          paymentMethod,
+          paymentReference: paymentReference || undefined,
+          senderAccountName: senderAccountName || undefined,
+          specialInstructions: specialInstructions || undefined,
+        });
+      });
+
       return {
         success: true,
         orderNumber: res.order_number,
@@ -157,6 +266,29 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
   const calculatedTotal = calculatedSubtotal + deliveryCharge;
   const generatedNumber = generateOrderNumber();
   const mockTrackingToken = `tok_${Math.random().toString(36).substring(2, 15)}`;
+
+  // Dispatch 2 Emails for fallback mode as well
+  enrichOrderItems(items).then((emailItems) => {
+    triggerOrderEmailsAsync({
+      orderNumber: generatedNumber,
+      trackingToken: mockTrackingToken,
+      customerName,
+      customerPhone,
+      customerEmail: customerEmail || undefined,
+      addressLine1,
+      addressLine2: addressLine2 || undefined,
+      city,
+      province: province || undefined,
+      items: emailItems,
+      subtotalMinor: calculatedSubtotal,
+      deliveryChargeMinor: deliveryCharge,
+      totalMinor: calculatedTotal,
+      paymentMethod,
+      paymentReference: paymentReference || undefined,
+      senderAccountName: senderAccountName || undefined,
+      specialInstructions: specialInstructions || undefined,
+    });
+  });
 
   return {
     success: true,

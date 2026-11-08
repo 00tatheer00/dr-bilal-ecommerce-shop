@@ -26,9 +26,9 @@ const content = `/**
  * Automatically updated on every build & push
  */
 export const APP_VERSION = {
-  version: '2.1.0',
+  version: '2.3.0',
   build: '${buildId}',
-  releaseName: 'Royal Velvet & Champagne Gold Edition',
+  releaseName: 'Automated 2-Way Order Email & Owner Alert Edition',
   updatedAt: '${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}',
   environment: process.env.NODE_ENV || 'production',
   status: 'operational',

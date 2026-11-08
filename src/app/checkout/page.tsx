@@ -267,7 +267,7 @@ export default function CheckoutPage() {
 
                   <div>
                     <label className="block text-xs font-semibold text-text-primary uppercase tracking-wider mb-1.5">
-                      Email Address (Optional)
+                      Email Address (To Receive Designed Invoice)
                     </label>
                     <input
                       type="email"
@@ -277,7 +277,7 @@ export default function CheckoutPage() {
                       className="w-full rounded-lg border border-border bg-bg-surface px-3.5 py-2.5 text-xs text-text-primary focus:border-brand focus:outline-none"
                     />
                     <span className="text-[10px] text-text-secondary mt-1 block">
-                      To receive a digital receipt.
+                      We will email your official order copy and tracking link.
                     </span>
                     {formErrors.customerEmail && (
                       <p className="mt-1 text-[11px] text-error">{formErrors.customerEmail}</p>
