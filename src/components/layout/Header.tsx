@@ -50,7 +50,6 @@ export default function Header() {
 
   const shopCategories = [
     { label: 'EARRINGS', href: '/shop?category=earrings', hasArrow: true },
-    { label: 'GEN-Z', href: '/shop?category=gen-z', hasArrow: false },
     { label: 'OTHER JEWELLERY', href: '/shop?category=other-jewellery', hasArrow: true },
     { label: 'HAIR ACCESSORIES', href: '/shop?category=hair-accessories', hasArrow: true },
     { label: 'WOODEN PRODUCTS', href: '/shop?category=wooden-products', hasArrow: false },

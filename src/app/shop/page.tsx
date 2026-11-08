@@ -47,12 +47,6 @@ const CATEGORY_BANNERS: Record<string, { image: string; tag: string; title: stri
     title: 'Earrings & Jhumkas Collection',
     desc: 'Handcrafted Kundan chaandbalis, polki drops, zircon tops, and traditional wedding jhumkas.',
   },
-  'gen-z': {
-    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1600&auto=format&fit=crop&q=85',
-    tag: 'Modern Chic & Minimalist',
-    title: 'Gen-Z Aesthetic Jewels',
-    desc: 'Dainty stackable rings, celestial pendants, and everyday aesthetic essentials.',
-  },
   'other-jewellery': {
     image: 'https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=1600&auto=format&fit=crop&q=85',
     tag: 'Heirloom Treasures',

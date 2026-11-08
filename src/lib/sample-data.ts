@@ -62,17 +62,6 @@ export const sampleCategories: Category[] = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '6',
-    name: 'Gen-Z',
-    slug: 'gen-z',
-    description: 'Chic minimalist aesthetic rings, charms and everyday modern jewels.',
-    image_url: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80',
-    sort_order: 6,
-    is_active: true,
-    created_at: '2024-01-01T00:00:00Z',
-    updated_at: '2024-01-01T00:00:00Z',
-  },
-  {
     id: '7',
     name: 'Other Jewellery',
     slug: 'other-jewellery',
