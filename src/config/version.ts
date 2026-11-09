@@ -4,7 +4,7 @@
  */
 export const APP_VERSION = {
   version: '2.3.0',
-  build: '2026.11.09-57dfb69',
+  build: '2026.11.09-40ed02a',
   releaseName: 'Automated 2-Way Order Email & Owner Alert Edition',
   updatedAt: 'Nov 9, 2026',
   environment: process.env.NODE_ENV || 'production',
