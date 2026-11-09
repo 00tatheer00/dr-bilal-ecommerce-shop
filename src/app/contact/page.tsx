@@ -31,7 +31,7 @@ export default function ContactPage() {
                 <div className="flex items-center gap-3">
                   <Phone className="h-4 w-4 text-brand shrink-0" />
                   <span>
-                    WhatsApp: <a href="https://wa.me/923125880988" target="_blank" rel="noopener noreferrer" className="text-brand font-bold hover:underline">0312-5880988 (Dr. Bilal)</a>
+                    WhatsApp: <a href="https://wa.me/923125880988" target="_blank" rel="noopener noreferrer" className="text-brand font-bold hover:underline">0312-5880988 (Gulnaar Support)</a>
                   </span>
                 </div>
                 <div className="flex items-center gap-3">

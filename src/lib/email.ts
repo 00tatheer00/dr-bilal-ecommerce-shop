@@ -77,7 +77,7 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
     data.deliveryChargeMinor === 0 ? 'FREE' : formatPkr(data.deliveryChargeMinor);
   const formattedTotal = formatPkr(data.totalMinor);
   const trackUrl = `${SITE_URL}/track-order?ref=${data.orderNumber}`;
-  const whatsappUrl = `https://wa.me/923125880988?text=Assalam-o-Alaikum%20Dr.%20Bilal!%20My%20order%20reference%20is%20${data.orderNumber}`;
+  const whatsappUrl = `https://wa.me/923125880988?text=Assalam-o-Alaikum%20Gulnaar%20Team!%20My%20order%20reference%20is%20${data.orderNumber}`;
 
   let paymentDetailsHtml = '';
   if (data.paymentMethod === 'easypaisa') {
@@ -282,13 +282,13 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
 }
 
 /**
- * 2. Website Owner (Doctor Bilal / Admin) New Order Alert Email
+ * 2. Website Owner (Gulnaar Admin) New Order Alert Email
  */
 export function generateOwnerOrderAlertEmailHtml(data: SendOrderEmailsParams): string {
   const formattedTotal = formatPkr(data.totalMinor);
   const portalUrl = `${SITE_URL}/admin/orders`;
   const cleanPhone = data.customerPhone.replace(/[^0-9]/g, '');
-  const whatsappUrl = `https://wa.me/92${cleanPhone.slice(-10)}?text=Assalam-o-Alaikum%20${encodeURIComponent(data.customerName)},%20this%20is%20Dr.%20Bilal%20from%20GULNAAR%20by%20MK%20regarding%20your%20order%20${data.orderNumber}.`;
+  const whatsappUrl = `https://wa.me/92${cleanPhone.slice(-10)}?text=Assalam-o-Alaikum%20${encodeURIComponent(data.customerName)},%20this%20is%20GULNAAR%20by%20MK%20team%20regarding%20your%20order%20${data.orderNumber}.`;
 
   const itemsList = data.items
     .map(
@@ -430,7 +430,7 @@ export function generateOwnerOrderAlertEmailHtml(data: SendOrderEmailsParams): s
  */
 export function generateCustomerStatusUpdateEmailHtml(data: SendStatusUpdateEmailParams): string {
   const trackUrl = `${SITE_URL}/track-order?ref=${data.orderNumber}`;
-  const whatsappUrl = `https://wa.me/923125880988?text=Assalam-o-Alaikum%20Dr.%20Bilal!%20My%20order%20reference%20is%20${data.orderNumber}`;
+  const whatsappUrl = `https://wa.me/923125880988?text=Assalam-o-Alaikum%20Gulnaar%20Team!%20My%20order%20reference%20is%20${data.orderNumber}`;
 
   let statusTitle = '';
   let statusBadgeColor = '#B81D4E';
@@ -466,7 +466,7 @@ export function generateCustomerStatusUpdateEmailHtml(data: SendStatusUpdateEmai
       statusTitle = 'Order Cancelled';
       statusBadgeColor = '#C53030';
       statusBadgeBg = '#FFF5F5';
-      statusDesc = 'Your order has been cancelled upon request. If you have any questions, please reach out to Dr. Bilal on WhatsApp.';
+      statusDesc = 'Your order has been cancelled upon request. If you have any questions, please reach out to Gulnaar Support on WhatsApp.';
       break;
     default:
       statusTitle = 'Order Update';
@@ -631,7 +631,7 @@ async function dispatchEmail(params: {
 }
 
 /**
- * Send Both Order Confirmation Emails (Customer + Doctor Bilal)
+ * Send Both Order Confirmation Emails (Customer + Gulnaar Team)
  */
 export async function sendOrderEmails(data: SendOrderEmailsParams): Promise<{
   customerEmailSent: boolean;
@@ -657,7 +657,7 @@ export async function sendOrderEmails(data: SendOrderEmailsParams): Promise<{
     if (!customerEmailSent) errors.push('Customer confirmation email failed');
   }
 
-  // 2. Send to Store Owner (Doctor Bilal Khan)
+  // 2. Send to Store Owner (Gulnaar Admin)
   const ownerSubject = `🚨 [NEW ORDER] ${data.orderNumber} — ${formatPkr(data.totalMinor)} from ${data.customerName} (${data.city})`;
   ownerEmailSent = await dispatchEmail({
     to: ownerEmail,

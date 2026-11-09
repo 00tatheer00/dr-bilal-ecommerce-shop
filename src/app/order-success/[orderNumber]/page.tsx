@@ -38,17 +38,17 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
     ? `PKR ${(amountMinor / 100).toLocaleString('en-PK')}`
     : null;
 
-  // Doctor Bilal Khan's official contact
-  const doctorWhatsapp = '923125880988';
+  // Gulnaar official WhatsApp contact
+  const storeWhatsapp = '923125880988';
   let methodDisplayName = 'Cash on Delivery (COD)';
   if (method === 'easypaisa') methodDisplayName = 'Easypaisa Mobile Transfer';
   if (method === 'bank_transfer') methodDisplayName = 'MCB Bank Transfer';
 
-  const whatsappMessageText = `Assalam-o-Alaikum Dr. Bilal!%0A%0AI have placed an order on Gulnaar by MK.%0A%0A*Order Reference:* ${orderNumber}%0A*Payment Method:* ${methodDisplayName}${
+  const whatsappMessageText = `Assalam-o-Alaikum Gulnaar Team!%0A%0AI have placed an order on Gulnaar by MK.%0A%0A*Order Reference:* ${orderNumber}%0A*Payment Method:* ${methodDisplayName}${
     paymentRef ? `%0A*Transaction ID / Ref:* ${paymentRef}` : ''
   }${formattedAmount ? `%0A*Total Amount:* ${formattedAmount}` : ''}%0A%0APlease confirm my order. I am sharing my payment receipt/details for dispatch.`;
 
-  const whatsappHref = `https://wa.me/${doctorWhatsapp}?text=${whatsappMessageText}`;
+  const whatsappHref = `https://wa.me/${storeWhatsapp}?text=${whatsappMessageText}`;
 
   return (
     <div className="py-12 sm:py-20 bg-bg-secondary/40 min-h-screen">
@@ -97,10 +97,10 @@ async function OrderSuccessContent({ params, searchParams }: Props) {
                 <h3 className="font-heading text-base sm:text-lg font-bold text-text-primary">
                   {method === 'cod'
                     ? 'Confirm Your Dispatch on WhatsApp'
-                    : 'Send Your Payment Receipt to Dr. Bilal'}
+                    : 'Send Your Payment Receipt to Gulnaar'}
                 </h3>
                 <p className="text-xs text-text-secondary">
-                  Connect directly with Doctor Bilal Khan at <strong>0312-5880988</strong> with pre-filled order details.
+                  Connect directly with Gulnaar Concierge at <strong>0312-5880988</strong> with pre-filled order details.
                 </p>
               </div>
 

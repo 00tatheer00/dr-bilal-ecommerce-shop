@@ -194,7 +194,7 @@ export default function AdminSettingsPage() {
                 🚨 Email 2: Website Owner Alert
               </span>
               <p className="text-[11px] text-text-secondary leading-relaxed">
-                An urgent notification to Doctor Bilal with customer details, WhatsApp quick-chat link, and direct button to open the order in the Admin Portal.
+                An urgent notification to the store management team with customer details, WhatsApp quick-chat link, and direct button to open the order in the Admin Portal.
               </p>
             </div>
           </div>

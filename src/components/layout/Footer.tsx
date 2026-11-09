@@ -87,7 +87,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="h-9 w-9 rounded-xl bg-[#FAF9F6] hover:bg-[#25D366] hover:text-white border border-[#E8E5DF] flex items-center justify-center transition-all duration-300 text-text-primary shadow-2xs hover:scale-105"
                 aria-label="WhatsApp"
-                title="Chat with Doctor Bilal on WhatsApp"
+                title="Chat with Gulnaar Support on WhatsApp"
               >
                 <Phone className="h-4 w-4" />
               </a>
@@ -202,7 +202,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="font-mono text-[#B81D4E] font-bold hover:underline block"
                   >
-                    0312-5880988 (Dr. Bilal)
+                    0312-5880988 (Gulnaar Support)
                   </a>
                   <a
                     href="https://wa.me/923275792600"

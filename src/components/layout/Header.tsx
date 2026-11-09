@@ -479,7 +479,7 @@ export default function Header() {
                     className="flex items-center gap-1.5 text-[#B81D4E] font-bold hover:underline"
                   >
                     <Phone className="h-3.5 w-3.5 text-[#D4AF37]" />
-                    <span>0312-5880988 (Dr. Bilal)</span>
+                    <span>0312-5880988 (Gulnaar Support)</span>
                   </a>
                   <span className="font-mono text-[10px] text-text-secondary">
                     v{APP_VERSION.version}

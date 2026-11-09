@@ -206,7 +206,7 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
 
       // Dispatch 2 Emails asynchronously:
       // (1) Designed Customer Confirmation Email (to customer)
-      // (2) Store Owner New Order Alert Email (to Doctor Bilal / Admin)
+      // (2) Store Owner New Order Alert Email (to Gulnaar Admin)
       enrichOrderItems(items, supabase).then((emailItems) => {
         triggerOrderEmailsAsync({
           orderNumber: res.order_number,
