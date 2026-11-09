@@ -242,21 +242,23 @@ export default function Header() {
               <span>Track Order</span>
             </Link>
 
-            {/* Shopping Bag Button with Shiny Glow */}
-            <button
-              type="button"
-              onClick={openCart}
-              className="relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#B81D4E] to-[#700B2E] px-4.5 py-2.5 text-white border border-[#F6D365]/40 shadow-md hover:shadow-[0_8px_24px_rgba(122,12,46,0.25)] hover:scale-105 active:scale-95 transition-all duration-300 btn-luxury-shine cursor-pointer group"
-              aria-label={`Shopping bag with ${totalItems} items`}
-            >
-              <ShoppingBag className="h-4 w-4 text-[#F6D365] group-hover:rotate-12 transition-transform duration-300" />
-              <span className="text-xs font-bold tracking-wider">{totalItems}</span>
+            {/* Shopping Bag Button with Floating Luxury Badge */}
+            <div className="relative inline-flex items-center">
+              <button
+                type="button"
+                onClick={openCart}
+                className="flex items-center gap-2 rounded-full bg-gradient-to-r from-[#B81D4E] to-[#8E0E3B] px-4 py-2 text-white border border-[#F6D365]/50 shadow-sm hover:shadow-[0_6px_20px_rgba(184,29,78,0.25)] hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer group"
+                aria-label={`Shopping bag with ${totalItems} items`}
+              >
+                <ShoppingBag className="h-4 w-4 text-[#F6D365] group-hover:rotate-6 transition-transform duration-300" />
+                <span className="text-xs font-bold tracking-wider">Cart</span>
+              </button>
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-gradient-to-br from-[#F6D365] to-[#D4AF37] text-[10px] font-bold text-[#700B2E] flex items-center justify-center shadow-md animate-scale-in">
+                <span className="absolute -top-1.5 -right-1.5 min-w-[20px] h-5 px-1 rounded-full bg-gradient-to-br from-[#F6D365] to-[#D4AF37] text-[10px] font-black text-[#700B2E] flex items-center justify-center shadow-md border-2 border-white animate-scale-in pointer-events-none">
                   {totalItems}
                 </span>
               )}
-            </button>
+            </div>
           </div>
         </div>
       </div>
