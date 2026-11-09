@@ -72,6 +72,9 @@ function formatPkr(minor: number): string {
 /**
  * 1. Customer Designed HTML Email (Luxury South Asian Aesthetic)
  */
+/**
+ * 1. Customer Designed HTML Email (Ultra-Vibrant Luxury South Asian Heritage Aesthetic)
+ */
 export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): string {
   const formattedSubtotal = formatPkr(data.subtotalMinor);
   const formattedDelivery =
@@ -83,39 +86,45 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
   let paymentDetailsHtml = '';
   if (data.paymentMethod === 'easypaisa') {
     paymentDetailsHtml = `
-      <div style="background-color: #E8F8F2; border-left: 4px solid #00C389; padding: 14px 18px; border-radius: 8px; margin: 20px 0;">
-        <p style="margin: 0 0 6px 0; font-size: 13px; font-weight: bold; color: #00704F; text-transform: uppercase; letter-spacing: 0.5px;">
-          ✓ Payment Mode: Easypaisa Mobile Transfer
-        </p>
-        <p style="margin: 0; font-size: 13px; color: #333333; line-height: 1.5;">
-          <strong>Account:</strong> 03125880988 (Bilal Khan)<br />
-          ${data.paymentReference ? `<strong>Submitted TRX ID:</strong> <span style="font-family: monospace; font-weight: bold; color: #00704F;">${data.paymentReference}</span><br />` : ''}
-          <span style="font-size: 12px; color: #555555;">Our team is reconciling your TRX ID. You may also share your receipt screenshot on WhatsApp.</span>
+      <div style="background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); border: 1.5px solid #059669; border-radius: 12px; padding: 18px 20px; margin: 22px 0; box-shadow: 0 4px 12px rgba(5,150,105,0.08);">
+        <div style="display: flex; align-items: center; margin-bottom: 8px;">
+          <span style="background-color: #059669; color: #FFFFFF; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 50px;">
+            ✓ Easypaisa Payment Mode
+          </span>
+        </div>
+        <p style="margin: 8px 0 0 0; font-size: 14px; color: #064E3B; line-height: 1.6;">
+          <strong>Account Number:</strong> <span style="font-family: monospace; font-size: 15px; font-weight: bold; color: #047857; background: #FFFFFF; padding: 2px 8px; border-radius: 6px; border: 1px solid #A7F3D0;">0312-5880988</span> (Bilal Khan)<br />
+          ${data.paymentReference ? `<strong>Submitted TRX ID:</strong> <span style="font-family: monospace; font-size: 15px; font-weight: bold; color: #065F46; background: #FEF3C7; padding: 2px 8px; border-radius: 6px; border: 1px solid #FCD34D;">${data.paymentReference}</span><br />` : ''}
+          <span style="font-size: 12px; color: #047857;">Our finance team is verifying your payment. You can also send your payment receipt screenshot on WhatsApp for instant confirmation.</span>
         </p>
       </div>
     `;
   } else if (data.paymentMethod === 'bank_transfer') {
     paymentDetailsHtml = `
-      <div style="background-color: #EBF2FA; border-left: 4px solid #1B3A6B; padding: 14px 18px; border-radius: 8px; margin: 20px 0;">
-        <p style="margin: 0 0 6px 0; font-size: 13px; font-weight: bold; color: #1B3A6B; text-transform: uppercase; letter-spacing: 0.5px;">
-          ✓ Payment Mode: Muslim Commercial Bank (MCB)
-        </p>
-        <p style="margin: 0; font-size: 13px; color: #333333; line-height: 1.5;">
+      <div style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border: 1.5px solid #2563EB; border-radius: 12px; padding: 18px 20px; margin: 22px 0; box-shadow: 0 4px 12px rgba(37,99,235,0.08);">
+        <div style="margin-bottom: 8px;">
+          <span style="background-color: #1E40AF; color: #FFFFFF; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 50px;">
+            ✓ Muslim Commercial Bank (MCB) Transfer
+          </span>
+        </div>
+        <p style="margin: 8px 0 0 0; font-size: 14px; color: #1E3A8A; line-height: 1.6;">
           <strong>Account Title:</strong> Bilal Khan<br />
-          <strong>IBAN:</strong> <span style="font-family: monospace; font-weight: bold;">PK16MUCB0857263901006723</span><br />
-          ${data.paymentReference ? `<strong>Reference / Sender:</strong> <span style="font-family: monospace; font-weight: bold; color: #1B3A6B;">${data.paymentReference}</span><br />` : ''}
-          <span style="font-size: 12px; color: #555555;">Payment verification is in progress.</span>
+          <strong>IBAN:</strong> <span style="font-family: monospace; font-size: 14px; font-weight: bold; color: #1D4ED8; background: #FFFFFF; padding: 3px 8px; border-radius: 6px; border: 1px solid #BFDBFE;">PK16MUCB0857263901006723</span><br />
+          ${data.paymentReference ? `<strong>Reference / Sender:</strong> <span style="font-family: monospace; font-weight: bold; color: #1E40AF;">${data.paymentReference}</span><br />` : ''}
+          <span style="font-size: 12px; color: #3B82F6;">Payment reconciliation is in progress.</span>
         </p>
       </div>
     `;
   } else {
     paymentDetailsHtml = `
-      <div style="background-color: #FFF8E6; border-left: 4px solid #D4AF37; padding: 14px 18px; border-radius: 8px; margin: 20px 0;">
-        <p style="margin: 0 0 6px 0; font-size: 13px; font-weight: bold; color: #996E00; text-transform: uppercase; letter-spacing: 0.5px;">
-          ✓ Payment Mode: Cash on Delivery (COD)
-        </p>
-        <p style="margin: 0; font-size: 13px; color: #333333; line-height: 1.5;">
-          Please inspect your jewellery parcel upon doorstep arrival and hand <strong>${formattedTotal}</strong> to the courier rider.
+      <div style="background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%); border: 1.5px solid #F59E0B; border-radius: 12px; padding: 18px 20px; margin: 22px 0; box-shadow: 0 4px 12px rgba(245,158,11,0.08);">
+        <div style="margin-bottom: 8px;">
+          <span style="background: linear-gradient(135deg, #D97706 0%, #B45309 100%); color: #FFFFFF; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 50px;">
+            ✓ Cash on Delivery (COD)
+          </span>
+        </div>
+        <p style="margin: 8px 0 0 0; font-size: 14px; color: #92400E; line-height: 1.6;">
+          Please keep the exact amount of <strong style="font-size: 16px; color: #78350F; background: #FFFFFF; padding: 2px 8px; border-radius: 6px; border: 1px solid #FDE68A;">${formattedTotal}</strong> ready in cash upon doorstep arrival. Our courier will contact you before delivery.
         </p>
       </div>
     `;
@@ -123,16 +132,26 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
 
   const itemsRows = data.items
     .map(
-      (item) => `
-      <tr style="border-bottom: 1px solid #F0EEE9;">
-        <td style="padding: 12px 8px 12px 0;">
-          <strong style="color: #18181B; font-size: 14px;">${item.name}</strong><br />
-          <span style="color: #666666; font-size: 12px;">
-            ${item.size ? `Size: ${item.size} • ` : ''}${item.color ? `Color: ${item.color} • ` : ''}SKU: ${item.sku || 'GN-CUSTOM'}
+      (item, index) => `
+      <tr style="border-bottom: 1px solid #F3EDE2;">
+        <td style="padding: 16px 12px 16px 0;">
+          <div style="font-size: 15px; font-weight: 700; color: #1C1917; margin-bottom: 4px;">
+            ${item.name}
+          </div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+            ${item.size ? `<span style="display: inline-block; background-color: #F5EFEB; color: #800020; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; border: 1px solid #EADBCE; margin-right: 4px;">Size: ${item.size}</span>` : ''}
+            ${item.color ? `<span style="display: inline-block; background-color: #FDF2F4; color: #9F1239; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; border: 1px solid #FBCFE8; margin-right: 4px;">Color: ${item.color}</span>` : ''}
+            <span style="display: inline-block; background-color: #F4F4F5; color: #52525B; font-size: 11px; font-family: monospace; padding: 2px 8px; border-radius: 4px;">SKU: ${item.sku || 'GN-CUSTOM'}</span>
+          </div>
+        </td>
+        <td align="center" style="padding: 16px 8px; font-size: 14px; font-weight: 700; color: #44403C;">
+          <span style="display: inline-block; background-color: #FAF5EB; border: 1px solid #D4AF37; color: #800020; border-radius: 50%; width: 28px; height: 28px; line-height: 28px; text-align: center;">
+            ${item.quantity}
           </span>
         </td>
-        <td align="center" style="padding: 12px 8px; font-size: 13px; color: #333333;">${item.quantity}</td>
-        <td align="right" style="padding: 12px 0 12px 8px; font-size: 13px; font-weight: 600; color: #18181B;">${formatPkr(item.totalMinor)}</td>
+        <td align="right" style="padding: 16px 0 16px 8px; font-size: 15px; font-weight: 800; color: #800020;">
+          ${formatPkr(item.totalMinor)}
+        </td>
       </tr>
     `
     )
@@ -144,62 +163,113 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Confirmation - GULNAAR by MK</title>
+  <title>Order Confirmation #${data.orderNumber} — GULNAAR by MK</title>
 </head>
-<body style="margin: 0; padding: 0; background-color: #F8F6F0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #2C2C2C;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 12px;">
+<body style="margin: 0; padding: 0; background-color: #F7F3EB; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #292524; -webkit-font-smoothing: antialiased;">
+  
+  <!-- Preheader text for inbox preview -->
+  <div style="display: none; font-size: 1px; color: #F7F3EB; line-height: 1px; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;">
+    ✨ Order #${data.orderNumber} confirmed! Your handcrafted Gulnaar heirloom jewellery is now being prepared in our atelier.
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #F7F3EB; padding: 36px 12px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(184,29,78,0.08); border: 1px solid #EAE7E1;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 620px; background-color: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 48px rgba(128, 0, 32, 0.12), 0 2px 8px rgba(0,0,0,0.04); border: 2px solid #EADBCE;">
           
-          <!-- Brand Header -->
+          <!-- Golden Royal Accent Top Line -->
           <tr>
-            <td align="center" style="background: linear-gradient(135deg, #8E0E3B 0%, #B81D4E 100%); padding: 36px 24px; text-align: center;">
-              <h1 style="margin: 0; font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #FFFFFF; letter-spacing: 4px; text-transform: uppercase;">
-                GULNAAR
-              </h1>
-              <p style="margin: 6px 0 0 0; font-size: 10px; color: #F5E6CC; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">
-                by MK • Handcrafted Heirloom Jewellery
-              </p>
-            </td>
+            <td style="height: 6px; background: linear-gradient(90deg, #D4AF37 0%, #FFF3B0 25%, #E5A93C 50%, #FFF3B0 75%, #D4AF37 100%);"></td>
           </tr>
 
-          <!-- Confirmation Hero -->
+          <!-- Imperial Brand Header -->
           <tr>
-            <td style="padding: 32px 30px 20px 30px; text-align: center;">
-              <div style="display: inline-block; background-color: #FFF0F5; border: 1px solid #F5C6D6; border-radius: 50px; padding: 6px 18px; margin-bottom: 12px;">
-                <span style="color: #B81D4E; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
-                  ✓ Order Confirmed
+            <td align="center" style="background: linear-gradient(135deg, #3A0211 0%, #68051E 40%, #800020 75%, #A31238 100%); padding: 40px 24px 34px 24px; text-align: center; border-bottom: 2px solid #D4AF37;">
+              <div style="margin-bottom: 10px;">
+                <span style="display: inline-block; background: rgba(212, 175, 55, 0.18); border: 1px solid rgba(212, 175, 55, 0.5); padding: 4px 16px; border-radius: 50px; color: #FDF4E3; font-size: 11px; letter-spacing: 3px; font-weight: 700; text-transform: uppercase;">
+                  👑 ROYAL HERITAGE ATELIER
                 </span>
               </div>
-              <h2 style="margin: 0 0 8px 0; font-size: 20px; font-weight: 700; color: #18181B;">
-                Shukriya, ${data.customerName}!
-              </h2>
-              <p style="margin: 0; font-size: 13px; color: #666666; line-height: 1.5;">
-                We have safely received your order <strong>#${data.orderNumber}</strong>. Our Lahore atelier artisans are preparing your heirloom pieces with utmost care.
+              <h1 style="margin: 0; font-family: Georgia, 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: #FFFFFF; letter-spacing: 7px; text-transform: uppercase; text-shadow: 0 2px 12px rgba(0,0,0,0.35);">
+                G U L N A A R
+              </h1>
+              <p style="margin: 8px 0 0 0; font-size: 11px; color: #F5E6CC; text-transform: uppercase; letter-spacing: 4px; font-weight: 700;">
+                BY MK • HAUTE JEWELLERY & HANDCRAFTED HEIRLOOMS
               </p>
             </td>
           </tr>
 
-          <!-- Payment Instructions -->
+          <!-- Celebration Hero & Greeting -->
           <tr>
-            <td style="padding: 0 30px;">
+            <td style="padding: 36px 32px 24px 32px; text-align: center; background: radial-gradient(circle at 50% 0%, #FFFBF5 0%, #FFFFFF 100%);">
+              <div style="display: inline-block; background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); border: 1.5px solid #10B981; border-radius: 50px; padding: 6px 20px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(16,185,129,0.15);">
+                <span style="color: #065F46; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px;">
+                  ✨ Order Commissioned & Confirmed
+                </span>
+              </div>
+              <h2 style="margin: 0 0 10px 0; font-family: Georgia, serif; font-size: 26px; font-weight: 700; color: #1C1917;">
+                Shukriya, ${data.customerName}!
+              </h2>
+              <p style="margin: 0 0 16px 0; font-size: 15px; color: #57534E; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto;">
+                We have safely received your order. Our master artisans in Lahore are preparing your handcrafted jewellery with royal craftsmanship.
+              </p>
+
+              <!-- Order Reference Box -->
+              <div style="display: inline-block; background: #FAF5EB; border: 1.5px dashed #D4AF37; border-radius: 12px; padding: 12px 28px; margin: 6px 0 12px 0;">
+                <span style="display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: #78716C; font-weight: 700;">Order Reference</span>
+                <span style="font-family: monospace; font-size: 22px; font-weight: 800; color: #800020; letter-spacing: 2px;">#${data.orderNumber}</span>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Visual Order Stepper (Progress Bar) -->
+          <tr>
+            <td style="padding: 0 32px 24px 32px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #FAF7F2; border-radius: 12px; border: 1px solid #EADBCE; padding: 14px 12px; text-align: center;">
+                <tr>
+                  <td width="25%" align="center">
+                    <span style="display: block; width: 28px; height: 28px; border-radius: 50%; background: #059669; color: #FFF; line-height: 28px; font-size: 13px; font-weight: bold; margin: 0 auto 4px;">✓</span>
+                    <span style="font-size: 11px; font-weight: 800; color: #065F46;">Placed</span>
+                  </td>
+                  <td width="25%" align="center">
+                    <span style="display: block; width: 28px; height: 28px; border-radius: 50%; background: #D97706; color: #FFF; line-height: 28px; font-size: 13px; font-weight: bold; margin: 0 auto 4px;">💎</span>
+                    <span style="font-size: 11px; font-weight: 800; color: #92400E;">Crafting</span>
+                  </td>
+                  <td width="25%" align="center">
+                    <span style="display: block; width: 28px; height: 28px; border-radius: 50%; background: #E7E5E4; color: #78716C; line-height: 28px; font-size: 13px; font-weight: bold; margin: 0 auto 4px;">🔍</span>
+                    <span style="font-size: 11px; font-weight: 700; color: #78716C;">Quality</span>
+                  </td>
+                  <td width="25%" align="center">
+                    <span style="display: block; width: 28px; height: 28px; border-radius: 50%; background: #E7E5E4; color: #78716C; line-height: 28px; font-size: 13px; font-weight: bold; margin: 0 auto 4px;">🚚</span>
+                    <span style="font-size: 11px; font-weight: 700; color: #78716C;">Dispatched</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Payment Mode Card -->
+          <tr>
+            <td style="padding: 0 32px;">
               ${paymentDetailsHtml}
             </td>
           </tr>
 
-          <!-- Order Items Table -->
+          <!-- Order Items Breakdown -->
           <tr>
-            <td style="padding: 10px 30px 20px 30px;">
-              <h3 style="margin: 0 0 12px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #888888; border-bottom: 1px solid #EAE7E1; padding-bottom: 8px;">
-                Order Summary (${data.items.length} item${data.items.length > 1 ? 's' : ''})
-              </h3>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 13px;">
+            <td style="padding: 10px 32px 24px 32px;">
+              <div style="border-bottom: 2px solid #800020; padding-bottom: 10px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: baseline;">
+                <h3 style="margin: 0; font-family: Georgia, serif; font-size: 16px; font-weight: 700; color: #800020; text-transform: uppercase; letter-spacing: 1px;">
+                  Ordered Items (${data.items.length})
+                </h3>
+              </div>
+              
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <thead>
-                  <tr style="border-bottom: 1px solid #E8E5DF; font-size: 11px; text-transform: uppercase; color: #777777; letter-spacing: 0.5px;">
-                    <th align="left" style="padding: 8px 8px 8px 0;">Item Description</th>
-                    <th align="center" style="padding: 8px;">Qty</th>
-                    <th align="right" style="padding: 8px 0 8px 8px;">Amount</th>
+                  <tr style="background: #FDFBF7; border-bottom: 1.5px solid #EADBCE; font-size: 11px; text-transform: uppercase; color: #78716C; letter-spacing: 1px;">
+                    <th align="left" style="padding: 10px 12px 10px 0;">Item Details</th>
+                    <th align="center" style="padding: 10px 8px;">Qty</th>
+                    <th align="right" style="padding: 10px 0 10px 8px;">Total</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -207,38 +277,53 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
                 </tbody>
               </table>
 
-              <!-- Totals Breakdown -->
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 16px;">
+              <!-- Totals Ledger -->
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top: 20px; border-top: 1.5px solid #EADBCE; padding-top: 14px;">
                 <tr>
-                  <td style="padding: 4px 0; font-size: 13px; color: #666666;">Subtotal</td>
-                  <td align="right" style="padding: 4px 0; font-size: 13px; font-weight: 600; color: #222222;">${formattedSubtotal}</td>
+                  <td style="padding: 6px 0; font-size: 14px; color: #57534E;">Item Subtotal</td>
+                  <td align="right" style="padding: 6px 0; font-size: 15px; font-weight: 700; color: #1C1917;">${formattedSubtotal}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 4px 0; font-size: 13px; color: #666666;">Nationwide Delivery</td>
-                  <td align="right" style="padding: 4px 0; font-size: 13px; font-weight: 600; color: #222222;">${formattedDelivery}</td>
+                  <td style="padding: 6px 0; font-size: 14px; color: #57534E;">Nationwide Insured Delivery</td>
+                  <td align="right" style="padding: 6px 0;">
+                    ${data.deliveryChargeMinor === 0 
+                      ? '<span style="background: #ECFDF5; color: #059669; font-size: 12px; font-weight: 800; padding: 2px 10px; border-radius: 50px; border: 1px solid #A7F3D0;">FREE DELIVERY</span>' 
+                      : `<span style="font-size: 15px; font-weight: 700; color: #1C1917;">${formattedDelivery}</span>`}
+                  </td>
                 </tr>
-                <tr style="border-top: 2px solid #B81D4E;">
-                  <td style="padding: 12px 0 4px 0; font-size: 15px; font-weight: 700; color: #111111;">Total Payable</td>
-                  <td align="right" style="padding: 12px 0 4px 0; font-size: 20px; font-weight: 700; color: #B81D4E;">${formattedTotal}</td>
+                <tr>
+                  <td colspan="2" style="padding-top: 10px;">
+                    <div style="background: linear-gradient(135deg, #800020 0%, #A31238 100%); border-radius: 12px; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 14px rgba(128,0,32,0.2);">
+                      <div>
+                        <span style="display: block; font-size: 11px; text-transform: uppercase; color: #F5E6CC; letter-spacing: 1.5px; font-weight: 700;">Grand Total Payable</span>
+                        <span style="font-size: 12px; color: #FFFFFF; opacity: 0.9;">(All taxes & handling included)</span>
+                      </div>
+                      <div style="text-align: right;">
+                        <span style="font-family: Georgia, serif; font-size: 26px; font-weight: 800; color: #FFF3B0; letter-spacing: 0.5px;">${formattedTotal}</span>
+                      </div>
+                    </div>
+                  </td>
                 </tr>
               </table>
             </td>
           </tr>
 
-          <!-- Delivery Address Block -->
+          <!-- Delivery Address Dossier -->
           <tr>
-            <td style="padding: 0 30px 24px 30px;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #FAF9F6; border-radius: 10px; border: 1px solid #EAE7E1; padding: 14px 18px;">
+            <td style="padding: 0 32px 28px 32px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #FAF7F2; border-radius: 14px; border: 1.5px solid #EADBCE; padding: 18px 22px;">
                 <tr>
                   <td>
-                    <span style="font-size: 11px; text-transform: uppercase; color: #777777; font-weight: 700; letter-spacing: 0.5px; display: block; margin-bottom: 4px;">
-                      📍 Delivery Address
-                    </span>
-                    <p style="margin: 0; font-size: 13px; color: #222222; line-height: 1.5;">
-                      <strong>${data.customerName}</strong><br />
+                    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                      <span style="font-size: 12px; text-transform: uppercase; color: #800020; font-weight: 800; letter-spacing: 1px;">
+                        📍 Delivery Destination
+                      </span>
+                    </div>
+                    <p style="margin: 0; font-size: 14px; color: #292524; line-height: 1.6;">
+                      <strong style="font-size: 15px; color: #1C1917;">${data.customerName}</strong><br />
                       ${data.addressLine1}${data.addressLine2 ? `, ${data.addressLine2}` : ''}<br />
-                      ${data.city}, ${data.province || 'Pakistan'}<br />
-                      <strong>Phone:</strong> ${data.customerPhone}
+                      <strong>${data.city}</strong>, ${data.province || 'Pakistan'}<br />
+                      <strong style="color: #800020;">Contact Phone:</strong> ${data.customerPhone}
                     </p>
                   </td>
                 </tr>
@@ -246,28 +331,54 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
             </td>
           </tr>
 
-          <!-- Action Buttons -->
+          <!-- Vibrant Call-To-Action Buttons -->
           <tr>
-            <td align="center" style="padding: 10px 30px 36px 30px;">
-              <a href="${trackUrl}" target="_blank" style="display: inline-block; background-color: #B81D4E; color: #FFFFFF; font-size: 13px; font-weight: 700; text-decoration: none; padding: 14px 28px; border-radius: 8px; margin: 4px 6px; letter-spacing: 0.5px;">
-                Track Order Status →
+            <td align="center" style="padding: 6px 32px 34px 32px; text-align: center;">
+              <a href="${trackUrl}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #800020 0%, #B81D4E 100%); color: #FFFFFF; font-size: 14px; font-weight: 800; text-decoration: none; padding: 16px 32px; border-radius: 10px; margin: 6px; letter-spacing: 0.8px; box-shadow: 0 4px 16px rgba(184,29,78,0.35);">
+                🔍 Track Order Live Online →
               </a>
-              <a href="${whatsappUrl}" target="_blank" style="display: inline-block; background-color: #25D366; color: #FFFFFF; font-size: 13px; font-weight: 700; text-decoration: none; padding: 14px 24px; border-radius: 8px; margin: 4px 6px; letter-spacing: 0.5px;">
-                💬 Message on WhatsApp
+              <a href="${whatsappUrl}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFFFFF; font-size: 14px; font-weight: 800; text-decoration: none; padding: 16px 28px; border-radius: 10px; margin: 6px; letter-spacing: 0.5px; box-shadow: 0 4px 16px rgba(16,185,129,0.3);">
+                💬 Chat on WhatsApp (0312-5880988)
               </a>
             </td>
           </tr>
 
-          <!-- Footer -->
+          <!-- Trust & Heritage Guarantee Badges -->
           <tr>
-            <td style="background-color: #FAF9F6; padding: 24px 30px; text-align: center; border-top: 1px solid #E8E5DF; font-size: 11px; color: #888888; line-height: 1.6;">
-              <p style="margin: 0 0 6px 0; font-weight: bold; color: #B81D4E;">
-                GULNAAR by MK — Handcrafted Heirloom Jewellery
+            <td style="background-color: #FAF6F0; border-top: 1px solid #EADBCE; padding: 22px 24px; text-align: center;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="33%" align="center" style="padding: 6px;">
+                    <span style="font-size: 18px; display: block; margin-bottom: 2px;">👑</span>
+                    <strong style="font-size: 11px; color: #800020; text-transform: uppercase; letter-spacing: 0.5px; display: block;">100% Handcrafted</strong>
+                    <span style="font-size: 10px; color: #78716C;">Master Lahore Artisans</span>
+                  </td>
+                  <td width="33%" align="center" style="padding: 6px; border-left: 1px solid #EADBCE; border-right: 1px solid #EADBCE;">
+                    <span style="font-size: 18px; display: block; margin-bottom: 2px;">🎁</span>
+                    <strong style="font-size: 11px; color: #800020; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Velvet Heirloom Box</strong>
+                    <span style="font-size: 10px; color: #78716C;">Royal Presentation</span>
+                  </td>
+                  <td width="33%" align="center" style="padding: 6px;">
+                    <span style="font-size: 18px; display: block; margin-bottom: 2px;">🛡️</span>
+                    <strong style="font-size: 11px; color: #800020; text-transform: uppercase; letter-spacing: 0.5px; display: block;">Insured Delivery</strong>
+                    <span style="font-size: 10px; color: #78716C;">Doorstep Protection</span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Royal Footer -->
+          <tr>
+            <td style="background: #1C1917; padding: 28px 30px; text-align: center; color: #A8A29E; font-size: 12px; line-height: 1.6;">
+              <p style="margin: 0 0 6px 0; font-family: Georgia, serif; font-size: 16px; font-weight: 700; color: #FFF3B0; letter-spacing: 3px;">
+                GULNAAR by MK
               </p>
-              <p style="margin: 0 0 8px 0;">
-                Gulberg III, Lahore, Punjab, Pakistan • WhatsApp: 0312-5880988
+              <p style="margin: 0 0 8px 0; font-size: 12px; color: #D6D3D1;">
+                Haute Jewellery & Handcrafted Heirlooms • Gulberg III, Lahore, Pakistan
               </p>
-              <p style="margin: 0; color: #AAAAAA;">
+              <p style="margin: 0; font-size: 11px; color: #78716C;">
+                Direct Concierge: 0312-5880988 • orders@gulnaarbymk.com<br />
                 © 2026 GULNAAR by MK. All rights reserved.
               </p>
             </td>
@@ -283,22 +394,34 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
 }
 
 /**
- * 2. Website Owner (Gulnaar Admin) New Order Alert Email
+ * 2. Website Owner (Gulnaar Admin) High-Impact New Order Alert Email
  */
 export function generateOwnerOrderAlertEmailHtml(data: SendOrderEmailsParams): string {
   const formattedTotal = formatPkr(data.totalMinor);
   const portalUrl = `${SITE_URL}/admin/orders`;
   const cleanPhone = data.customerPhone.replace(/[^0-9]/g, '');
-  const whatsappUrl = `https://wa.me/92${cleanPhone.slice(-10)}?text=Assalam-o-Alaikum%20${encodeURIComponent(data.customerName)},%20this%20is%20GULNAAR%20by%20MK%20team%20regarding%20your%20order%20${data.orderNumber}.`;
+  const customerWhatsApp = `https://wa.me/92${cleanPhone.slice(-10)}?text=Assalam-o-Alaikum%20${encodeURIComponent(data.customerName)},%20this%20is%20GULNAAR%20by%20MK%20team%20regarding%20your%20order%20${data.orderNumber}.`;
+  const callPhoneUrl = `tel:${data.customerPhone}`;
 
   const itemsList = data.items
     .map(
-      (it) => `
-      <li style="margin-bottom: 6px; font-size: 13px; color: #222222;">
-        <strong>${it.name}</strong> × ${it.quantity} sets
-        ${it.size ? `(Size: ${it.size})` : ''} — 
-        <strong style="color: #B81D4E;">${formatPkr(it.totalMinor)}</strong>
-      </li>
+      (it, idx) => `
+      <tr style="border-bottom: 1px solid #27272A;">
+        <td style="padding: 12px 8px; color: #F5E6CC; font-weight: 700; font-size: 14px;">
+          #${idx + 1}. ${it.name}
+          <div style="font-size: 12px; color: #A1A1AA; font-weight: normal; margin-top: 2px;">
+            ${it.size ? `<span style="background: #3F3F46; color: #F4F4F5; padding: 1px 6px; border-radius: 3px; margin-right: 4px;">Size: ${it.size}</span>` : ''}
+            ${it.color ? `<span style="background: #3F3F46; color: #F4F4F5; padding: 1px 6px; border-radius: 3px; margin-right: 4px;">Color: ${it.color}</span>` : ''}
+            <span>SKU: ${it.sku || 'GN-CUSTOM'}</span>
+          </div>
+        </td>
+        <td align="center" style="padding: 12px 8px; font-size: 15px; font-weight: 800; color: #F59E0B;">
+          × ${it.quantity}
+        </td>
+        <td align="right" style="padding: 12px 8px; font-size: 14px; font-weight: 800; color: #FFF3B0;">
+          ${formatPkr(it.totalMinor)}
+        </td>
+      </tr>
     `
     )
     .join('');
@@ -308,111 +431,121 @@ export function generateOwnerOrderAlertEmailHtml(data: SendOrderEmailsParams): s
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>New Order Alert - GULNAAR by MK</title>
+  <title>🚨 NEW ORDER COMMISSIONED: #${data.orderNumber} — GULNAAR by MK</title>
 </head>
-<body style="margin: 0; padding: 0; background-color: #F1F1F1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #222222;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding: 24px 10px;">
+<body style="margin: 0; padding: 0; background-color: #0C0A09; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #FAFAF9; -webkit-font-smoothing: antialiased;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 10px; background-color: #0C0A09;">
     <tr>
       <td align="center">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.08); border: 1px solid #E0E0E0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 620px; background-color: #18181B; border-radius: 18px; overflow: hidden; box-shadow: 0 16px 40px rgba(0,0,0,0.6); border: 2px solid #800020;">
           
-          <!-- Alert Header Banner -->
+          <!-- Urgent High-Alert Glowing Header Banner -->
           <tr>
-            <td style="background-color: #18181B; padding: 24px 28px; border-bottom: 4px solid #D4AF37;">
-              <span style="background-color: #B81D4E; color: #FFFFFF; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; border-radius: 4px;">
-                🚨 NEW STORE ORDER
-              </span>
-              <h1 style="margin: 8px 0 0 0; color: #FFFFFF; font-size: 22px; font-weight: 700;">
-                Order ${data.orderNumber} Received!
+            <td style="background: linear-gradient(135deg, #4A0318 0%, #800020 50%, #B81D4E 100%); padding: 32px 28px; border-bottom: 3px solid #D4AF37;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="background-color: #FEF3C7; color: #92400E; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 50px; border: 1px solid #FCD34D;">
+                  🚨 NEW LIVE ORDER RECEIVED
+                </span>
+                <span style="font-family: monospace; font-size: 14px; color: #FFF3B0; font-weight: 700;">
+                  #${data.orderNumber}
+                </span>
+              </div>
+              <h1 style="margin: 0; color: #FFFFFF; font-size: 26px; font-weight: 800; letter-spacing: 0.5px;">
+                Order ${data.orderNumber} Commissioned!
               </h1>
-              <p style="margin: 4px 0 0 0; color: #D4AF37; font-size: 14px; font-weight: 600;">
-                Total Amount: ${formattedTotal}
-              </p>
+              <div style="margin-top: 10px; background: rgba(0,0,0,0.25); border-radius: 8px; padding: 8px 16px; display: inline-block;">
+                <span style="color: #FDE68A; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Total Value:</span>
+                <strong style="color: #FFF3B0; font-size: 24px; font-family: Georgia, serif; margin-left: 8px;">${formattedTotal}</strong>
+              </div>
             </td>
           </tr>
 
-          <!-- Portal Direct Action Button -->
+          <!-- Quick Action Command Center (Top Priority Buttons) -->
           <tr>
-            <td style="padding: 24px 28px 16px 28px; text-align: center; background-color: #FFF9F0; border-bottom: 1px solid #F5E6CC;">
-              <p style="margin: 0 0 12px 0; font-size: 14px; color: #774400; font-weight: 600;">
-                A customer has placed an order on the website. Click below to review in your Admin Portal:
+            <td style="padding: 24px 28px; background: #27272A; border-bottom: 1px solid #3F3F46; text-align: center;">
+              <p style="margin: 0 0 14px 0; font-size: 13px; color: #D4D4D8; font-weight: 600;">
+                ⚡ Fast Order Actions (Tap below to execute immediately):
               </p>
-              <a href="${portalUrl}" target="_blank" style="display: inline-block; background-color: #B81D4E; color: #FFFFFF; font-size: 14px; font-weight: 800; text-decoration: none; padding: 14px 28px; border-radius: 8px; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(184,29,78,0.3);">
-                👉 Open Order in Admin Portal
-              </a>
+              <div>
+                <a href="${portalUrl}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #800020 0%, #B81D4E 100%); color: #FFFFFF; font-size: 13px; font-weight: 800; text-decoration: none; padding: 12px 20px; border-radius: 8px; margin: 4px; box-shadow: 0 2px 10px rgba(184,29,78,0.4);">
+                  👉 Open Admin Portal
+                </a>
+                <a href="${customerWhatsApp}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFFFFF; font-size: 13px; font-weight: 800; text-decoration: none; padding: 12px 18px; border-radius: 8px; margin: 4px; box-shadow: 0 2px 10px rgba(16,185,129,0.3);">
+                  💬 1-Click WhatsApp
+                </a>
+                <a href="${callPhoneUrl}" target="_blank" style="display: inline-block; background: #3B82F6; color: #FFFFFF; font-size: 13px; font-weight: 800; text-decoration: none; padding: 12px 16px; border-radius: 8px; margin: 4px;">
+                  📞 Call Customer
+                </a>
+              </div>
             </td>
           </tr>
 
-          <!-- Customer & Delivery Snapshot -->
+          <!-- Customer Dossier & Dispatch Details -->
           <tr>
-            <td style="padding: 24px 28px;">
-              <h2 style="margin: 0 0 14px 0; font-size: 14px; text-transform: uppercase; color: #777777; letter-spacing: 1px;">
-                Customer Information
+            <td style="padding: 26px 28px;">
+              <h2 style="margin: 0 0 16px 0; font-size: 13px; text-transform: uppercase; color: #F59E0B; letter-spacing: 1.5px; font-weight: 800; border-bottom: 1px solid #27272A; padding-bottom: 8px;">
+                📋 Customer & Shipping Dossier
               </h2>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 13px; line-height: 1.8;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 14px; line-height: 1.8;">
                 <tr>
-                  <td width="35%" style="color: #666666;">Customer Name:</td>
-                  <td><strong>${data.customerName}</strong></td>
+                  <td width="35%" style="color: #A1A1AA; padding: 4px 0;">Customer Name:</td>
+                  <td style="color: #FFFFFF; font-weight: bold; font-size: 15px;">${data.customerName}</td>
                 </tr>
                 <tr>
-                  <td style="color: #666666;">Phone / WhatsApp:</td>
+                  <td style="color: #A1A1AA; padding: 4px 0;">Phone / WhatsApp:</td>
                   <td>
-                    <strong style="color: #B81D4E; font-family: monospace;">${data.customerPhone}</strong>
-                    &nbsp;
-                    <a href="${whatsappUrl}" target="_blank" style="color: #25D366; text-decoration: none; font-weight: bold; font-size: 12px;">
-                      [Chat on WhatsApp 💬]
-                    </a>
+                    <strong style="color: #F43F5E; font-family: monospace; font-size: 15px;">${data.customerPhone}</strong>
                   </td>
                 </tr>
                 <tr>
-                  <td style="color: #666666;">Email:</td>
-                  <td>${data.customerEmail || '<em style="color: #999;">Not provided</em>'}</td>
+                  <td style="color: #A1A1AA; padding: 4px 0;">Customer Email:</td>
+                  <td style="color: #E4E4E7;">${data.customerEmail || '<em style="color: #71717A;">Not provided</em>'}</td>
                 </tr>
                 <tr>
-                  <td style="color: #666666;">Delivery City:</td>
-                  <td><strong>${data.city}</strong> (${data.province || 'Pakistan'})</td>
+                  <td style="color: #A1A1AA; padding: 4px 0;">Destination City:</td>
+                  <td><strong style="color: #FBBF24; font-size: 15px;">${data.city}</strong> (${data.province || 'Pakistan'})</td>
                 </tr>
                 <tr>
-                  <td style="color: #666666;">Full Address:</td>
-                  <td>${data.addressLine1}${data.addressLine2 ? `, ${data.addressLine2}` : ''}</td>
+                  <td style="color: #A1A1AA; padding: 4px 0;">Full Address:</td>
+                  <td style="color: #E4E4E7;">${data.addressLine1}${data.addressLine2 ? `, ${data.addressLine2}` : ''}</td>
                 </tr>
                 <tr>
-                  <td style="color: #666666;">Payment Method:</td>
+                  <td style="color: #A1A1AA; padding: 4px 0;">Payment Method:</td>
                   <td>
-                    <span style="background-color: #EEEEEE; padding: 2px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 11px;">
+                    <span style="background-color: #3F3F46; color: #FDE68A; padding: 3px 10px; border-radius: 6px; font-weight: 800; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;">
                       ${data.paymentMethod}
                     </span>
                   </td>
                 </tr>
                 ${data.paymentReference ? `
                 <tr>
-                  <td style="color: #666666;">Payment Ref / TRX ID:</td>
-                  <td><strong style="font-family: monospace; color: #00704F; font-size: 14px;">${data.paymentReference}</strong></td>
+                  <td style="color: #A1A1AA; padding: 4px 0;">TRX ID / Reference:</td>
+                  <td><strong style="font-family: monospace; color: #34D399; font-size: 15px; background: #064E3B; padding: 2px 8px; border-radius: 4px;">${data.paymentReference}</strong></td>
                 </tr>` : ''}
                 ${data.specialInstructions ? `
                 <tr>
-                  <td style="color: #666666;">Special Instructions:</td>
-                  <td style="font-style: italic; color: #444444;">${data.specialInstructions}</td>
+                  <td style="color: #A1A1AA; padding: 4px 0;">Customer Notes:</td>
+                  <td style="color: #FDE68A; font-style: italic; background: #27272A; padding: 6px 10px; border-radius: 6px;">${data.specialInstructions}</td>
                 </tr>` : ''}
               </table>
 
-              <!-- Ordered Items List -->
-              <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid #EEEEEE;">
-                <h3 style="margin: 0 0 10px 0; font-size: 13px; text-transform: uppercase; color: #777777; letter-spacing: 0.5px;">
-                  Ordered Items (${data.items.length})
+              <!-- Order Packing List -->
+              <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid #27272A;">
+                <h3 style="margin: 0 0 12px 0; font-size: 13px; text-transform: uppercase; color: #F59E0B; letter-spacing: 1.5px; font-weight: 800;">
+                  📦 Items Fulfillment & Packing List (${data.items.length} unique items)
                 </h3>
-                <ul style="margin: 0; padding-left: 20px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background: #09090B; border-radius: 10px; border: 1px solid #27272A; overflow: hidden;">
                   ${itemsList}
-                </ul>
+                </table>
               </div>
             </td>
           </tr>
 
-          <!-- Footer -->
+          <!-- Admin Footer -->
           <tr>
-            <td style="background-color: #F8F8F8; padding: 18px 28px; text-align: center; border-top: 1px solid #EEEEEE; font-size: 11px; color: #888888;">
+            <td style="background-color: #09090B; padding: 20px 28px; text-align: center; border-top: 1px solid #27272A; font-size: 11px; color: #71717A;">
               <p style="margin: 0;">
-                GULNAAR by MK Admin Alert System • <a href="${portalUrl}" style="color: #B81D4E; font-weight: bold;">Login to Admin Portal</a>
+                GULNAAR by MK Real-Time Order Dispatch Engine • <a href="${portalUrl}" style="color: #F43F5E; font-weight: bold; text-decoration: none;">Launch Admin Portal</a>
               </p>
             </td>
           </tr>
@@ -434,43 +567,49 @@ export function generateCustomerStatusUpdateEmailHtml(data: SendStatusUpdateEmai
   const whatsappUrl = `https://wa.me/923125880988?text=Assalam-o-Alaikum%20Gulnaar%20Team!%20My%20order%20reference%20is%20${data.orderNumber}`;
 
   let statusTitle = '';
-  let statusBadgeColor = '#B81D4E';
-  let statusBadgeBg = '#FFF0F5';
+  let statusBadgeColor = '#800020';
+  let statusBadgeBg = '#FFF1F5';
+  let statusBorder = '#F472B6';
   let statusDesc = '';
 
   switch (data.status) {
     case 'confirmed':
-      statusTitle = '✨ Order Confirmed';
-      statusBadgeColor = '#00704F';
-      statusBadgeBg = '#E8F8F2';
-      statusDesc = 'Your order has been officially verified and approved. Our master craftsmen are now preparing your jewellery set.';
+      statusTitle = '✨ Order Verified & Confirmed';
+      statusBadgeColor = '#065F46';
+      statusBadgeBg = '#ECFDF5';
+      statusBorder = '#10B981';
+      statusDesc = 'Your order and payment have been officially verified. Our master artisans are now actively preparing your handcrafted jewellery set.';
       break;
     case 'processing':
-      statusTitle = '💎 In Production & Packaging';
-      statusBadgeColor = '#B8860B';
-      statusBadgeBg = '#FFF9E6';
-      statusDesc = 'Your handcrafted pieces are undergoing final artisan inspection, polishing, and royal velvet gift boxing.';
+      statusTitle = '💎 In Production & Velvet Gift Packing';
+      statusBadgeColor = '#92400E';
+      statusBadgeBg = '#FEF3C7';
+      statusBorder = '#F59E0B';
+      statusDesc = 'Your handcrafted jewellery is undergoing final master artisan inspection, polishing, and royal velvet gift presentation packaging.';
       break;
     case 'shipped':
-      statusTitle = '🚚 Order Dispatched & Shipped';
-      statusBadgeColor = '#1B3A6B';
-      statusBadgeBg = '#EBF2FA';
-      statusDesc = `Your parcel has been handed over to our courier partner and is on its way to ${data.city}. Delivery is expected in 24 to 48 hours.`;
+      statusTitle = '🚚 Order Dispatched & In Transit';
+      statusBadgeColor = '#1E40AF';
+      statusBadgeBg = '#EFF6FF';
+      statusBorder = '#3B82F6';
+      statusDesc = `Your parcel has been dispatched with our express courier partner and is on its way to ${data.city}. Delivery is expected within 24 to 48 hours.`;
       break;
     case 'delivered':
       statusTitle = '🎉 Order Successfully Delivered';
-      statusBadgeColor = '#00704F';
-      statusBadgeBg = '#E8F8F2';
-      statusDesc = 'Your parcel has reached its destination. We truly hope you cherish your GULNAAR by MK handcrafted jewellery!';
+      statusBadgeColor = '#065F46';
+      statusBadgeBg = '#ECFDF5';
+      statusBorder = '#10B981';
+      statusDesc = 'Your parcel has reached its destination. We truly hope you cherish your GULNAAR by MK heirloom jewellery for years to come!';
       break;
     case 'cancelled':
       statusTitle = 'Order Cancelled';
-      statusBadgeColor = '#C53030';
-      statusBadgeBg = '#FFF5F5';
-      statusDesc = 'Your order has been cancelled upon request. If you have any questions, please reach out to Gulnaar Support on WhatsApp.';
+      statusBadgeColor = '#991B1B';
+      statusBadgeBg = '#FEF2F2';
+      statusBorder = '#EF4444';
+      statusDesc = 'Your order has been cancelled upon request. If this was unexpected, please contact Gulnaar Support on WhatsApp.';
       break;
     default:
-      statusTitle = 'Order Update';
+      statusTitle = 'Order Status Update';
       statusDesc = `Your order status has been updated to ${data.status}.`;
   }
 
@@ -480,70 +619,75 @@ export function generateCustomerStatusUpdateEmailHtml(data: SendStatusUpdateEmai
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Status Update - GULNAAR by MK</title>
+  <title>Order Status Update #${data.orderNumber} — GULNAAR by MK</title>
 </head>
-<body style="margin: 0; padding: 0; background-color: #F8F6F0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #2C2C2C;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 12px;">
+<body style="margin: 0; padding: 0; background-color: #F7F3EB; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; color: #292524; -webkit-font-smoothing: antialiased;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #F7F3EB; padding: 36px 12px;">
     <tr>
       <td align="center">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(184,29,78,0.08); border: 1px solid #EAE7E1;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 620px; background-color: #FFFFFF; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 48px rgba(128, 0, 32, 0.12); border: 2px solid #EADBCE;">
           
+          <!-- Top Accent Gold Line -->
+          <tr>
+            <td style="height: 6px; background: linear-gradient(90deg, #D4AF37 0%, #FFF3B0 25%, #E5A93C 50%, #FFF3B0 75%, #D4AF37 100%);"></td>
+          </tr>
+
           <!-- Brand Header -->
           <tr>
-            <td align="center" style="background: linear-gradient(135deg, #8E0E3B 0%, #B81D4E 100%); padding: 32px 24px; text-align: center;">
-              <h1 style="margin: 0; font-family: Georgia, serif; font-size: 26px; font-weight: 700; color: #FFFFFF; letter-spacing: 4px; text-transform: uppercase;">
-                GULNAAR
+            <td align="center" style="background: linear-gradient(135deg, #3A0211 0%, #68051E 40%, #800020 75%, #A31238 100%); padding: 36px 24px 30px; text-align: center; border-bottom: 2px solid #D4AF37;">
+              <h1 style="margin: 0; font-family: Georgia, serif; font-size: 32px; font-weight: 700; color: #FFFFFF; letter-spacing: 6px; text-transform: uppercase;">
+                G U L N A A R
               </h1>
-              <p style="margin: 6px 0 0 0; font-size: 10px; color: #F5E6CC; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">
-                by MK • Order Status Notification
+              <p style="margin: 6px 0 0; font-size: 10px; color: #F5E6CC; text-transform: uppercase; letter-spacing: 3px; font-weight: 700;">
+                BY MK • ORDER STATUS NOTIFICATION
               </p>
             </td>
           </tr>
 
           <!-- Status Hero -->
           <tr>
-            <td style="padding: 36px 30px 24px 30px; text-align: center;">
-              <div style="display: inline-block; background-color: ${statusBadgeBg}; border: 1px solid ${statusBadgeColor}40; border-radius: 50px; padding: 6px 18px; margin-bottom: 14px;">
-                <span style="color: ${statusBadgeColor}; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
+            <td style="padding: 40px 32px 28px 32px; text-align: center;">
+              <div style="display: inline-block; background: ${statusBadgeBg}; border: 1.5px solid ${statusBorder}; border-radius: 50px; padding: 8px 24px; margin-bottom: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+                <span style="color: ${statusBadgeColor}; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
                   ${statusTitle}
                 </span>
               </div>
-              <h2 style="margin: 0 0 8px 0; font-size: 22px; font-weight: 700; color: #18181B;">
+              <h2 style="margin: 0 0 10px 0; font-family: Georgia, serif; font-size: 24px; font-weight: 700; color: #1C1917;">
                 Order #${data.orderNumber}
               </h2>
-              <p style="margin: 0 0 16px 0; font-size: 14px; color: #555555; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;">
+              <p style="margin: 0 0 20px 0; font-size: 15px; color: #57534E; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;">
                 ${statusDesc}
               </p>
-              <div style="background-color: #FAF9F6; border: 1px solid #EAE7E1; border-radius: 10px; padding: 14px 20px; display: inline-block; text-align: left; margin-top: 8px;">
-                <span style="font-size: 12px; color: #666666;">Customer: <strong>${data.customerName}</strong></span><br />
-                <span style="font-size: 12px; color: #666666;">Destination: <strong>${data.city}</strong></span><br />
-                <span style="font-size: 12px; color: #666666;">Total: <strong style="color: #B81D4E;">${formatPkr(data.totalMinor)}</strong></span>
+              
+              <!-- Order Info Card -->
+              <div style="background-color: #FAF7F2; border: 1.5px solid #EADBCE; border-radius: 12px; padding: 16px 24px; display: inline-block; text-align: left; margin: 8px 0 16px 0;">
+                <span style="font-size: 13px; color: #57534E;">Customer: <strong style="color: #1C1917;">${data.customerName}</strong></span><br />
+                <span style="font-size: 13px; color: #57534E;">Destination City: <strong style="color: #1C1917;">${data.city}</strong></span><br />
+                <span style="font-size: 13px; color: #57534E;">Order Total: <strong style="color: #800020; font-size: 15px;">${formatPkr(data.totalMinor)}</strong></span>
               </div>
             </td>
           </tr>
 
           <!-- Action Buttons -->
           <tr>
-            <td align="center" style="padding: 10px 30px 36px 30px;">
-              <a href="${trackUrl}" target="_blank" style="display: inline-block; background-color: #B81D4E; color: #FFFFFF; font-size: 13px; font-weight: 700; text-decoration: none; padding: 14px 28px; border-radius: 8px; margin: 4px 6px; letter-spacing: 0.5px;">
-                Track Live Progress →
+            <td align="center" style="padding: 10px 32px 36px 32px; text-align: center;">
+              <a href="${trackUrl}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #800020 0%, #B81D4E 100%); color: #FFFFFF; font-size: 14px; font-weight: 800; text-decoration: none; padding: 15px 30px; border-radius: 10px; margin: 6px; letter-spacing: 0.5px; box-shadow: 0 4px 16px rgba(184,29,78,0.35);">
+                🔍 Track Live Progress Online →
               </a>
-              <a href="${whatsappUrl}" target="_blank" style="display: inline-block; background-color: #25D366; color: #FFFFFF; font-size: 13px; font-weight: 700; text-decoration: none; padding: 14px 24px; border-radius: 8px; margin: 4px 6px; letter-spacing: 0.5px;">
-                💬 WhatsApp Support
+              <a href="${whatsappUrl}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFFFFF; font-size: 14px; font-weight: 800; text-decoration: none; padding: 15px 26px; border-radius: 10px; margin: 6px; letter-spacing: 0.5px; box-shadow: 0 4px 16px rgba(16,185,129,0.3);">
+                💬 Contact WhatsApp Concierge
               </a>
             </td>
           </tr>
 
           <!-- Footer -->
           <tr>
-            <td style="background-color: #FAF9F6; padding: 24px 30px; text-align: center; border-top: 1px solid #E8E5DF; font-size: 11px; color: #888888; line-height: 1.6;">
-              <p style="margin: 0 0 6px 0; font-weight: bold; color: #B81D4E;">
-                GULNAAR by MK — Handcrafted Heirloom Jewellery
+            <td style="background: #1C1917; padding: 24px 30px; text-align: center; color: #A8A29E; font-size: 12px; line-height: 1.6;">
+              <p style="margin: 0 0 6px 0; font-family: Georgia, serif; font-size: 15px; font-weight: 700; color: #FFF3B0; letter-spacing: 2px;">
+                GULNAAR by MK
               </p>
-              <p style="margin: 0 0 8px 0;">
-                Gulberg III, Lahore, Punjab, Pakistan • WhatsApp: 0312-5880988
-              </p>
-              <p style="margin: 0; color: #AAAAAA;">
+              <p style="margin: 0; font-size: 11px; color: #78716C;">
+                Haute Jewellery & Handcrafted Heirlooms • Gulberg III, Lahore, Pakistan<br />
                 © 2026 GULNAAR by MK. All rights reserved.
               </p>
             </td>
