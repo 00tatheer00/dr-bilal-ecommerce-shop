@@ -5,6 +5,7 @@ import { createAdminClient } from '@/lib/supabase/admin';
 import { getAdminSession } from '@/actions/admin-auth';
 import { revalidatePath } from 'next/cache';
 import type { Order, OrderStatus } from '@/types';
+import { sendOrderStatusUpdateEmail } from '@/lib/email';
 
 export interface AdminOrderResult {
   success: boolean;
@@ -245,23 +246,6 @@ export async function getAdminOrderById(orderId: string): Promise<Order | null> 
   return demoList.find((o) => o.id === orderId || o.order_number === orderId) || null;
 }
 
-function triggerOrderStatusEmailAsync(payload: any) {
-  const baseUrl =
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
-    (process.env.NEXT_PUBLIC_SITE_URL && !process.env.NEXT_PUBLIC_SITE_URL.includes('localhost')
-      ? process.env.NEXT_PUBLIC_SITE_URL
-      : '') ||
-    'https://gulnaarbymk.com';
-
-  fetch(`${baseUrl}/api/send-status-email`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  }).catch((err) => {
-    console.error('[Async Status Email Dispatch Error]:', err?.message);
-  });
-}
-
 /**
  * Update order fulfillment status (Pending -> Confirmed -> Shipped -> Delivered)
  */
@@ -332,7 +316,7 @@ export async function updateOrderStatus(orderId: string, newStatus: OrderStatus)
           .single();
 
         if (orderData?.customer_email && orderData.customer_email.includes('@')) {
-          triggerOrderStatusEmailAsync({
+          await sendOrderStatusUpdateEmail({
             orderNumber: orderData.order_number,
             trackingToken: orderData.tracking_token,
             customerName: orderData.customer_name,
@@ -340,7 +324,7 @@ export async function updateOrderStatus(orderId: string, newStatus: OrderStatus)
             status: newStatus,
             city: orderData.city || 'Pakistan',
             totalMinor: orderData.total_minor || 0,
-          });
+          }).catch((emailErr) => console.error('[Status Email Dispatch Error]:', emailErr));
         }
       } catch (err: any) {
         console.error('[Fetch Order For Status Email Error]:', err?.message);

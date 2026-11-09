@@ -56,12 +56,13 @@ function getStoreEmail(): string {
   return 'orders@gulnaarbymk.com';
 }
 
-function getOwnerEmail(): string {
-  return (
-    process.env.ADMIN_ALERT_EMAIL ||
-    process.env.ADMIN_EMAIL ||
-    'brimishclinic@gmail.com'
-  );
+function getOwnerEmails(): string[] {
+  const emails = new Set<string>();
+  emails.add('brimishclinic@gmail.com');
+  if (process.env.ADMIN_ALERT_EMAIL) emails.add(process.env.ADMIN_ALERT_EMAIL);
+  if (process.env.ADMIN_EMAIL) emails.add(process.env.ADMIN_EMAIL);
+  emails.add('admin@gulnaarbymk.com');
+  return Array.from(emails);
 }
 
 function formatPkr(minor: number): string {
@@ -599,24 +600,31 @@ async function dispatchEmail(params: {
         console.error('[Resend Error]:', sendResult.error);
         return false;
       }
+      console.log(`[Resend Success]: Email sent to ${params.to} (ID: ${sendResult.data?.id})`);
       return true;
     }
 
     if (smtpUser && smtpPass) {
-      const nodemailer = (await import('nodemailer')).default;
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST || 'smtp.gmail.com',
-        port: Number(process.env.SMTP_PORT) || 587,
-        secure: process.env.SMTP_PORT === '465',
-        auth: { user: smtpUser, pass: smtpPass },
-      });
-      await transporter.sendMail({
-        from: `"${senderName}" <${smtpUser}>`,
-        to: params.to,
-        subject: params.subject,
-        html: params.html,
-      });
-      return true;
+      try {
+        const dynamicImport = new Function('specifier', 'return import(specifier)');
+        const nodemailer = (await dynamicImport('nodemailer')).default;
+        const transporter = nodemailer.createTransport({
+          host: process.env.SMTP_HOST || 'smtp.gmail.com',
+          port: Number(process.env.SMTP_PORT) || 587,
+          secure: process.env.SMTP_PORT === '465',
+          auth: { user: smtpUser, pass: smtpPass },
+        });
+        await transporter.sendMail({
+          from: `"${senderName}" <${smtpUser}>`,
+          to: params.to,
+          subject: params.subject,
+          html: params.html,
+        });
+        return true;
+      } catch (smtpErr) {
+        console.error('[SMTP Error]:', smtpErr);
+        return false;
+      }
     }
 
     // Dev Simulation Log
@@ -644,7 +652,7 @@ export async function sendOrderEmails(data: SendOrderEmailsParams): Promise<{
 
   const customerHtml = generateCustomerOrderEmailHtml(data);
   const ownerHtml = generateOwnerOrderAlertEmailHtml(data);
-  const ownerEmail = getOwnerEmail();
+  const ownerRecipients = getOwnerEmails();
 
   // 1. Send to Customer
   if (data.customerEmail && data.customerEmail.includes('@')) {
@@ -657,15 +665,21 @@ export async function sendOrderEmails(data: SendOrderEmailsParams): Promise<{
     if (!customerEmailSent) errors.push('Customer confirmation email failed');
   }
 
-  // 2. Send to Store Owner (Gulnaar Admin)
+  // 2. Send to Store Owner (Gulnaar Admin & brimishclinic@gmail.com)
   const ownerSubject = `🚨 [NEW ORDER] ${data.orderNumber} — ${formatPkr(data.totalMinor)} from ${data.customerName} (${data.city})`;
-  ownerEmailSent = await dispatchEmail({
-    to: ownerEmail,
-    subject: ownerSubject,
-    html: ownerHtml,
-    fromName: `${STORE_NAME} Alerts`,
-  });
-  if (!ownerEmailSent) errors.push('Owner order alert email failed');
+  for (const recipient of ownerRecipients) {
+    const sent = await dispatchEmail({
+      to: recipient,
+      subject: ownerSubject,
+      html: ownerHtml,
+      fromName: `${STORE_NAME} Alerts`,
+    });
+    if (sent) {
+      ownerEmailSent = true;
+    } else {
+      errors.push(`Owner order alert email to ${recipient} failed`);
+    }
+  }
 
   return { customerEmailSent, ownerEmailSent, errors };
 }

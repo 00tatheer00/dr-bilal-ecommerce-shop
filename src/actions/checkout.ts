@@ -2,16 +2,9 @@ import { checkoutFormSchema, type CheckoutInput } from '@/lib/validations/order'
 import { createClient } from '@/lib/supabase/server';
 import { sampleProducts } from '@/lib/sample-data';
 import { generateOrderNumber } from '@/lib/utils';
+import { sendOrderEmails, type OrderEmailItem } from '@/lib/email';
 
-export interface OrderEmailItem {
-  name: string;
-  sku?: string | null;
-  size?: string | null;
-  color?: string | null;
-  quantity: number;
-  unitPriceMinor: number;
-  totalMinor: number;
-}
+export type { OrderEmailItem };
 
 export interface CheckoutResult {
   success: boolean;
@@ -88,23 +81,6 @@ async function enrichOrderItems(
   }
 
   return result;
-}
-
-function triggerOrderEmailsAsync(payload: any) {
-  const baseUrl =
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
-    (process.env.NEXT_PUBLIC_SITE_URL && !process.env.NEXT_PUBLIC_SITE_URL.includes('localhost')
-      ? process.env.NEXT_PUBLIC_SITE_URL
-      : '') ||
-    'https://gulnaarbymk.com';
-
-  fetch(`${baseUrl}/api/send-order-email`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  }).catch((err) => {
-    console.error('[Async Order Email Dispatch Error]:', err?.message);
-  });
 }
 
 export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutResult> {
@@ -204,11 +180,12 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
         delivery_charge_minor: number;
       };
 
-      // Dispatch 2 Emails asynchronously:
+      // Dispatch 2 Emails directly & awaited:
       // (1) Designed Customer Confirmation Email (to customer)
-      // (2) Store Owner New Order Alert Email (to Gulnaar Admin)
-      enrichOrderItems(items, supabase).then((emailItems) => {
-        triggerOrderEmailsAsync({
+      // (2) Store Owner New Order Alert Email (to Gulnaar Admin & brimishclinic@gmail.com)
+      try {
+        const emailItems = await enrichOrderItems(items, supabase);
+        await sendOrderEmails({
           orderNumber: res.order_number,
           trackingToken: res.tracking_token,
           customerName,
@@ -227,7 +204,9 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
           senderAccountName: senderAccountName || undefined,
           specialInstructions: specialInstructions || undefined,
         });
-      });
+      } catch (emailErr) {
+        console.error('[Checkout Email Dispatch Error]:', emailErr);
+      }
 
       return {
         success: true,
@@ -274,8 +253,9 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
   const mockTrackingToken = `tok_${Math.random().toString(36).substring(2, 15)}`;
 
   // Dispatch 2 Emails for fallback mode as well
-  enrichOrderItems(items).then((emailItems) => {
-    triggerOrderEmailsAsync({
+  try {
+    const emailItems = await enrichOrderItems(items);
+    await sendOrderEmails({
       orderNumber: generatedNumber,
       trackingToken: mockTrackingToken,
       customerName,
@@ -294,7 +274,9 @@ export async function submitGuestOrder(data: CheckoutInput): Promise<CheckoutRes
       senderAccountName: senderAccountName || undefined,
       specialInstructions: specialInstructions || undefined,
     });
-  });
+  } catch (emailErr) {
+    console.error('[Checkout Mock Email Dispatch Error]:', emailErr);
+  }
 
   return {
     success: true,
