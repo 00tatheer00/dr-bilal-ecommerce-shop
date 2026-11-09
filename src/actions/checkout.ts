@@ -91,8 +91,14 @@ async function enrichOrderItems(
 }
 
 function triggerOrderEmailsAsync(payload: any) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dbshop.vercel.app';
-  fetch(`${siteUrl}/api/send-order-email`, {
+  const baseUrl =
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
+    (process.env.NEXT_PUBLIC_SITE_URL && !process.env.NEXT_PUBLIC_SITE_URL.includes('localhost')
+      ? process.env.NEXT_PUBLIC_SITE_URL
+      : '') ||
+    'https://gulnaarbymk.com';
+
+  fetch(`${baseUrl}/api/send-order-email`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),

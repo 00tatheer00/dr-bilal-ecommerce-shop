@@ -245,6 +245,23 @@ export async function getAdminOrderById(orderId: string): Promise<Order | null> 
   return demoList.find((o) => o.id === orderId || o.order_number === orderId) || null;
 }
 
+function triggerOrderStatusEmailAsync(payload: any) {
+  const baseUrl =
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
+    (process.env.NEXT_PUBLIC_SITE_URL && !process.env.NEXT_PUBLIC_SITE_URL.includes('localhost')
+      ? process.env.NEXT_PUBLIC_SITE_URL
+      : '') ||
+    'https://gulnaarbymk.com';
+
+  fetch(`${baseUrl}/api/send-status-email`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  }).catch((err) => {
+    console.error('[Async Status Email Dispatch Error]:', err?.message);
+  });
+}
+
 /**
  * Update order fulfillment status (Pending -> Confirmed -> Shipped -> Delivered)
  */
@@ -305,6 +322,29 @@ export async function updateOrderStatus(orderId: string, newStatus: OrderStatus)
         .eq('id', orderId);
 
       if (error) return { success: false, error: error.message };
+
+      // 4. Dispatch Customer Status Update Email (if customer provided email)
+      try {
+        const { data: orderData } = await (adminClient as any)
+          .from('orders')
+          .select('order_number, tracking_token, customer_name, customer_email, city, total_minor')
+          .eq('id', orderId)
+          .single();
+
+        if (orderData?.customer_email && orderData.customer_email.includes('@')) {
+          triggerOrderStatusEmailAsync({
+            orderNumber: orderData.order_number,
+            trackingToken: orderData.tracking_token,
+            customerName: orderData.customer_name,
+            customerEmail: orderData.customer_email,
+            status: newStatus,
+            city: orderData.city || 'Pakistan',
+            totalMinor: orderData.total_minor || 0,
+          });
+        }
+      } catch (err: any) {
+        console.error('[Fetch Order For Status Email Error]:', err?.message);
+      }
 
       revalidatePath('/admin/orders');
       revalidatePath(`/admin/orders/${orderId}`);

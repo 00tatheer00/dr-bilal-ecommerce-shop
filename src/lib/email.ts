@@ -1,5 +1,5 @@
 // Email Dispatcher for GULNAAR by MK
-// Note: Dynamic imports used inside sendOrderEmails so server-side modules (node:net)
+// Note: Dynamic imports used inside send functions so server-side modules (node:net)
 // are never bundled into client action manifests.
 
 export interface OrderEmailItem {
@@ -32,13 +32,38 @@ export interface SendOrderEmailsParams {
   specialInstructions?: string | null;
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dbshop.vercel.app';
+export interface SendStatusUpdateEmailParams {
+  orderNumber: string;
+  customerName: string;
+  customerEmail: string;
+  status: 'pending' | 'confirmed' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+  trackingToken?: string;
+  city: string;
+  totalMinor: number;
+  items?: OrderEmailItem[];
+}
+
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : '') ||
+  'https://gulnaarbymk.com';
+
 const STORE_NAME = 'GULNAAR by MK';
-const STORE_EMAIL = process.env.SMTP_FROM || 'orders@gulnaarbymk.com';
-const OWNER_EMAIL =
-  process.env.ADMIN_ALERT_EMAIL ||
-  process.env.ADMIN_EMAIL ||
-  'admin@gulnaarbymk.com';
+
+function getStoreEmail(): string {
+  if (process.env.SMTP_FROM) return process.env.SMTP_FROM;
+  if (process.env.SMTP_USER) return process.env.SMTP_USER;
+  if (process.env.RESEND_API_KEY) return 'onboarding@resend.dev';
+  return 'orders@gulnaarbymk.com';
+}
+
+function getOwnerEmail(): string {
+  return (
+    process.env.ADMIN_ALERT_EMAIL ||
+    process.env.ADMIN_EMAIL ||
+    'admin@gulnaarbymk.com'
+  );
+}
 
 function formatPkr(minor: number): string {
   return `PKR ${(minor / 100).toLocaleString('en-PK')}`;
@@ -98,18 +123,16 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
 
   const itemsRows = data.items
     .map(
-      (it) => `
-      <tr style="border-bottom: 1px solid #EEEEEE;">
-        <td style="padding: 12px 8px; font-size: 13px; color: #222222;">
-          <strong style="color: #111111;">${it.name}</strong>
-          ${it.size || it.color ? `<div style="font-size: 11px; color: #777777; margin-top: 2px;">${it.size ? `Size: ${it.size}` : ''} ${it.color ? `• Color: ${it.color}` : ''}</div>` : ''}
+      (item) => `
+      <tr style="border-bottom: 1px solid #F0EEE9;">
+        <td style="padding: 12px 8px 12px 0;">
+          <strong style="color: #18181B; font-size: 14px;">${item.name}</strong><br />
+          <span style="color: #666666; font-size: 12px;">
+            ${item.size ? `Size: ${item.size} • ` : ''}${item.color ? `Color: ${item.color} • ` : ''}SKU: ${item.sku || 'GN-CUSTOM'}
+          </span>
         </td>
-        <td style="padding: 12px 8px; text-align: center; font-size: 13px; color: #555555;">
-          ${it.quantity}
-        </td>
-        <td style="padding: 12px 8px; text-align: right; font-size: 13px; font-weight: bold; color: #B81D4E;">
-          ${formatPkr(it.totalMinor)}
-        </td>
+        <td align="center" style="padding: 12px 8px; font-size: 13px; color: #333333;">${item.quantity}</td>
+        <td align="right" style="padding: 12px 0 12px 8px; font-size: 13px; font-weight: 600; color: #18181B;">${formatPkr(item.totalMinor)}</td>
       </tr>
     `
     )
@@ -123,80 +146,55 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order Confirmation - GULNAAR by MK</title>
 </head>
-<body style="margin: 0; padding: 0; background-color: #F8F7F4; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #333333; -webkit-font-smoothing: antialiased;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #F8F7F4; padding: 30px 10px;">
+<body style="margin: 0; padding: 0; background-color: #F8F6F0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #2C2C2C;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 12px;">
     <tr>
       <td align="center">
-        <!-- Main Card Container -->
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 1px solid #E8E5DF;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(184,29,78,0.08); border: 1px solid #EAE7E1;">
           
-          <!-- Header Banner -->
+          <!-- Brand Header -->
           <tr>
-            <td style="background: linear-gradient(135deg, #B81D4E 0%, #800F33 100%); padding: 36px 30px; text-align: center; border-bottom: 3px solid #D4AF37;">
-              <h1 style="margin: 0; color: #FFFFFF; font-size: 26px; font-weight: 700; letter-spacing: 4px; font-family: 'Playfair Display', Georgia, serif;">
+            <td align="center" style="background: linear-gradient(135deg, #8E0E3B 0%, #B81D4E 100%); padding: 36px 24px; text-align: center;">
+              <h1 style="margin: 0; font-family: Georgia, serif; font-size: 28px; font-weight: 700; color: #FFFFFF; letter-spacing: 4px; text-transform: uppercase;">
                 GULNAAR
               </h1>
-              <p style="margin: 6px 0 0 0; color: #F6D365; font-size: 11px; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">
-                by MK • Lahore Atelier
+              <p style="margin: 6px 0 0 0; font-size: 10px; color: #F5E6CC; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">
+                by MK • Handcrafted Heirloom Jewellery
               </p>
             </td>
           </tr>
 
-          <!-- Welcome Message -->
+          <!-- Confirmation Hero -->
           <tr>
-            <td style="padding: 32px 30px 20px 30px;">
-              <span style="display: inline-block; background-color: #FFF0F5; color: #B81D4E; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 20px; border: 1px solid #FAD1DE; margin-bottom: 12px;">
-                ★ Order Confirmed
-              </span>
-              <h2 style="margin: 0 0 10px 0; font-size: 22px; color: #18181B; font-family: 'Playfair Display', Georgia, serif;">
-                Thank You for Your Order, ${data.customerName}!
+            <td style="padding: 32px 30px 20px 30px; text-align: center;">
+              <div style="display: inline-block; background-color: #FFF0F5; border: 1px solid #F5C6D6; border-radius: 50px; padding: 6px 18px; margin-bottom: 12px;">
+                <span style="color: #B81D4E; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                  ✓ Order Confirmed
+                </span>
+              </div>
+              <h2 style="margin: 0 0 8px 0; font-size: 20px; font-weight: 700; color: #18181B;">
+                Shukriya, ${data.customerName}!
               </h2>
-              <p style="margin: 0; font-size: 14px; color: #666666; line-height: 1.6;">
-                Your order has been safely received. Our master artisans in Lahore are preparing and hand-polishing your heirloom jewellery set.
+              <p style="margin: 0; font-size: 13px; color: #666666; line-height: 1.5;">
+                We have safely received your order <strong>#${data.orderNumber}</strong>. Our Lahore atelier artisans are preparing your heirloom pieces with utmost care.
               </p>
             </td>
           </tr>
 
-          <!-- Order Summary Card -->
-          <tr>
-            <td style="padding: 0 30px;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color: #FAF9F6; border-radius: 12px; border: 1px solid #EAE7E1; padding: 16px 20px;">
-                <tr>
-                  <td>
-                    <span style="font-size: 11px; color: #777777; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; display: block;">
-                      Order Reference
-                    </span>
-                    <span style="font-size: 20px; font-family: monospace; font-weight: 700; color: #B81D4E; letter-spacing: 1px;">
-                      ${data.orderNumber}
-                    </span>
-                  </td>
-                  <td align="right">
-                    <span style="font-size: 11px; color: #777777; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; display: block;">
-                      Estimated Delivery
-                    </span>
-                    <span style="font-size: 13px; font-weight: bold; color: #111111;">
-                      3–5 Business Days
-                    </span>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-
-          <!-- Payment Details Box -->
+          <!-- Payment Instructions -->
           <tr>
             <td style="padding: 0 30px;">
               ${paymentDetailsHtml}
             </td>
           </tr>
 
-          <!-- Items Table -->
+          <!-- Order Items Table -->
           <tr>
             <td style="padding: 10px 30px 20px 30px;">
-              <h3 style="margin: 0 0 12px 0; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #B81D4E; font-weight: 700; border-bottom: 2px solid #F0EEEA; padding-bottom: 6px;">
-                Ordered Jewellery Pieces (${data.items.length})
+              <h3 style="margin: 0 0 12px 0; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #888888; border-bottom: 1px solid #EAE7E1; padding-bottom: 8px;">
+                Order Summary (${data.items.length} item${data.items.length > 1 ? 's' : ''})
               </h3>
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-size: 13px;">
                 <thead>
                   <tr style="border-bottom: 1px solid #E8E5DF; font-size: 11px; text-transform: uppercase; color: #777777; letter-spacing: 0.5px;">
                     <th align="left" style="padding: 8px 8px 8px 0;">Item Description</th>
@@ -267,7 +265,7 @@ export function generateCustomerOrderEmailHtml(data: SendOrderEmailsParams): str
                 GULNAAR by MK — Handcrafted Heirloom Jewellery
               </p>
               <p style="margin: 0 0 8px 0;">
-                Gulberg III, Lahore, Punjab, Pakistan • WhatsApp: 0312-5880988 / 0327-5792600
+                Gulberg III, Lahore, Punjab, Pakistan • WhatsApp: 0312-5880988
               </p>
               <p style="margin: 0; color: #AAAAAA;">
                 © 2026 GULNAAR by MK. All rights reserved.
@@ -429,8 +427,199 @@ export function generateOwnerOrderAlertEmailHtml(data: SendOrderEmailsParams): s
 }
 
 /**
- * 3. Send Both Order Emails
- * Safely dispatches via Resend API or SMTP without blocking/crashing checkout.
+ * 3. Customer Status Update Email (Triggered when Admin changes order status)
+ */
+export function generateCustomerStatusUpdateEmailHtml(data: SendStatusUpdateEmailParams): string {
+  const trackUrl = `${SITE_URL}/track-order?ref=${data.orderNumber}`;
+  const whatsappUrl = `https://wa.me/923125880988?text=Assalam-o-Alaikum%20Dr.%20Bilal!%20My%20order%20reference%20is%20${data.orderNumber}`;
+
+  let statusTitle = '';
+  let statusBadgeColor = '#B81D4E';
+  let statusBadgeBg = '#FFF0F5';
+  let statusDesc = '';
+
+  switch (data.status) {
+    case 'confirmed':
+      statusTitle = '✨ Order Confirmed';
+      statusBadgeColor = '#00704F';
+      statusBadgeBg = '#E8F8F2';
+      statusDesc = 'Your order has been officially verified and approved. Our master craftsmen are now preparing your jewellery set.';
+      break;
+    case 'processing':
+      statusTitle = '💎 In Production & Packaging';
+      statusBadgeColor = '#B8860B';
+      statusBadgeBg = '#FFF9E6';
+      statusDesc = 'Your handcrafted pieces are undergoing final artisan inspection, polishing, and royal velvet gift boxing.';
+      break;
+    case 'shipped':
+      statusTitle = '🚚 Order Dispatched & Shipped';
+      statusBadgeColor = '#1B3A6B';
+      statusBadgeBg = '#EBF2FA';
+      statusDesc = `Your parcel has been handed over to our courier partner and is on its way to ${data.city}. Delivery is expected in 24 to 48 hours.`;
+      break;
+    case 'delivered':
+      statusTitle = '🎉 Order Successfully Delivered';
+      statusBadgeColor = '#00704F';
+      statusBadgeBg = '#E8F8F2';
+      statusDesc = 'Your parcel has reached its destination. We truly hope you cherish your GULNAAR by MK handcrafted jewellery!';
+      break;
+    case 'cancelled':
+      statusTitle = 'Order Cancelled';
+      statusBadgeColor = '#C53030';
+      statusBadgeBg = '#FFF5F5';
+      statusDesc = 'Your order has been cancelled upon request. If you have any questions, please reach out to Dr. Bilal on WhatsApp.';
+      break;
+    default:
+      statusTitle = 'Order Update';
+      statusDesc = `Your order status has been updated to ${data.status}.`;
+  }
+
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Status Update - GULNAAR by MK</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #F8F6F0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #2C2C2C;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding: 30px 12px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #FFFFFF; border-radius: 16px; overflow: hidden; box-shadow: 0 6px 24px rgba(184,29,78,0.08); border: 1px solid #EAE7E1;">
+          
+          <!-- Brand Header -->
+          <tr>
+            <td align="center" style="background: linear-gradient(135deg, #8E0E3B 0%, #B81D4E 100%); padding: 32px 24px; text-align: center;">
+              <h1 style="margin: 0; font-family: Georgia, serif; font-size: 26px; font-weight: 700; color: #FFFFFF; letter-spacing: 4px; text-transform: uppercase;">
+                GULNAAR
+              </h1>
+              <p style="margin: 6px 0 0 0; font-size: 10px; color: #F5E6CC; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">
+                by MK • Order Status Notification
+              </p>
+            </td>
+          </tr>
+
+          <!-- Status Hero -->
+          <tr>
+            <td style="padding: 36px 30px 24px 30px; text-align: center;">
+              <div style="display: inline-block; background-color: ${statusBadgeBg}; border: 1px solid ${statusBadgeColor}40; border-radius: 50px; padding: 6px 18px; margin-bottom: 14px;">
+                <span style="color: ${statusBadgeColor}; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">
+                  ${statusTitle}
+                </span>
+              </div>
+              <h2 style="margin: 0 0 8px 0; font-size: 22px; font-weight: 700; color: #18181B;">
+                Order #${data.orderNumber}
+              </h2>
+              <p style="margin: 0 0 16px 0; font-size: 14px; color: #555555; line-height: 1.6; max-width: 480px; margin-left: auto; margin-right: auto;">
+                ${statusDesc}
+              </p>
+              <div style="background-color: #FAF9F6; border: 1px solid #EAE7E1; border-radius: 10px; padding: 14px 20px; display: inline-block; text-align: left; margin-top: 8px;">
+                <span style="font-size: 12px; color: #666666;">Customer: <strong>${data.customerName}</strong></span><br />
+                <span style="font-size: 12px; color: #666666;">Destination: <strong>${data.city}</strong></span><br />
+                <span style="font-size: 12px; color: #666666;">Total: <strong style="color: #B81D4E;">${formatPkr(data.totalMinor)}</strong></span>
+              </div>
+            </td>
+          </tr>
+
+          <!-- Action Buttons -->
+          <tr>
+            <td align="center" style="padding: 10px 30px 36px 30px;">
+              <a href="${trackUrl}" target="_blank" style="display: inline-block; background-color: #B81D4E; color: #FFFFFF; font-size: 13px; font-weight: 700; text-decoration: none; padding: 14px 28px; border-radius: 8px; margin: 4px 6px; letter-spacing: 0.5px;">
+                Track Live Progress →
+              </a>
+              <a href="${whatsappUrl}" target="_blank" style="display: inline-block; background-color: #25D366; color: #FFFFFF; font-size: 13px; font-weight: 700; text-decoration: none; padding: 14px 24px; border-radius: 8px; margin: 4px 6px; letter-spacing: 0.5px;">
+                💬 WhatsApp Support
+              </a>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color: #FAF9F6; padding: 24px 30px; text-align: center; border-top: 1px solid #E8E5DF; font-size: 11px; color: #888888; line-height: 1.6;">
+              <p style="margin: 0 0 6px 0; font-weight: bold; color: #B81D4E;">
+                GULNAAR by MK — Handcrafted Heirloom Jewellery
+              </p>
+              <p style="margin: 0 0 8px 0;">
+                Gulberg III, Lahore, Punjab, Pakistan • WhatsApp: 0312-5880988
+              </p>
+              <p style="margin: 0; color: #AAAAAA;">
+                © 2026 GULNAAR by MK. All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `;
+}
+
+/**
+ * Helper to dispatch single email using available transport (Resend or Nodemailer)
+ */
+async function dispatchEmail(params: {
+  to: string;
+  subject: string;
+  html: string;
+  fromName?: string;
+}): Promise<boolean> {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const smtpUser = process.env.SMTP_USER;
+  const smtpPass = process.env.SMTP_PASS;
+  const storeEmail = getStoreEmail();
+  const senderName = params.fromName || STORE_NAME;
+
+  try {
+    if (resendApiKey) {
+      const { Resend } = await import('resend');
+      const resend = new Resend(resendApiKey);
+      const { error } = await resend.emails.send({
+        from: `${senderName} <${storeEmail}>`,
+        to: params.to,
+        subject: params.subject,
+        html: params.html,
+      });
+      if (error) {
+        console.error('[Resend Error]:', error);
+        return false;
+      }
+      return true;
+    }
+
+    if (smtpUser && smtpPass) {
+      const nodemailer = (await import('nodemailer')).default;
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || 'smtp.gmail.com',
+        port: Number(process.env.SMTP_PORT) || 587,
+        secure: process.env.SMTP_PORT === '465',
+        auth: { user: smtpUser, pass: smtpPass },
+      });
+      await transporter.sendMail({
+        from: `"${senderName}" <${smtpUser}>`,
+        to: params.to,
+        subject: params.subject,
+        html: params.html,
+      });
+      return true;
+    }
+
+    // Dev Simulation Log
+    console.log(
+      `[Email Dispatcher (Simulation)] Dispatched email to ${params.to} | Subject: "${params.subject}"`
+    );
+    return true;
+  } catch (err: any) {
+    console.error(`[Email Dispatcher Error] Failed sending to ${params.to}:`, err?.message || err);
+    return false;
+  }
+}
+
+/**
+ * Send Both Order Confirmation Emails (Customer + Doctor Bilal)
  */
 export async function sendOrderEmails(data: SendOrderEmailsParams): Promise<{
   customerEmailSent: boolean;
@@ -443,93 +632,61 @@ export async function sendOrderEmails(data: SendOrderEmailsParams): Promise<{
 
   const customerHtml = generateCustomerOrderEmailHtml(data);
   const ownerHtml = generateOwnerOrderAlertEmailHtml(data);
+  const ownerEmail = getOwnerEmail();
 
-  // A. Determine Transporter: Resend or SMTP
-  const resendApiKey = process.env.RESEND_API_KEY;
-  const smtpUser = process.env.SMTP_USER;
-  const smtpPass = process.env.SMTP_PASS;
-
-  // 1. Sending to Customer (only if customer provided an email address)
+  // 1. Send to Customer
   if (data.customerEmail && data.customerEmail.includes('@')) {
-    try {
-      if (resendApiKey) {
-        const { Resend } = await import('resend');
-        const resend = new Resend(resendApiKey);
-        await resend.emails.send({
-          from: `${STORE_NAME} <${STORE_EMAIL}>`,
-          to: data.customerEmail,
-          subject: `✨ Your GULNAAR by MK Order ${data.orderNumber} is Confirmed!`,
-          html: customerHtml,
-        });
-        customerEmailSent = true;
-      } else if (smtpUser && smtpPass) {
-        const nodemailer = (await import('nodemailer')).default;
-        const transporter = nodemailer.createTransport({
-          host: process.env.SMTP_HOST || 'smtp.gmail.com',
-          port: Number(process.env.SMTP_PORT) || 587,
-          secure: process.env.SMTP_PORT === '465',
-          auth: { user: smtpUser, pass: smtpPass },
-        });
-        await transporter.sendMail({
-          from: `"${STORE_NAME}" <${STORE_EMAIL}>`,
-          to: data.customerEmail,
-          subject: `✨ Your GULNAAR by MK Order ${data.orderNumber} is Confirmed!`,
-          html: customerHtml,
-        });
-        customerEmailSent = true;
-      } else {
-        // Fallback Mock Logger (Zero configuration mode)
-        console.log(
-          `[Email Dispatcher] Customer confirmation email simulated for ${data.customerEmail} (Order ${data.orderNumber})`
-        );
-        customerEmailSent = true;
-      }
-    } catch (err: any) {
-      console.error('[Email Dispatcher Error - Customer]:', err.message);
-      errors.push(`Customer email: ${err.message}`);
-    }
+    customerEmailSent = await dispatchEmail({
+      to: data.customerEmail,
+      subject: `✨ Your GULNAAR by MK Order ${data.orderNumber} is Confirmed!`,
+      html: customerHtml,
+      fromName: STORE_NAME,
+    });
+    if (!customerEmailSent) errors.push('Customer confirmation email failed');
   }
 
-  // 2. Sending to Store Owner (Doctor Bilal Khan)
-  try {
-    const ownerSubject = `🚨 [NEW ORDER] ${data.orderNumber} — ${formatPkr(data.totalMinor)} from ${data.customerName} (${data.city})`;
-
-    if (resendApiKey) {
-      const { Resend } = await import('resend');
-      const resend = new Resend(resendApiKey);
-      await resend.emails.send({
-        from: `${STORE_NAME} Alerts <${STORE_EMAIL}>`,
-        to: OWNER_EMAIL,
-        subject: ownerSubject,
-        html: ownerHtml,
-      });
-      ownerEmailSent = true;
-    } else if (smtpUser && smtpPass) {
-      const nodemailer = (await import('nodemailer')).default;
-      const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST || 'smtp.gmail.com',
-        port: Number(process.env.SMTP_PORT) || 587,
-        secure: process.env.SMTP_PORT === '465',
-        auth: { user: smtpUser, pass: smtpPass },
-      });
-      await transporter.sendMail({
-        from: `"${STORE_NAME} Alerts" <${STORE_EMAIL}>`,
-        to: OWNER_EMAIL,
-        subject: ownerSubject,
-        html: ownerHtml,
-      });
-      ownerEmailSent = true;
-    } else {
-      // Fallback Mock Logger (Zero configuration mode)
-      console.log(
-        `[Email Dispatcher] Owner notification alert simulated for ${OWNER_EMAIL} (Order ${data.orderNumber}): ${ownerSubject}`
-      );
-      ownerEmailSent = true;
-    }
-  } catch (err: any) {
-    console.error('[Email Dispatcher Error - Owner]:', err.message);
-    errors.push(`Owner email: ${err.message}`);
-  }
+  // 2. Send to Store Owner (Doctor Bilal Khan)
+  const ownerSubject = `🚨 [NEW ORDER] ${data.orderNumber} — ${formatPkr(data.totalMinor)} from ${data.customerName} (${data.city})`;
+  ownerEmailSent = await dispatchEmail({
+    to: ownerEmail,
+    subject: ownerSubject,
+    html: ownerHtml,
+    fromName: `${STORE_NAME} Alerts`,
+  });
+  if (!ownerEmailSent) errors.push('Owner order alert email failed');
 
   return { customerEmailSent, ownerEmailSent, errors };
+}
+
+/**
+ * Send Customer Order Status Update Email (When Admin changes status)
+ */
+export async function sendOrderStatusUpdateEmail(data: SendStatusUpdateEmailParams): Promise<{
+  success: boolean;
+  error?: string;
+}> {
+  if (!data.customerEmail || !data.customerEmail.includes('@')) {
+    return { success: false, error: 'Customer has no email address.' };
+  }
+
+  const html = generateCustomerStatusUpdateEmailHtml(data);
+  const subjectStatus =
+    data.status === 'confirmed'
+      ? 'Confirmed'
+      : data.status === 'processing'
+      ? 'In Production & Packaging'
+      : data.status === 'shipped'
+      ? 'Dispatched & Shipped'
+      : data.status === 'delivered'
+      ? 'Delivered'
+      : 'Status Update';
+
+  const sent = await dispatchEmail({
+    to: data.customerEmail,
+    subject: `🔔 Order Update: Your GULNAAR by MK Order ${data.orderNumber} is ${subjectStatus}`,
+    html,
+    fromName: STORE_NAME,
+  });
+
+  return { success: sent, error: sent ? undefined : 'Failed to dispatch status email' };
 }

@@ -36,8 +36,14 @@ export async function testOrderEmailDispatch(targetEmail?: string) {
       specialInstructions: '[Test Order from Admin Settings] Please deliver gift wrapped.',
     };
 
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://dbshop.vercel.app';
-    const response = await fetch(`${siteUrl}/api/send-order-email`, {
+    const baseUrl =
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : '') ||
+      (process.env.NEXT_PUBLIC_SITE_URL && !process.env.NEXT_PUBLIC_SITE_URL.includes('localhost')
+        ? process.env.NEXT_PUBLIC_SITE_URL
+        : '') ||
+      'https://gulnaarbymk.com';
+
+    const response = await fetch(`${baseUrl}/api/send-order-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(testOrder),
