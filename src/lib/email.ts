@@ -577,14 +577,27 @@ async function dispatchEmail(params: {
     if (resendApiKey) {
       const { Resend } = await import('resend');
       const resend = new Resend(resendApiKey);
-      const { error } = await resend.emails.send({
+
+      // Attempt 1: Try with official store email
+      let sendResult = await resend.emails.send({
         from: `${senderName} <${storeEmail}>`,
         to: params.to,
         subject: params.subject,
         html: params.html,
       });
-      if (error) {
-        console.error('[Resend Error]:', error);
+
+      // Attempt 2: If domain is not yet verified on Resend, fallback to onboarding@resend.dev
+      if (sendResult.error && storeEmail !== 'onboarding@resend.dev') {
+        sendResult = await resend.emails.send({
+          from: `${senderName} <onboarding@resend.dev>`,
+          to: params.to,
+          subject: params.subject,
+          html: params.html,
+        });
+      }
+
+      if (sendResult.error) {
+        console.error('[Resend Error]:', sendResult.error);
         return false;
       }
       return true;
