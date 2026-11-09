@@ -53,7 +53,6 @@ const STORE_NAME = 'GULNAAR by MK';
 function getStoreEmail(): string {
   if (process.env.SMTP_FROM) return process.env.SMTP_FROM;
   if (process.env.SMTP_USER) return process.env.SMTP_USER;
-  if (process.env.RESEND_API_KEY) return 'onboarding@resend.dev';
   return 'orders@gulnaarbymk.com';
 }
 
@@ -61,7 +60,7 @@ function getOwnerEmail(): string {
   return (
     process.env.ADMIN_ALERT_EMAIL ||
     process.env.ADMIN_EMAIL ||
-    'admin@gulnaarbymk.com'
+    'brimishclinic@gmail.com'
   );
 }
 
